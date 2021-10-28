@@ -25,6 +25,6 @@
         <sonar.links.scm>https://github.com/smalaca/get-things-done</sonar.links.scm>
         <sonar.links.issue>https://github.com/smalaca/get-things-done/issues</sonar.links.issue>
 
-        <sonar.coverage.jacoco.xmlReportPaths>target/jacoco/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/jacoco/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 </project>
