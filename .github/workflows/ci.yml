@@ -21,12 +21,12 @@ jobs:
       - name: Sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=get-things-done \
           -Dsonar.organization=smalaca-github \
           -Dsonar.host.url="https://sonarcloud.io" \
           -Dsonar.projectName="Get Things Done" \
-          -Dsonar.login=$SONAR_TOKEN \
           -Dsonar.links.homepage="https://github.com/smalaca/get-things-done" \
           -Dsonar.links.scm="https://github.com/smalaca/get-things-done" \
           -Dsonar.links.issue="https://github.com/smalaca/get-things-done/issues" \
