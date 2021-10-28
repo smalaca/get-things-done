@@ -22,18 +22,4 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=get-things-done \
-          -Dsonar.organization=smalaca-github \
-          -Dsonar.projectName="Get Things Done" \
-          -Dsonar.links.homepage="https://github.com/smalaca/get-things-done" \
-          -Dsonar.links.scm="https://github.com/smalaca/get-things-done" \
-          -Dsonar.links.issue="https://github.com/smalaca/get-things-done/issues" \
-          -Dsonar.sources=src/main/java \
-          -Dsonar.tests=src/test/java \
-          -Dsonar.java.binaries=target/classes \
-          -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco/jacoco-ut/jacoco.xml \
-          -Dsonar.junit.reportPaths=target/surefire-reports \
-          -Dsonar.java.spotbugs.reportPaths=target/spotbugsXml.xml \
-          -Dsonar.java.pmd.reportPaths=target/pmd.xml \
-          -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+        run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
