@@ -25,13 +25,13 @@
         <sonar.links.scm>https://github.com/smalaca/get-things-done</sonar.links.scm>
         <sonar.links.issue>https://github.com/smalaca/get-things-done/issues</sonar.links.issue>
 
-        <sonar.sources>src/main/java</sonar.sources>
-        <sonar.tests>src/test/java</sonar.tests>
-        <sonar.java.binaries>target/classes</sonar.java.binaries>
-        <sonar.coverage.jacoco.xmlReportPaths>target/jacoco/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.junit.reportPaths>target/surefire-reports</sonar.junit.reportPaths>
-        <sonar.java.spotbugs.reportPaths>target/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
-        <sonar.java.pmd.reportPaths>target/pmd.xml</sonar.java.pmd.reportPaths>
-        <sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
+        <sonar.sources>projects-management/src/main/java</sonar.sources>
+        <sonar.tests>projects-management/src/test/java</sonar.tests>
+        <sonar.java.binaries>projects-management/target/classes</sonar.java.binaries>
+        <sonar.coverage.jacoco.xmlReportPaths>projects-management/target/jacoco/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.junit.reportPaths>projects-management/target/surefire-reports</sonar.junit.reportPaths>
+        <sonar.java.spotbugs.reportPaths>projects-management/target/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
+        <sonar.java.pmd.reportPaths>projects-management/target/pmd.xml</sonar.java.pmd.reportPaths>
+        <sonar.java.checkstyle.reportPaths>projects-management/target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
     </properties>
 </project>
