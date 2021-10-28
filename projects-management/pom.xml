@@ -115,7 +115,7 @@
                                 </goals>
                                 <configuration>
                                     <propertyName>surefireArgLine</propertyName>
-                                    <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+                                    <destFile>${project.basedir}/../target/coverage-reports/jacoco-ut.exec</destFile>
                                 </configuration>
                             </execution>
 
@@ -125,8 +125,8 @@
                                     <goal>report</goal>
                                 </goals>
                                 <configuration>
-                                    <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-                                    <outputDirectory>${project.build.directory}/jacoco/jacoco-ut</outputDirectory>
+                                    <dataFile>${project.basedir}/../target/coverage-reports/jacoco-ut.exec</dataFile>
+                                    <outputDirectory>${project.basedir}/../target/jacoco/jacoco-ut</outputDirectory>
                                 </configuration>
                             </execution>
 
@@ -136,7 +136,7 @@
                                     <goal>check</goal>
                                 </goals>
                                 <configuration>
-                                    <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+                                    <dataFile>${project.basedir}/../target/coverage-reports/jacoco-ut.exec</dataFile>
                                     <rules>
                                         <rule>
                                             <element>BUNDLE</element>
