@@ -18,3 +18,23 @@ jobs:
         run: mvn -Pstatic-analysis clean compile
       - name: Runtime Analysis
         run: mvn -Pruntime-analysis verify
+      - name: Sonar
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn sonar:sonar \
+          -Dsonar.projectKey=get-things-done \
+          -Dsonar.organization=smalaca-github \
+          -Dsonar.host.url="https://sonarcloud.io" \
+          -Dsonar.projectName="Get Things Done" \
+          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.links.homepage="https://github.com/smalaca/get-things-done" \
+          -Dsonar.links.scm="https://github.com/smalaca/get-things-done" \
+          -Dsonar.links.issue="https://github.com/smalaca/get-things-done/issues" \
+          -Dsonar.sources=src/main/java \
+          -Dsonar.tests=src/test/java \
+          -Dsonar.java.binaries=target/classes \
+          -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco/jacoco-ut/jacoco.xml \
+          -Dsonar.junit.reportPaths=target/surefire-reports \
+          -Dsonar.java.spotbugs.reportPaths=target/spotbugsXml.xml \
+          -Dsonar.java.pmd.reportPaths=target/pmd.xml \
+          -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
