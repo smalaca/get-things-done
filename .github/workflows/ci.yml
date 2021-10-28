@@ -25,7 +25,6 @@ jobs:
         run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=get-things-done \
           -Dsonar.organization=smalaca-github \
-          -Dsonar.host.url="https://sonarcloud.io" \
           -Dsonar.projectName="Get Things Done" \
           -Dsonar.links.homepage="https://github.com/smalaca/get-things-done" \
           -Dsonar.links.scm="https://github.com/smalaca/get-things-done" \
