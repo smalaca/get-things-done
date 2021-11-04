@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement;
+package com.smalaca.gtd.projectmanagements;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement;
+package com.smalaca.gtd.projectmanagements;
 
 class GetThingsDone {
     boolean isEverythingDone() {
