@@ -28,6 +28,7 @@
         <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
         <spotbugs-maven-plugin.version>4.0.0</spotbugs-maven-plugin.version>
         <lombok.version>1.18.22</lombok.version>
+        <spotbugs-annotations.version>4.5.3</spotbugs-annotations.version>
     </properties>
 
     <parent>
@@ -63,6 +64,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>${spotbugs-annotations.version}</version>
         </dependency>
 
         <!-- TEST SCOPE -->
