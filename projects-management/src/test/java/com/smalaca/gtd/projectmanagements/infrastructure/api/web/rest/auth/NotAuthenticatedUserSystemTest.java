@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Tag("SystemTest")
-public class NotAuthenticatedUserSystemTest {
+class NotAuthenticatedUserSystemTest {
     @Autowired private MockMvc mockMvc;
 
     @Test

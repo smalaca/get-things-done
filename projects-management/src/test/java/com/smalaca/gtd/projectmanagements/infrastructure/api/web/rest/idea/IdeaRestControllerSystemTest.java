@@ -20,7 +20,7 @@ import static com.smalaca.gtd.projectmanagements.domain.idea.IdeaAssertion.asser
 @AutoConfigureMockMvc
 @WithMockUser("USER")
 @Tag("SystemTest")
-public class IdeaRestControllerSystemTest {
+class IdeaRestControllerSystemTest {
     @Autowired
     private IdeaTestRepository repository;
 
