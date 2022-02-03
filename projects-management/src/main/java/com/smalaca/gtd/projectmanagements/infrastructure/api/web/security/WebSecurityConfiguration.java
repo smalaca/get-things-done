@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagements.infrastructure.web.security;
+package com.smalaca.gtd.projectmanagements.infrastructure.api.web.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

@@ -5,9 +5,10 @@ import com.smalaca.gtd.projectmanagements.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagements.domain.idea.IdeaFactory;
 import com.smalaca.gtd.projectmanagements.domain.idea.IdeaRepository;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
-class IdeaApplicationService {
+public class IdeaApplicationService {
     private final IdeaRepository repository;
     private final IdeaFactory factory;
 
@@ -16,7 +17,8 @@ class IdeaApplicationService {
         this.factory = factory;
     }
 
-    UUID create(CreateIdeaCommand command) {
+    @Transactional
+    public UUID create(CreateIdeaCommand command) {
         Idea idea = factory.create(command);
 
         return repository.save(idea);

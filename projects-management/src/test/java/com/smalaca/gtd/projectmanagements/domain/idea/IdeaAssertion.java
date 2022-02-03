@@ -14,7 +14,7 @@ public class IdeaAssertion {
         return new IdeaAssertion(actual);
     }
 
-    IdeaAssertion hasNoTitle() {
+    public IdeaAssertion hasNoTitle() {
         return this;
     }
 
@@ -27,7 +27,7 @@ public class IdeaAssertion {
         return Assertions.assertThat(actual).extracting("title");
     }
 
-    IdeaAssertion hasNoDescription() {
+    public IdeaAssertion hasNoDescription() {
         description().isNull();
         return this;
     }
