@@ -19,6 +19,8 @@ public class Idea {
     @Lob
     private String description;
 
+    private Idea() {}
+
     Idea(String title, String description) {
         this.title = title;
         this.description = description;
