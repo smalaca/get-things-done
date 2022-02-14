@@ -25,7 +25,7 @@ public class ProjectsManagementClient {
         this.mockMvc = mockMvc;
     }
 
-    public ValidationErrorsDto createInvalidIdea(String title, String description) {
+    public ValidationErrorsDto tryToCreateIdea(String title, String description) {
         return createIdea(title, description, OK).asValidationResponse();
     }
 

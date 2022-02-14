@@ -54,7 +54,7 @@ class IdeaRestControllerSystemTest {
         String title = "";
         String description = "";
 
-        ValidationErrorsDto actual = client.createInvalidIdea(title, description);
+        ValidationErrorsDto actual = client.tryToCreateIdea(title, description);
 
         assertThat(actual)
                 .hasOneError()
