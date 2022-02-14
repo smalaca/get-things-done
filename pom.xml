@@ -27,5 +27,6 @@
 
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/jacoco/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.coverage.exclusions>**/ProjectsManagementApplication.java</sonar.coverage.exclusions>
+        <sonar.test.exclusions>**/*Test.java</sonar.test.exclusions>
     </properties>
 </project>
