@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -22,7 +23,7 @@ public class IdeaRestController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public UUID create(@RequestBody IdeaDto dto) {
+    public UUID create(@Valid @RequestBody IdeaDto dto) {
         return service.create(dto.asCreateIdeaCommand());
     }
 }
