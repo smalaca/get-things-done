@@ -12,11 +12,11 @@ public class CreateIdeaCommand {
     private final String title;
     private final String description;
 
-    boolean hasTitle() {
+    boolean hasNoTitle() {
         return isBlank(title);
     }
 
-    boolean hasDescription() {
+    boolean hasNoDescription() {
         return isBlank(description);
     }
 }
