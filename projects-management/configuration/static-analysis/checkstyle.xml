@@ -30,7 +30,7 @@
             <property name="max" value="5"/>
         </module>
         <module name="ClassFanOutComplexity">
-            <property name="max" value="10"/>
+            <property name="max" value="20"/>
         </module>
         <module name="ClassTypeParameterName"/>
         <module name="ConstantName"/>

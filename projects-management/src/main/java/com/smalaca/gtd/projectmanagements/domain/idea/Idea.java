@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @SuppressWarnings("PMD.UnusedPrivateField")
 @SuppressFBWarnings("URF_UNREAD_FIELD")
 @Entity
+@Table(name = "IDEAS")
 public class Idea {
     @Id
     @GeneratedValue

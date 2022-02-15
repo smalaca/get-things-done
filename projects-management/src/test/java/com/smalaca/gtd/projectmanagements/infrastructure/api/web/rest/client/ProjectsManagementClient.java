@@ -1,5 +1,6 @@
 package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -7,12 +8,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ProjectsManagementClient {
@@ -25,7 +28,7 @@ public class ProjectsManagementClient {
         this.mockMvc = mockMvc;
     }
 
-    public ValidationErrorsDto createInvalidIdea(String title, String description) {
+    public ValidationErrorsDto tryToCreateIdea(String title, String description) {
         return createIdea(title, description, OK).asValidationResponse();
     }
 
@@ -40,14 +43,55 @@ public class ProjectsManagementClient {
                     .andReturn()
                     .getResponse();
 
-            return new WebResponse(objectMapper, response);
+            return webResponseOf(response);
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
     }
 
     private String asJsonIdea(String title, String description) {
-        return "{\"title\":\"" + title + "\",\"description\":\"" + description + "\"}";
+        try {
+            return objectMapper.writeValueAsString(IdeaTestDto.builder().title(title).description(description).build());
+        } catch (JsonProcessingException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public List<IdeaTestDto> findAllIdeas() {
+        try {
+            MockHttpServletResponse response = mockMvc.perform(get(IDEA_URL))
+                    .andExpect(status().isOk())
+                    .andReturn()
+                    .getResponse();
+            return webResponseOf(response).asIdeas();
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public void tryToFindIdeaById(UUID id) {
+        try {
+            mockMvc.perform(get(IDEA_URL + "/" + id))
+                    .andExpect(status().isNotFound());
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public IdeaTestDto findIdeaById(UUID id) {
+        try {
+            MockHttpServletResponse response = mockMvc.perform(get(IDEA_URL + "/" + id))
+                    .andExpect(status().isOk())
+                    .andReturn()
+                    .getResponse();
+            return webResponseOf(response).asIdea();
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    private WebResponse webResponseOf(MockHttpServletResponse response) {
+        return new WebResponse(objectMapper, response);
     }
 
     private MockHttpServletRequestBuilder post(String url, String content) {
