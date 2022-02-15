@@ -23,11 +23,7 @@ public class WebResponse {
     }
 
     public ValidationErrorsTestDto asValidationErrors() {
-        try {
-            return objectMapper.readValue(asString(), ValidationErrorsTestDto.class);
-        } catch (JsonProcessingException exception) {
-            throw new RuntimeException(exception);
-        }
+        return as(ValidationErrorsTestDto.class);
     }
 
     public List<IdeaTestDto> asIdeas() {
@@ -40,8 +36,12 @@ public class WebResponse {
     }
 
     public IdeaTestDto asIdea() {
+        return as(IdeaTestDto.class);
+    }
+
+    private  <T> T as(Class<T> valueType) {
         try {
-            return objectMapper.readValue(asString(), IdeaTestDto.class);
+            return objectMapper.readValue(asString(), valueType);
         } catch (JsonProcessingException exception) {
             throw new RuntimeException(exception);
         }
