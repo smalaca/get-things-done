@@ -21,6 +21,9 @@ import java.util.UUID;
 
 import static com.smalaca.gtd.projectmanagements.domain.idea.IdeaAssertion.assertThat;
 import static com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ResponseAssertions.assertThat;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest
 @Import({IdeaTestRepository.class, ProjectsManagementClient.class})
@@ -55,7 +58,7 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldNotCreateIdea() {
-        ValidationErrorsDto actual = client.tryToCreateIdea(IdeaTestDto.builder());
+        ValidationErrorsDto actual = client.idea(OK).create(IdeaTestDto.builder()).asValidationResponse();
 
         assertThat(actual)
                 .hasOneError()
@@ -68,7 +71,7 @@ class IdeaRestControllerSystemTest {
     void shouldFindAllIdeas() {
         givenIdeas();
 
-        List<IdeaTestDto> actual = client.findAllIdeas();
+        List<IdeaTestDto> actual = client.idea(OK).findAll().asIdeas();
 
         Assertions.assertThat(actual)
                 .hasSize(4)
@@ -91,7 +94,7 @@ class IdeaRestControllerSystemTest {
         givenIdeas();
         UUID id = createIdea(IdeaTestDto.builder().title("Idea Five").description("It would be good to do something good"));
 
-        IdeaTestDto actual = client.findIdeaById(id);
+        IdeaTestDto actual = client.idea(OK).findBy(id).asIdea();
 
         IdeaTestDtoAssertion.assertThat(actual)
                 .hasTitle("Idea Five")
@@ -102,7 +105,7 @@ class IdeaRestControllerSystemTest {
     void shouldFindNoIdea() {
         givenIdeas();
 
-        client.tryToFindIdeaById(UUID.randomUUID());
+        client.idea(NOT_FOUND).findBy(UUID.randomUUID());
     }
 
     private void givenIdeas() {
@@ -113,7 +116,7 @@ class IdeaRestControllerSystemTest {
     }
 
     private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
-        UUID id = client.createIdea(idea);
+        UUID id = client.idea(CREATED).create(idea).asUuid();
         ids.add(id);
         return id;
     }

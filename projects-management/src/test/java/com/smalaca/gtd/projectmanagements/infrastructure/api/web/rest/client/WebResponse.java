@@ -22,7 +22,7 @@ public class WebResponse {
         return UUID.fromString(asString().replace("\"",""));
     }
 
-    ValidationErrorsDto asValidationResponse() {
+    public ValidationErrorsDto asValidationResponse() {
         try {
             return objectMapper.readValue(asString(), ValidationErrorsDto.class);
         } catch (JsonProcessingException exception) {
@@ -30,7 +30,7 @@ public class WebResponse {
         }
     }
 
-    List<IdeaTestDto> asIdeas() {
+    public List<IdeaTestDto> asIdeas() {
         try {
             IdeaTestDto[] response = objectMapper.readValue(asString(), IdeaTestDto[].class);
             return Lists.newArrayList(response);
@@ -39,7 +39,7 @@ public class WebResponse {
         }
     }
 
-    IdeaTestDto asIdea() {
+    public IdeaTestDto asIdea() {
         try {
             return objectMapper.readValue(asString(), IdeaTestDto.class);
         } catch (JsonProcessingException exception) {
