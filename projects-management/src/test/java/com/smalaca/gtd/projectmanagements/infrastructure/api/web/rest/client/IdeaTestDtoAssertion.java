@@ -5,12 +5,8 @@ import org.assertj.core.api.Assertions;
 public class IdeaTestDtoAssertion {
     private final IdeaTestDto actual;
 
-    private IdeaTestDtoAssertion(IdeaTestDto actual) {
+    IdeaTestDtoAssertion(IdeaTestDto actual) {
         this.actual = actual;
-    }
-
-    public static IdeaTestDtoAssertion assertThat(IdeaTestDto actual) {
-        return new IdeaTestDtoAssertion(actual);
     }
 
     public IdeaTestDtoAssertion hasTitle(String expected) {

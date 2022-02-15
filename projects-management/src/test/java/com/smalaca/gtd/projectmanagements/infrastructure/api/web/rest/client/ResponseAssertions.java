@@ -1,11 +1,15 @@
 package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client;
 
 public class ResponseAssertions {
-    public static ValidationErrorsDtoAssertion assertThat(ValidationErrorsDto actual) {
-        return new ValidationErrorsDtoAssertion(actual);
+    public static IdeaTestDtoAssertion assertThat(IdeaTestDto actual) {
+        return new IdeaTestDtoAssertion(actual);
     }
 
-    public static ValidationFieldErrorDtoAssertion assertThat(ValidationFieldErrorDto actual) {
-        return new ValidationFieldErrorDtoAssertion(actual);
+    public static ValidationErrorsTestDtoAssertion assertThat(ValidationErrorsTestDto actual) {
+        return new ValidationErrorsTestDtoAssertion(actual);
+    }
+
+    public static ValidationFieldErrorTestDtoAssertion assertThat(ValidationFieldErrorTestDto actual) {
+        return new ValidationFieldErrorTestDtoAssertion(actual);
     }
 }

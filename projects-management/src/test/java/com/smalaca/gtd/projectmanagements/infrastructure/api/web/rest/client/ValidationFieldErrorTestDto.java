@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class ValidationErrorsDto {
-    private List<ValidationFieldErrorDto> errors;
+public class ValidationFieldErrorTestDto {
+    private List<String> fields;
+    private String message;
 }

@@ -2,19 +2,19 @@ package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client;
 
 import org.assertj.core.api.Assertions;
 
-public class ValidationFieldErrorDtoAssertion {
-    private final ValidationFieldErrorDto actual;
+public class ValidationFieldErrorTestDtoAssertion {
+    private final ValidationFieldErrorTestDto actual;
 
-    ValidationFieldErrorDtoAssertion(ValidationFieldErrorDto actual) {
+    ValidationFieldErrorTestDtoAssertion(ValidationFieldErrorTestDto actual) {
         this.actual = actual;
     }
 
-    public ValidationFieldErrorDtoAssertion hasFields(String... expected) {
+    public ValidationFieldErrorTestDtoAssertion hasFields(String... expected) {
         Assertions.assertThat(actual.getFields()).containsExactlyInAnyOrder(expected);
         return this;
     }
 
-    public ValidationFieldErrorDtoAssertion hasMessage(String expected) {
+    public ValidationFieldErrorTestDtoAssertion hasMessage(String expected) {
         Assertions.assertThat(actual.getMessage()).isEqualTo(expected);
         return null;
     }
