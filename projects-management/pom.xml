@@ -30,6 +30,7 @@
         <lombok.version>1.18.22</lombok.version>
         <spotbugs-annotations.version>4.5.3</spotbugs-annotations.version>
         <h2.version>1.4.200</h2.version>
+        <archunit-junit5.version>0.22.0</archunit-junit5.version>
     </properties>
 
     <parent>
@@ -134,6 +135,13 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>${archunit-junit5.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
