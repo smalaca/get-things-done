@@ -2,9 +2,9 @@ package com.smalaca.gtd.projectmanagements.infrastructure.repository.jpa.idea;
 
 import com.smalaca.gtd.projectmanagements.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagements.domain.idea.IdeaTestFactory;
+import com.smalaca.gtd.projectmanagements.tests.annotation.IntegrationTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,7 +14,7 @@ import java.util.UUID;
 import static com.smalaca.gtd.projectmanagements.domain.idea.IdeaAssertion.assertThat;
 
 @DataJpaTest
-@Tag("IntegrationTest")
+@IntegrationTest
 class JpaIdeaRepositoryIntegrationTest {
     @Autowired private SpringDataJpaIdeaRepository springDataJpaIdeaRepository;
     private JpaIdeaRepository jpaIdeaRepository;
