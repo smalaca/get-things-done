@@ -1,11 +1,13 @@
 package com.smalaca.gtd.projectmanagements.architecturetests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.projectmanagements.architecturetests.GetThingsDoneClasses.projectClasses;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-public class ImmutableObjectsTest {
+@Tag("ArchitectureTest")
+class ImmutableObjectsTest {
     @Test
     void shouldAllImmutableObjectsHasGotFinalFields() {
         classes().that()
