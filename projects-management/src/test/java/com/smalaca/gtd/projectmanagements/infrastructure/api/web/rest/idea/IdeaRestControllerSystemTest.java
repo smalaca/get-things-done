@@ -7,6 +7,7 @@ import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.Val
 import com.smalaca.gtd.projectmanagements.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,14 @@ class IdeaRestControllerSystemTest {
     private ProjectsManagementClient client;
     private final List<UUID> ids = new ArrayList<>();
 
+    @BeforeEach
+    void givenIdeas() {
+        createIdea(IdeaTestDto.builder().title("IdeaOne").description("With description"));
+        createIdea(IdeaTestDto.builder().title("IdeaTwo"));
+        createIdea(IdeaTestDto.builder().description("Description is everything"));
+        createIdea(IdeaTestDto.builder().title("Idea Four").description("The greatest ideas makes us better!"));
+    }
+
     @AfterEach
     void deleteCreatedIdea() {
         ids.forEach(repository::deleteById);
@@ -43,14 +52,11 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldFindNoIdeaForGivenId() {
-        givenIdeas();
-
         client.idea(NOT_FOUND).findBy(UUID.randomUUID());
     }
 
     @Test
     void shouldFindCreatedIdea() {
-        givenIdeas();
         IdeaTestDto.IdeaTestDtoBuilder idea = IdeaTestDto.builder()
                 .title("I have an idea")
                 .description("And the idea is really good");
@@ -61,6 +67,12 @@ class IdeaRestControllerSystemTest {
         IdeaTestDtoAssertion.assertThat(created)
                 .hasTitle("I have an idea")
                 .hasDescription("And the idea is really good");
+    }
+
+    private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
+        UUID id = client.idea(CREATED).create(idea).asUuid();
+        ids.add(id);
+        return id;
     }
 
     @Test
@@ -76,8 +88,6 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldFindAllIdeas() {
-        givenIdeas();
-
         List<IdeaTestDto> actual = client.idea().findAll().asIdeas();
 
         Assertions.assertThat(actual)
@@ -94,18 +104,5 @@ class IdeaRestControllerSystemTest {
                 .anySatisfy(idea -> IdeaTestDtoAssertion.assertThat(idea)
                         .hasTitle("Idea Four")
                         .hasDescription("The greatest ideas makes us better!"));
-    }
-
-    private void givenIdeas() {
-        createIdea(IdeaTestDto.builder().title("IdeaOne").description("With description"));
-        createIdea(IdeaTestDto.builder().title("IdeaTwo"));
-        createIdea(IdeaTestDto.builder().description("Description is everything"));
-        createIdea(IdeaTestDto.builder().title("Idea Four").description("The greatest ideas makes us better!"));
-    }
-
-    private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
-        UUID id = client.idea(CREATED).create(idea).asUuid();
-        ids.add(id);
-        return id;
     }
 }
