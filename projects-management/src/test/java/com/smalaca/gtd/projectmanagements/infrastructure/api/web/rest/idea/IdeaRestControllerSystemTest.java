@@ -3,7 +3,7 @@ package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.idea;
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.IdeaTestDto;
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.IdeaTestDtoAssertion;
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ProjectsManagementClient;
-import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ValidationErrorsDto;
+import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagements.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -57,7 +57,7 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldNotCreateIdea() {
-        ValidationErrorsDto actual = client.idea().create(IdeaTestDto.builder()).asValidationResponse();
+        ValidationErrorsTestDto actual = client.idea().create(IdeaTestDto.builder()).asValidationErrors();
 
         assertThat(actual)
                 .hasOneError()

@@ -22,9 +22,9 @@ public class WebResponse {
         return UUID.fromString(asString().replace("\"",""));
     }
 
-    public ValidationErrorsDto asValidationResponse() {
+    public ValidationErrorsTestDto asValidationErrors() {
         try {
-            return objectMapper.readValue(asString(), ValidationErrorsDto.class);
+            return objectMapper.readValue(asString(), ValidationErrorsTestDto.class);
         } catch (JsonProcessingException exception) {
             throw new RuntimeException(exception);
         }

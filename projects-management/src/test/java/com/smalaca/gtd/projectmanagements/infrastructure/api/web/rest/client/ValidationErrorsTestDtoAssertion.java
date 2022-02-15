@@ -4,19 +4,19 @@ import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ValidationErrorsDtoAssertion {
-    private final ValidationErrorsDto actual;
+public class ValidationErrorsTestDtoAssertion {
+    private final ValidationErrorsTestDto actual;
 
-    ValidationErrorsDtoAssertion(ValidationErrorsDto actual) {
+    ValidationErrorsTestDtoAssertion(ValidationErrorsTestDto actual) {
         this.actual = actual;
     }
 
-    public ValidationErrorsDtoAssertion hasOneError() {
+    public ValidationErrorsTestDtoAssertion hasOneError() {
         assertThat(actual.getErrors()).hasSize(1);
         return this;
     }
 
-    public ValidationErrorsDtoAssertion hasErrorThat(Consumer<ValidationFieldErrorDto> requirements) {
+    public ValidationErrorsTestDtoAssertion hasErrorThat(Consumer<ValidationFieldErrorTestDto> requirements) {
         assertThat(actual.getErrors()).anySatisfy(requirements);
         return this;
     }
