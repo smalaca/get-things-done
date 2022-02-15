@@ -1,7 +1,6 @@
 package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.idea;
 
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.IdeaTestDto;
-import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.IdeaTestDtoAssertion;
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ProjectsManagementClient;
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagements.infrastructure.repository.jpa.idea.IdeaTestRepository;
@@ -64,7 +63,7 @@ class IdeaRestControllerSystemTest {
         UUID id = createIdea(idea);
 
         IdeaTestDto created = client.idea().findBy(id).asIdea();
-        IdeaTestDtoAssertion.assertThat(created)
+        assertThat(created)
                 .hasTitle("I have an idea")
                 .hasDescription("And the idea is really good");
     }
@@ -92,16 +91,16 @@ class IdeaRestControllerSystemTest {
 
         Assertions.assertThat(actual)
                 .hasSize(4)
-                .anySatisfy(idea -> IdeaTestDtoAssertion.assertThat(idea)
+                .anySatisfy(idea -> assertThat(idea)
                         .hasTitle("IdeaOne")
                         .hasDescription("With description"))
-                .anySatisfy(idea -> IdeaTestDtoAssertion.assertThat(idea)
+                .anySatisfy(idea -> assertThat(idea)
                         .hasTitle("IdeaTwo")
                         .hasNoDescription())
-                .anySatisfy(idea -> IdeaTestDtoAssertion.assertThat(idea)
+                .anySatisfy(idea -> assertThat(idea)
                         .hasNoTitle()
                         .hasDescription("Description is everything"))
-                .anySatisfy(idea -> IdeaTestDtoAssertion.assertThat(idea)
+                .anySatisfy(idea -> assertThat(idea)
                         .hasTitle("Idea Four")
                         .hasDescription("The greatest ideas makes us better!"));
     }
