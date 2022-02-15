@@ -18,7 +18,7 @@ class IdeaDtoTest {
     @ParameterizedTest
     @MethodSource("invalidIdeaDto")
     void shouldRecognizeInvalidIdeaDto(String title, String description) {
-        IdeaDto dto = new IdeaDto(title, description);
+        IdeaDto dto = ideaDto(title, description);
 
         Set<ConstraintViolation<IdeaDto>> actual = validator.validate(dto);
 
@@ -46,11 +46,15 @@ class IdeaDtoTest {
     @ParameterizedTest
     @MethodSource("validIdeaDto")
     void shouldRecognizeValidIdeaDto(String title, String description) {
-        IdeaDto dto = new IdeaDto(title, description);
+        IdeaDto dto = ideaDto(title, description);
 
         Set<ConstraintViolation<IdeaDto>> actual = validator.validate(dto);
 
         assertThat(actual).isEmpty();
+    }
+
+    private IdeaDto ideaDto(String title, String description) {
+        return IdeaDto.builder().title(title).description(description).build();
     }
 
     public static Stream<Arguments> validIdeaDto() {
