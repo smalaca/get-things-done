@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.smalaca.gtd.projectmanagements.domain.idea.IdeaAssertion.assertThat;
 import static com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ResponseAssertions.assertThat;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -43,14 +42,23 @@ class IdeaRestControllerSystemTest {
     }
 
     @Test
-    void shouldCreateIdea() {
+    void shouldFindNoIdeaForGivenId() {
+        givenIdeas();
+
+        client.idea(NOT_FOUND).findBy(UUID.randomUUID());
+    }
+
+    @Test
+    void shouldFindCreatedIdea() {
+        givenIdeas();
         IdeaTestDto.IdeaTestDtoBuilder idea = IdeaTestDto.builder()
                 .title("I have an idea")
                 .description("And the idea is really good");
 
         UUID id = createIdea(idea);
 
-        assertThat(repository.findById(id))
+        IdeaTestDto created = client.idea().findBy(id).asIdea();
+        IdeaTestDtoAssertion.assertThat(created)
                 .hasTitle("I have an idea")
                 .hasDescription("And the idea is really good");
     }
@@ -86,25 +94,6 @@ class IdeaRestControllerSystemTest {
                 .anySatisfy(idea -> IdeaTestDtoAssertion.assertThat(idea)
                         .hasTitle("Idea Four")
                         .hasDescription("The greatest ideas makes us better!"));
-    }
-
-    @Test
-    void shouldFindSpecificIdea() {
-        givenIdeas();
-        UUID id = createIdea(IdeaTestDto.builder().title("Idea Five").description("It would be good to do something good"));
-
-        IdeaTestDto actual = client.idea().findBy(id).asIdea();
-
-        IdeaTestDtoAssertion.assertThat(actual)
-                .hasTitle("Idea Five")
-                .hasDescription("It would be good to do something good");
-    }
-
-    @Test
-    void shouldFindNoIdea() {
-        givenIdeas();
-
-        client.idea(NOT_FOUND).findBy(UUID.randomUUID());
     }
 
     private void givenIdeas() {
