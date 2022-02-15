@@ -28,17 +28,17 @@ public class ProjectsManagementClient {
         this.mockMvc = mockMvc;
     }
 
-    public ValidationErrorsDto tryToCreateIdea(String title, String description) {
-        return createIdea(title, description, OK).asValidationResponse();
+    public ValidationErrorsDto tryToCreateIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
+        return createIdea(OK, idea).asValidationResponse();
     }
 
-    public UUID createIdea(String title, String description) {
-        return createIdea(title, description, CREATED).asUuid();
+    public UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
+        return createIdea(CREATED, idea).asUuid();
     }
 
-    private WebResponse createIdea(String title, String description, HttpStatus expectedHttpStatus) {
+    private WebResponse createIdea(HttpStatus expectedHttpStatus, IdeaTestDto.IdeaTestDtoBuilder idea) {
         try {
-            MockHttpServletResponse response = mockMvc.perform(post(IDEA_URL, asJsonIdea(title, description)))
+            MockHttpServletResponse response = mockMvc.perform(post(IDEA_URL, asJsonIdea(idea)))
                     .andExpect(status().is(expectedHttpStatus.value()))
                     .andReturn()
                     .getResponse();
@@ -49,9 +49,9 @@ public class ProjectsManagementClient {
         }
     }
 
-    private String asJsonIdea(String title, String description) {
+    private String asJsonIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
         try {
-            return objectMapper.writeValueAsString(IdeaTestDto.builder().title(title).description(description).build());
+            return objectMapper.writeValueAsString(idea.build());
         } catch (JsonProcessingException exception) {
             throw new RuntimeException(exception);
         }

@@ -42,22 +42,20 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldCreateIdea() {
-        String title = "I have an idea";
-        String description = "And the idea is really good";
+        IdeaTestDto.IdeaTestDtoBuilder idea = IdeaTestDto.builder()
+                .title("I have an idea")
+                .description("And the idea is really good");
 
-        UUID id = createIdea(title, description);
+        UUID id = createIdea(idea);
 
         assertThat(repository.findById(id))
-                .hasTitle(title)
-                .hasDescription(description);
+                .hasTitle("I have an idea")
+                .hasDescription("And the idea is really good");
     }
 
     @Test
     void shouldNotCreateIdea() {
-        String title = "";
-        String description = "";
-
-        ValidationErrorsDto actual = client.tryToCreateIdea(title, description);
+        ValidationErrorsDto actual = client.tryToCreateIdea(IdeaTestDto.builder());
 
         assertThat(actual)
                 .hasOneError()
@@ -91,7 +89,7 @@ class IdeaRestControllerSystemTest {
     @Test
     void shouldFindSpecificIdea() {
         givenIdeas();
-        UUID id = createIdea("Idea Five", "It would be good to do something good");
+        UUID id = createIdea(IdeaTestDto.builder().title("Idea Five").description("It would be good to do something good"));
 
         IdeaTestDto actual = client.findIdeaById(id);
 
@@ -108,14 +106,14 @@ class IdeaRestControllerSystemTest {
     }
 
     private void givenIdeas() {
-        createIdea("IdeaOne", "With description");
-        createIdea("IdeaTwo", null);
-        createIdea(null, "Description is everything");
-        createIdea("Idea Four", "The greatest ideas makes us better!");
+        createIdea(IdeaTestDto.builder().title("IdeaOne").description("With description"));
+        createIdea(IdeaTestDto.builder().title("IdeaTwo"));
+        createIdea(IdeaTestDto.builder().description("Description is everything"));
+        createIdea(IdeaTestDto.builder().title("Idea Four").description("The greatest ideas makes us better!"));
     }
 
-    private UUID createIdea(String title, String description) {
-        UUID id = client.createIdea(title, description);
+    private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
+        UUID id = client.createIdea(idea);
         ids.add(id);
         return id;
     }
