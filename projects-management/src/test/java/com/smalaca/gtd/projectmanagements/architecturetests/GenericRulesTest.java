@@ -1,13 +1,13 @@
 package com.smalaca.gtd.projectmanagements.architecturetests;
 
-import org.junit.jupiter.api.Tag;
+import com.smalaca.gtd.projectmanagements.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.projectmanagements.architecturetests.GetThingsDoneClasses.projectClasses;
 import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS;
 import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_FIELD_INJECTION;
 
-@Tag("ArchitectureTest")
+@ArchitectureTest
 class GenericRulesTest {
     @Test
     void shouldNotUseFieldInjection() {
