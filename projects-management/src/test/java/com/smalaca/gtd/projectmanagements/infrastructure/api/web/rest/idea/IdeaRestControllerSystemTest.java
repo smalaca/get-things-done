@@ -23,7 +23,6 @@ import static com.smalaca.gtd.projectmanagements.domain.idea.IdeaAssertion.asser
 import static com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ResponseAssertions.assertThat;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.OK;
 
 @SpringBootTest
 @Import({IdeaTestRepository.class, ProjectsManagementClient.class})
@@ -58,7 +57,7 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldNotCreateIdea() {
-        ValidationErrorsDto actual = client.idea(OK).create(IdeaTestDto.builder()).asValidationResponse();
+        ValidationErrorsDto actual = client.idea().create(IdeaTestDto.builder()).asValidationResponse();
 
         assertThat(actual)
                 .hasOneError()
@@ -71,7 +70,7 @@ class IdeaRestControllerSystemTest {
     void shouldFindAllIdeas() {
         givenIdeas();
 
-        List<IdeaTestDto> actual = client.idea(OK).findAll().asIdeas();
+        List<IdeaTestDto> actual = client.idea().findAll().asIdeas();
 
         Assertions.assertThat(actual)
                 .hasSize(4)
@@ -94,7 +93,7 @@ class IdeaRestControllerSystemTest {
         givenIdeas();
         UUID id = createIdea(IdeaTestDto.builder().title("Idea Five").description("It would be good to do something good"));
 
-        IdeaTestDto actual = client.idea(OK).findBy(id).asIdea();
+        IdeaTestDto actual = client.idea().findBy(id).asIdea();
 
         IdeaTestDtoAssertion.assertThat(actual)
                 .hasTitle("Idea Five")
