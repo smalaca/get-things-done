@@ -28,16 +28,7 @@ public class IdeaEndpoints {
     }
 
     public WebResponse create(IdeaTestDto.IdeaTestDtoBuilder idea) {
-        try {
-            MockHttpServletResponse response = mockMvc.perform(post(asJsonIdea(idea)))
-                    .andExpect(status().is(expectedHttpStatus.value()))
-                    .andReturn()
-                    .getResponse();
-
-            return webResponseOf(response);
-        } catch (Exception exception) {
-            throw new RuntimeException(exception);
-        }
+        return execute(post(asJsonIdea(idea)));
     }
 
     private String asJsonIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
@@ -48,10 +39,6 @@ public class IdeaEndpoints {
         }
     }
 
-    private WebResponse webResponseOf(MockHttpServletResponse response) {
-        return new WebResponse(objectMapper, response);
-    }
-
     private MockHttpServletRequestBuilder post(String content) {
         return MockMvcRequestBuilders.post(IDEA_URL)
                 .with(csrf())
@@ -60,25 +47,21 @@ public class IdeaEndpoints {
     }
 
     public WebResponse findBy(UUID id) {
-        try {
-            MockHttpServletResponse response = mockMvc.perform(get(IDEA_URL + "/" + id))
-                    .andExpect(status().is(expectedHttpStatus.value()))
-                    .andReturn()
-                    .getResponse();
-
-            return webResponseOf(response);
-        } catch (Exception exception) {
-            throw new RuntimeException(exception);
-        }
+        return execute(get(IDEA_URL + "/" + id));
     }
 
     public WebResponse findAll() {
+        return execute(get(IDEA_URL));
+    }
+
+    private WebResponse execute(MockHttpServletRequestBuilder request) {
         try {
-            MockHttpServletResponse response = mockMvc.perform(get(IDEA_URL))
+            MockHttpServletResponse response = mockMvc.perform(request)
                     .andExpect(status().is(expectedHttpStatus.value()))
                     .andReturn()
                     .getResponse();
-            return webResponseOf(response);
+
+            return new WebResponse(objectMapper, response);
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
