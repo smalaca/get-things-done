@@ -4,10 +4,10 @@ import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.Ide
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ProjectsManagementClient;
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagements.infrastructure.repository.jpa.idea.IdeaTestRepository;
+import com.smalaca.gtd.projectmanagements.tests.annotation.SystemTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,7 +27,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Import({IdeaTestRepository.class, ProjectsManagementClient.class})
 @AutoConfigureMockMvc
 @WithMockUser("USER")
-@Tag("SystemTest")
+@SystemTest
 class IdeaRestControllerSystemTest {
     @Autowired
     private IdeaTestRepository repository;

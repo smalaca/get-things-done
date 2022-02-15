@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.auth;
 
-import org.junit.jupiter.api.Tag;
+import com.smalaca.gtd.projectmanagements.tests.annotation.SystemTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Tag("SystemTest")
+@SystemTest
 class NotAuthenticatedUserSystemTest {
     @Autowired private MockMvc mockMvc;
 
