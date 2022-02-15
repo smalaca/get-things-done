@@ -1,8 +1,8 @@
 package com.smalaca.gtd.projectmanagements.query.idea;
 
+import com.smalaca.gtd.projectmanagements.tests.annotation.IntegrationTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,8 +16,8 @@ import static com.smalaca.gtd.projectmanagements.query.idea.IdeaReadModelAsserti
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@Tag("IntegrationTest")
-class IdeaQueryServiceTest {
+@IntegrationTest
+class IdeaQueryServiceIntegrationTest {
     @Autowired private IdeaQueryRepository repository;
     private IdeaQueryService service;
 
