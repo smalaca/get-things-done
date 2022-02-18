@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:h2:file:./data/gtd
+    url: jdbc:h2:mem:mydb
     username: sa
     password: password
     driverClassName: org.h2.Driver
@@ -11,8 +11,3 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        hbm2ddl:
-          auto: update
-
-server:
-  port : 8013
