@@ -1,27 +1,30 @@
 package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.auth;
 
+import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.IdeaTestDto;
+import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ProjectsManagementClient;
 import com.smalaca.gtd.projectmanagements.tests.annotation.SystemTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.context.annotation.Import;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @SpringBootTest
+@Import({ProjectsManagementClient.class})
 @AutoConfigureMockMvc
 @SystemTest
 class NotAuthenticatedUserSystemTest {
-    @Autowired private MockMvc mockMvc;
+    @Autowired
+    private ProjectsManagementClient client;
 
     @Test
-    void shouldBeForbiddenToCreateIdeaForNotAuthenticatedUser() throws Exception {
-        String idea = "{\"title\":\"Idea\",\"description\":\"With description\"}";
+    void shouldBeForbiddenToCreateIdeaForNotAuthenticatedUser() {
+        IdeaTestDto.IdeaTestDtoBuilder idea = IdeaTestDto.builder()
+                .title("Idea")
+                .description("With description");
 
-        mockMvc.perform(post("/idea").contentType(APPLICATION_JSON).content(idea))
-                .andExpect(status().isForbidden());
+        client.idea(UNAUTHORIZED).create(idea);
     }
 }
