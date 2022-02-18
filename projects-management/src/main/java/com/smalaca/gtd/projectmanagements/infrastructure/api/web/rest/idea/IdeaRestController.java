@@ -33,8 +33,8 @@ public class IdeaRestController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public UUID create(@Valid @RequestBody IdeaDto dto) {
-        return commandService.create(dto.asCreateIdeaCommand());
+    public String create(@Valid @RequestBody IdeaDto dto) {
+        return commandService.create(dto.asCreateIdeaCommand()).toString();
     }
 
     @GetMapping

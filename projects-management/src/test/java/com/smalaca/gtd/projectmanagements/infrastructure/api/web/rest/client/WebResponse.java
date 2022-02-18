@@ -19,7 +19,7 @@ public class WebResponse {
     }
 
     public UUID asUuid() {
-        return UUID.fromString(asString().replace("\"",""));
+        return UUID.fromString(asString());
     }
 
     public ValidationErrorsTestDto asValidationErrors() {
