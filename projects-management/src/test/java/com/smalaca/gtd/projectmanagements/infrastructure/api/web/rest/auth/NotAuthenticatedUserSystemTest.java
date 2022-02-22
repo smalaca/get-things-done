@@ -1,7 +1,7 @@
 package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.auth;
 
-import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.IdeaTestDto;
-import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ProjectsManagementClient;
+import com.smalaca.gtd.client.rest.IdeaTestDto;
+import com.smalaca.gtd.client.rest.ProjectsManagementClient;
 import com.smalaca.gtd.tests.annotation.SystemTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

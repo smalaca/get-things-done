@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client;
+package com.smalaca.gtd.client.rest;
 
 public class ResponseAssertions {
     public static IdeaTestDtoAssertion assertThat(IdeaTestDto actual) {

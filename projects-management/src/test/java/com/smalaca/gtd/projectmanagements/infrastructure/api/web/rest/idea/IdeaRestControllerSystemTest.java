@@ -1,8 +1,8 @@
 package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.idea;
 
-import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.IdeaTestDto;
-import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ProjectsManagementClient;
-import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ValidationErrorsTestDto;
+import com.smalaca.gtd.client.rest.IdeaTestDto;
+import com.smalaca.gtd.client.rest.ProjectsManagementClient;
+import com.smalaca.gtd.client.rest.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagements.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import com.smalaca.gtd.tests.annotation.SystemTest;
 import org.assertj.core.api.Assertions;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ResponseAssertions.assertThat;
+import static com.smalaca.gtd.client.rest.ResponseAssertions.assertThat;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 

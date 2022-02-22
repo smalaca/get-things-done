@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client;
+package com.smalaca.gtd.client.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
