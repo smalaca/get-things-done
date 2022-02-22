@@ -206,7 +206,7 @@
                                 <configuration>
                                     <dataFile>${project.basedir}/../target/coverage-reports/jacoco-ut.exec</dataFile>
                                     <excludes>
-                                        <exclude>com/smalaca/gtd/projectmanagements/ProjectsManagementApplication.class</exclude>
+                                        <exclude>com/smalaca/gtd/ProjectsManagementApplication.class</exclude>
                                     </excludes>
                                     <rules>
                                         <rule>
