@@ -2,9 +2,11 @@ package com.smalaca.gtd.client.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smalaca.gtd.client.rest.idea.IdeaEndpoints;
+import com.smalaca.gtd.client.rest.user.UserEndpoints;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 public class ProjectsManagementClient {
@@ -21,5 +23,9 @@ public class ProjectsManagementClient {
 
     public IdeaEndpoints idea(HttpStatus expectedHttpStatus) {
         return new IdeaEndpoints(mockMvc, objectMapper, expectedHttpStatus);
+    }
+
+    public UserEndpoints user() {
+        return new UserEndpoints(mockMvc, objectMapper, CREATED);
     }
 }
