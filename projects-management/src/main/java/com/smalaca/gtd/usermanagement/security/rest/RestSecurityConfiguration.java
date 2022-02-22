@@ -5,6 +5,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.sql.DataSource;
@@ -12,9 +13,11 @@ import javax.sql.DataSource;
 @Configuration
 public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
 
-    RestSecurityConfiguration(DataSource dataSource) {
+    RestSecurityConfiguration(DataSource dataSource, PasswordEncoder passwordEncoder) {
         this.dataSource = dataSource;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -34,6 +37,7 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
+                .passwordEncoder(passwordEncoder)
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select user_name, password, active from USERS where user_name = ?")
                 .authoritiesByUsernameQuery("select user_name, role from USERS where user_name = ?");
