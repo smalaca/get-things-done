@@ -4,7 +4,7 @@ import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.Ide
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ProjectsManagementClient;
 import com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.client.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagements.infrastructure.repository.jpa.idea.IdeaTestRepository;
-import com.smalaca.gtd.projectmanagements.tests.annotation.SystemTest;
+import com.smalaca.gtd.tests.annotation.SystemTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

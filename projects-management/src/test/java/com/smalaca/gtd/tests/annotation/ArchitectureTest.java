@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagements.tests.annotation;
+package com.smalaca.gtd.tests.annotation;
 
 import org.junit.jupiter.api.Tag;
 
