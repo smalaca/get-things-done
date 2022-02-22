@@ -1,6 +1,7 @@
-package com.smalaca.gtd.projectmanagements.infrastructure.api.web.security;
+package com.smalaca.gtd.usermanagement.security.rest;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -9,10 +10,10 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import javax.sql.DataSource;
 
 @Configuration
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
 
-    WebSecurityConfiguration(DataSource dataSource) {
+    RestSecurityConfiguration(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -22,7 +23,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**").hasRole("USER");
+                    .antMatchers(HttpMethod.POST, "/user").permitAll()
+                    .anyRequest().authenticated();
 
         http
                 .csrf()
@@ -30,7 +32,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select user_name, password, active from USERS where user_name = ?")
+                .authoritiesByUsernameQuery("select user_name, role from USERS where user_name = ?");
     }
 }
