@@ -22,10 +22,10 @@ public class ProjectsManagementClient {
     }
 
     public IdeaEndpoints idea(HttpStatus expectedHttpStatus) {
-        return new IdeaEndpoints(mockMvc, objectMapper, expectedHttpStatus);
+        return IdeaEndpoints.create(mockMvc, objectMapper, expectedHttpStatus);
     }
 
     public UserEndpoints user() {
-        return new UserEndpoints(mockMvc, objectMapper, CREATED);
+        return UserEndpoints.create(mockMvc, objectMapper, CREATED);
     }
 }
