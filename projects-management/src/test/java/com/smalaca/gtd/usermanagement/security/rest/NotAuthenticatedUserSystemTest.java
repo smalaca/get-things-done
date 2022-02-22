@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagements.infrastructure.api.web.rest.auth;
+package com.smalaca.gtd.usermanagement.security.rest;
 
 import com.smalaca.gtd.client.rest.IdeaTestDto;
 import com.smalaca.gtd.client.rest.ProjectsManagementClient;
