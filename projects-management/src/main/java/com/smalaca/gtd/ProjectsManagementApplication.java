@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagements;
+package com.smalaca.gtd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
