@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement.infrastructure.validation.constraints;
+package com.smalaca.gtd.shared.validation.constrains;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanWrapperImpl;

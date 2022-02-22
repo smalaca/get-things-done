@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.validation;
+package com.smalaca.gtd.shared.validation.controller;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
