@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement.infrastructure.validation.constraints;
+package com.smalaca.gtd.shared.validation.constrains;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
