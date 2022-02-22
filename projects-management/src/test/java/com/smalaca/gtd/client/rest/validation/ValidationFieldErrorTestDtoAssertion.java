@@ -1,11 +1,11 @@
-package com.smalaca.gtd.client.rest;
+package com.smalaca.gtd.client.rest.validation;
 
 import org.assertj.core.api.Assertions;
 
 public class ValidationFieldErrorTestDtoAssertion {
     private final ValidationFieldErrorTestDto actual;
 
-    ValidationFieldErrorTestDtoAssertion(ValidationFieldErrorTestDto actual) {
+    public ValidationFieldErrorTestDtoAssertion(ValidationFieldErrorTestDto actual) {
         this.actual = actual;
     }
 

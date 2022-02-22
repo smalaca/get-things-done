@@ -1,4 +1,4 @@
-package com.smalaca.gtd.client.rest;
+package com.smalaca.gtd.client.rest.idea;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

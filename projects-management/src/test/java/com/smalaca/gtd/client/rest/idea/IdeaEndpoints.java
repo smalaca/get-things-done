@@ -1,7 +1,8 @@
-package com.smalaca.gtd.client.rest;
+package com.smalaca.gtd.client.rest.idea;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smalaca.gtd.client.rest.response.WebResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,7 +22,7 @@ public class IdeaEndpoints {
     private final ObjectMapper objectMapper;
     private final HttpStatus expectedHttpStatus;
 
-    IdeaEndpoints(MockMvc mockMvc, ObjectMapper objectMapper, HttpStatus expectedHttpStatus) {
+    public IdeaEndpoints(MockMvc mockMvc, ObjectMapper objectMapper, HttpStatus expectedHttpStatus) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
         this.expectedHttpStatus = expectedHttpStatus;

@@ -1,6 +1,7 @@
 package com.smalaca.gtd.client.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smalaca.gtd.client.rest.idea.IdeaEndpoints;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 

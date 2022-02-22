@@ -1,8 +1,10 @@
-package com.smalaca.gtd.client.rest;
+package com.smalaca.gtd.client.rest.response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import com.smalaca.gtd.client.rest.idea.IdeaTestDto;
+import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import java.io.UnsupportedEncodingException;
@@ -13,7 +15,7 @@ public class WebResponse {
     private final MockHttpServletResponse response;
     private final ObjectMapper objectMapper;
 
-    WebResponse(ObjectMapper objectMapper, MockHttpServletResponse response) {
+    public WebResponse(ObjectMapper objectMapper, MockHttpServletResponse response) {
         this.response = response;
         this.objectMapper = objectMapper;
     }

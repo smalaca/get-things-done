@@ -1,4 +1,4 @@
-package com.smalaca.gtd.client.rest;
+package com.smalaca.gtd.client.rest.validation;
 
 import java.util.function.Consumer;
 
@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ValidationErrorsTestDtoAssertion {
     private final ValidationErrorsTestDto actual;
 
-    ValidationErrorsTestDtoAssertion(ValidationErrorsTestDto actual) {
+    public ValidationErrorsTestDtoAssertion(ValidationErrorsTestDto actual) {
         this.actual = actual;
     }
 

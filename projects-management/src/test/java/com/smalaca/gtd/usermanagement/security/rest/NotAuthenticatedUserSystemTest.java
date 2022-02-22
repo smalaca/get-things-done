@@ -1,6 +1,6 @@
 package com.smalaca.gtd.usermanagement.security.rest;
 
-import com.smalaca.gtd.client.rest.IdeaTestDto;
+import com.smalaca.gtd.client.rest.idea.IdeaTestDto;
 import com.smalaca.gtd.client.rest.ProjectsManagementClient;
 import com.smalaca.gtd.tests.annotation.SystemTest;
 import org.junit.jupiter.api.Test;

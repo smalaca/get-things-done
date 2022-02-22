@@ -1,4 +1,4 @@
-package com.smalaca.gtd.client.rest;
+package com.smalaca.gtd.client.rest.validation;
 
 import lombok.Getter;
 

@@ -1,11 +1,11 @@
-package com.smalaca.gtd.client.rest;
+package com.smalaca.gtd.client.rest.idea;
 
 import org.assertj.core.api.Assertions;
 
 public class IdeaTestDtoAssertion {
     private final IdeaTestDto actual;
 
-    IdeaTestDtoAssertion(IdeaTestDto actual) {
+    public IdeaTestDtoAssertion(IdeaTestDto actual) {
         this.actual = actual;
     }
 
