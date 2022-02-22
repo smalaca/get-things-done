@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagements.architecturetests;
 
-import com.smalaca.gtd.projectmanagements.tests.annotation.ArchitectureTest;
+import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.projectmanagements.architecturetests.GetThingsDoneClasses.projectClasses;

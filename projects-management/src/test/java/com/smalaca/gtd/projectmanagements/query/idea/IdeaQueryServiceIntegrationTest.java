@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagements.query.idea;
 
-import com.smalaca.gtd.projectmanagements.tests.annotation.IntegrationTest;
+import com.smalaca.gtd.tests.annotation.IntegrationTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
