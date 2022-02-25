@@ -12,7 +12,11 @@ public class ValidationErrorsTestDtoAssertion {
     }
 
     public ValidationErrorsTestDtoAssertion hasOneError() {
-        assertThat(actual.getErrors()).hasSize(1);
+        return hasErrors(1);
+    }
+
+    public ValidationErrorsTestDtoAssertion hasErrors(int expected) {
+        assertThat(actual.getErrors()).hasSize(expected);
         return this;
     }
 

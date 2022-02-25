@@ -14,7 +14,7 @@ public class ValidationExceptionControllerAdvice {
     @ExceptionHandler
     public ResponseEntity<ValidationErrorsDto> handle(MethodArgumentNotValidException exception) {
         List<ValidationFieldErrorDto> fieldErrors = exception.getBindingResult()
-                .getGlobalErrors()
+                .getAllErrors()
                 .stream()
                 .map(ValidationFieldErrorDto::create)
                 .collect(toList());
