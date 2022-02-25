@@ -9,6 +9,10 @@ public class ValidationFieldErrorTestDtoAssertion {
         this.actual = actual;
     }
 
+    public ValidationFieldErrorTestDtoAssertion hasField(String expected) {
+        return hasFields(expected);
+    }
+
     public ValidationFieldErrorTestDtoAssertion hasFields(String... expected) {
         Assertions.assertThat(actual.getFields()).containsExactlyInAnyOrder(expected);
         return this;

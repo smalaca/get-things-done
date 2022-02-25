@@ -26,6 +26,10 @@ public class ProjectsManagementClient {
     }
 
     public UserEndpoints user() {
-        return UserEndpoints.create(mockMvc, objectMapper, CREATED);
+        return user(CREATED);
+    }
+
+    public UserEndpoints user(HttpStatus expectedHttpStatus) {
+        return UserEndpoints.create(mockMvc, objectMapper, expectedHttpStatus);
     }
 }
