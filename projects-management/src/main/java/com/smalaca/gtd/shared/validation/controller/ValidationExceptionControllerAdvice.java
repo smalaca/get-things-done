@@ -11,12 +11,14 @@ import static java.util.stream.Collectors.toList;
 
 @ControllerAdvice
 public class ValidationExceptionControllerAdvice {
+    private final ValidationFieldErrorDtoFactory factory = new ValidationFieldErrorDtoFactory();
+
     @ExceptionHandler
     public ResponseEntity<ValidationErrorsDto> handle(MethodArgumentNotValidException exception) {
         List<ValidationFieldErrorDto> fieldErrors = exception.getBindingResult()
                 .getAllErrors()
                 .stream()
-                .map(ValidationFieldErrorDto::create)
+                .map(factory::create)
                 .collect(toList());
 
         return ResponseEntity.ok(new ValidationErrorsDto(fieldErrors));
