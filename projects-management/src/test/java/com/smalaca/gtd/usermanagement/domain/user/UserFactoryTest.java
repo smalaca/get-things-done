@@ -1,9 +1,8 @@
-package com.smalaca.gtd.usermanagement.persistence.user;
+package com.smalaca.gtd.usermanagement.domain.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static com.smalaca.gtd.usermanagement.persistence.user.UserAssertion.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -17,7 +16,7 @@ class UserFactoryTest {
 
         User actual = factory.create("peterparker", "password");
 
-        assertThat(actual)
+        UserAssertion.assertThat(actual)
                 .hasUserName("peterparker")
                 .hasPassword("encoded-password")
                 .isActive()

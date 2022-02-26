@@ -1,4 +1,4 @@
-package com.smalaca.gtd.usermanagement.persistence.user;
+package com.smalaca.gtd.usermanagement.domain.user;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AccessLevel;
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
-import static com.smalaca.gtd.usermanagement.persistence.user.Role.USER;
+import static com.smalaca.gtd.usermanagement.domain.user.Role.USER;
 
 @SuppressFBWarnings("URF_UNREAD_FIELD")
 @Entity
