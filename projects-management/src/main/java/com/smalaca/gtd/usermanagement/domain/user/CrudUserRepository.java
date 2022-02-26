@@ -1,4 +1,4 @@
-package com.smalaca.gtd.usermanagement.persistence.user;
+package com.smalaca.gtd.usermanagement.domain.user;
 
 import org.springframework.data.repository.CrudRepository;
 

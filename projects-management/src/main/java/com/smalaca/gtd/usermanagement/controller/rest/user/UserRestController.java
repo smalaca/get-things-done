@@ -1,8 +1,8 @@
 package com.smalaca.gtd.usermanagement.controller.rest.user;
 
-import com.smalaca.gtd.usermanagement.persistence.user.User;
-import com.smalaca.gtd.usermanagement.persistence.user.UserFactory;
-import com.smalaca.gtd.usermanagement.persistence.user.UserRepository;
+import com.smalaca.gtd.usermanagement.domain.user.User;
+import com.smalaca.gtd.usermanagement.domain.user.UserFactory;
+import com.smalaca.gtd.usermanagement.domain.user.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
