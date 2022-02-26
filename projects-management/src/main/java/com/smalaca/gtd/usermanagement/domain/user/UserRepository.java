@@ -13,4 +13,8 @@ public class UserRepository {
     public String save(User user) {
         return repository.save(user).id();
     }
+
+    boolean exists(String userName) {
+        return repository.existsByUserName(userName);
+    }
 }

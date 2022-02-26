@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @DataJpaTest
 @IntegrationTest
 class UserRepositoryIntegrationTest {
@@ -41,5 +43,23 @@ class UserRepositoryIntegrationTest {
 
     private User findBy(String id) {
         return crudUserRepository.findById(UUID.fromString(id)).get();
+    }
+
+    @Test
+    void shouldRecognizeUserWithGivenUserNameDoNotExist() {
+        repository.save(User.user("captain-america", "5H13LD"));
+
+        boolean actual = repository.exists("charles xavier");
+
+        assertThat(actual).isFalse();
+    }
+
+    @Test
+    void shouldRecognizeUserWithGivenUserNameExists() {
+        repository.save(User.user("captain-america", "5H13LD"));
+
+        boolean actual = repository.exists("captain-america");
+
+        assertThat(actual).isTrue();
     }
 }
