@@ -8,7 +8,7 @@ import java.util.List;
 public class ValidationErrorsDto {
     private final List<ValidationFieldErrorDto> errors;
 
-    ValidationErrorsDto(List<ValidationFieldErrorDto> errors) {
+    public ValidationErrorsDto(List<ValidationFieldErrorDto> errors) {
         this.errors = errors;
     }
 }
