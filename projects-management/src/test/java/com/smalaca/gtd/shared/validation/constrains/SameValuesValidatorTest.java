@@ -59,6 +59,17 @@ class SameValuesValidatorTest {
         assertThat(actual).isEmpty();
     }
 
+    @Builder
+    @Getter
+    @SameValues(
+            fields = {"fieldOne", "fieldTwo"},
+            message = "Passwords are different."
+    )
+    static class SomeDto {
+        private final String fieldOne;
+        private final String fieldTwo;
+    }
+
     @Test
     void shouldReturnDefaultMessageWhenInvalid() {
         AnotherDto dto = AnotherDto.builder()
@@ -75,22 +86,7 @@ class SameValuesValidatorTest {
 
     @Builder
     @Getter
-    @SameValues(
-            fieldOne = "fieldOne",
-            fieldTwo = "fieldTwo",
-            message = "Passwords are different."
-    )
-    static class SomeDto {
-        private final String fieldOne;
-        private final String fieldTwo;
-    }
-
-    @Builder
-    @Getter
-    @SameValues(
-            fieldOne = "fieldOne",
-            fieldTwo = "fieldTwo"
-    )
+    @SameValues(fields = {"fieldOne", "fieldTwo"})
     static class AnotherDto {
         private final String fieldOne;
         private final String fieldTwo;
