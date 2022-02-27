@@ -19,7 +19,5 @@ public @interface SameValues {
 
     Class<? extends Payload>[] payload() default {};
 
-    String fieldOne();
-
-    String fieldTwo();
+    String[] fields();
 }
