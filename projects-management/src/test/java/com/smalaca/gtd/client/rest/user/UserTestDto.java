@@ -8,4 +8,5 @@ import lombok.Getter;
 public class UserTestDto {
     private String userName;
     private String password;
+    private String repeatedPassword;
 }

@@ -22,7 +22,7 @@ class UserDtoTest {
     @ParameterizedTest
     @MethodSource("invalidUserDto")
     void shouldRecognizeInvalidUserDtoWhenNoDataGiven(String userName, String password) {
-        UserDto dto = userDto(userName, password);
+        UserDto dto = new UserDto(userName, password, password);
 
         Set<ConstraintViolation<UserDto>> actual = validator.validate(dto);
 
@@ -49,7 +49,7 @@ class UserDtoTest {
     @ParameterizedTest
     @ValueSource(strings = {"short", "shorter"})
     void shouldRecognizeInvalidUserDtoWhenInvalidUserNameGiven(String userName) {
-        UserDto dto = userDto(userName, VALID_PASSWORD);
+        UserDto dto = new UserDto(userName, VALID_PASSWORD, VALID_PASSWORD);
 
         Set<ConstraintViolation<UserDto>> actual = validator.validate(dto);
 
@@ -58,20 +58,20 @@ class UserDtoTest {
                 .anySatisfy(this::hasInvalidUserName);
     }
 
+    private void hasInvalidUserName(ConstraintViolation<UserDto> violation) {
+        hasInvalidValueFor(violation, "userName", "User Name needs to have at least 8 characters.");
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"shorttt", "no_cap1t4l!", "NO_SM4LL!", "NO_Number!", "N0sp3cialCharacter"})
     void shouldRecognizeInvalidUserDtoWhenInvalidPasswordGiven(String password) {
-        UserDto dto = userDto(VALID_USERNAME, password);
+        UserDto dto = new UserDto(VALID_USERNAME, password, password);
 
         Set<ConstraintViolation<UserDto>> actual = validator.validate(dto);
 
         assertThat(actual)
                 .hasSize(1)
                 .anySatisfy(this::hasInvalidPassword);
-    }
-
-    private void hasInvalidUserName(ConstraintViolation<UserDto> violation) {
-        hasInvalidValueFor(violation, "userName", "User Name needs to have at least 8 characters.");
     }
 
     private void hasInvalidPassword(ConstraintViolation<UserDto> violation) {
@@ -86,17 +86,27 @@ class UserDtoTest {
     }
 
     @ParameterizedTest
+    @ValueSource(strings = {"P4ssword!", "AAAbbbccc@123", "Hello world$123", "A[{}]:;',?/*a1", "0123456789$abcdefgAB"})
+    void shouldRecognizeInvalidUserDtoWhenInvalidRepeatedPasswordGiven(String repeatedPassword) {
+        UserDto dto = new UserDto(VALID_USERNAME, VALID_PASSWORD, repeatedPassword);
+
+        Set<ConstraintViolation<UserDto>> actual = validator.validate(dto);
+
+        assertThat(actual)
+                .hasSize(1)
+                .anySatisfy(violation -> {
+                    assertThat(violation.getMessage()).isEqualTo("Password and repeated password have to be the same");
+                });
+    }
+
+    @ParameterizedTest
     @MethodSource("validUserDto")
-    void shouldRecognizeValidUserDto(String title, String description) {
-        UserDto dto = userDto(title, description);
+    void shouldRecognizeValidUserDto(String userName, String password) {
+        UserDto dto = new UserDto(userName, password, password);
 
         Set<ConstraintViolation<UserDto>> actual = validator.validate(dto);
 
         assertThat(actual).isEmpty();
-    }
-
-    private UserDto userDto(String userName, String password) {
-        return new UserDto(userName, password);
     }
 
     public static Stream<Arguments> validUserDto() {

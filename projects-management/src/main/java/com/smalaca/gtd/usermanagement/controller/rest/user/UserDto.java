@@ -1,5 +1,6 @@
 package com.smalaca.gtd.usermanagement.controller.rest.user;
 
+import com.smalaca.gtd.shared.validation.constrains.SameValues;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -9,6 +10,10 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @RequiredArgsConstructor
+@SameValues(
+        fields = {"password", "repeatedPassword"},
+        message = "Password and repeated password have to be the same"
+)
 public class UserDto {
     private static final String INVALID_PASSWORD_MESSAGE =
             "Password needs to have at least 8 characters including: "
@@ -24,4 +29,6 @@ public class UserDto {
     @NotNull(message = INVALID_PASSWORD_MESSAGE)
     @Pattern(regexp = PASSWORD_PATTERN, message = INVALID_PASSWORD_MESSAGE)
     private final String password;
+
+    private final String repeatedPassword;
 }

@@ -50,10 +50,12 @@ class UserRestControllerSystemTest {
 
     @Test
     void shouldNotAllowToRegisterNewUser() {
-        ValidationErrorsTestDto actual = client.user(OK).create(UserTestDto.builder()).asValidationErrors();
+        UserTestDto.UserTestDtoBuilder user = UserTestDto.builder().password("invalid");
+
+        ValidationErrorsTestDto actual = client.user(OK).create(user).asValidationErrors();
 
         assertThat(actual)
-                .hasErrors(2)
+                .hasErrors(3)
                 .hasErrorThat(error -> assertThat(error)
                         .hasField("userName")
                         .hasMessage("User Name needs to have at least 8 characters."))
@@ -61,7 +63,10 @@ class UserRestControllerSystemTest {
                         .hasField("password")
                         .hasMessage(
                                 "Password needs to have at least 8 characters including: " +
-                                "one capital letter, one small letter, one number, one special character."));
+                                "one capital letter, one small letter, one number, one special character."))
+                .hasErrorThat(error -> assertThat(error)
+                        .hasFields("password", "repeatedPassword")
+                        .hasMessage("Password and repeated password have to be the same"));
     }
 
 
@@ -86,6 +91,7 @@ class UserRestControllerSystemTest {
     private UserTestDto.UserTestDtoBuilder userDto(String userName, String password) {
         return UserTestDto.builder()
                 .userName(userName)
-                .password(password);
+                .password(password)
+                .repeatedPassword(password);
     }
 }
