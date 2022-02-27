@@ -37,9 +37,7 @@ class UserRestControllerSystemTest {
 
     @Test
     void shouldRegisterNewUser() {
-        UserTestDto.UserTestDtoBuilder user = UserTestDto.builder()
-                .userName("peterparker")
-                .password("1H4teSpiders!");
+        UserTestDto.UserTestDtoBuilder user = userDto("peterparker", "1H4teSpiders!");
 
         id = client.user().create(user).asUuid();
 
@@ -64,5 +62,30 @@ class UserRestControllerSystemTest {
                         .hasMessage(
                                 "Password needs to have at least 8 characters including: " +
                                 "one capital letter, one small letter, one number, one special character."));
+    }
+
+
+    @Test
+    void shouldNotAllowRegisterSameUserTwice() {
+        givenExistingUser("peterparker");
+        UserTestDto.UserTestDtoBuilder user = userDto("peterparker", "1H4teSpiders!");
+
+        ValidationErrorsTestDto actual = client.user(OK).create(user).asValidationErrors();
+
+        assertThat(actual)
+                .hasErrors(1)
+                .hasErrorThat(error -> assertThat(error)
+                        .hasField("userName")
+                        .hasMessage("User \"peterparker\" already exists."));
+    }
+
+    private void givenExistingUser(String userName) {
+        id = client.user().create(userDto(userName, "1H4teSpiders!")).asUuid();
+    }
+
+    private UserTestDto.UserTestDtoBuilder userDto(String userName, String password) {
+        return UserTestDto.builder()
+                .userName(userName)
+                .password(password);
     }
 }

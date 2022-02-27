@@ -2,18 +2,18 @@ package com.smalaca.gtd.shared.validation.controller;
 
 import org.assertj.core.api.Assertions;
 
-class ValidationFieldErrorDtoAssertion {
+public class ValidationFieldErrorDtoAssertion {
     private final ValidationFieldErrorDto actual;
 
     private ValidationFieldErrorDtoAssertion(ValidationFieldErrorDto actual) {
         this.actual = actual;
     }
 
-    static ValidationFieldErrorDtoAssertion assertThat(ValidationFieldErrorDto actual) {
+    public static ValidationFieldErrorDtoAssertion assertThat(ValidationFieldErrorDto actual) {
         return new ValidationFieldErrorDtoAssertion(actual);
     }
 
-    ValidationFieldErrorDtoAssertion forField(String expected) {
+    public ValidationFieldErrorDtoAssertion forField(String expected) {
         return forFields(expected);
     }
 
@@ -22,7 +22,7 @@ class ValidationFieldErrorDtoAssertion {
         return this;
     }
 
-    ValidationFieldErrorDtoAssertion hasMessage(String expected) {
+    public ValidationFieldErrorDtoAssertion hasMessage(String expected) {
         Assertions.assertThat(actual.getMessage()).isEqualTo(expected);
         return this;
     }
