@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaAssertion.assertThat;
@@ -20,7 +22,7 @@ class JpaIdeaRepositoryIntegrationTest {
     private JpaIdeaRepository jpaIdeaRepository;
 
     private final IdeaTestFactory factory = new IdeaTestFactory();
-    private UUID id;
+    private final List<UUID> ids = new ArrayList<>();
 
     @BeforeEach
     void initRepository() {
@@ -29,42 +31,30 @@ class JpaIdeaRepositoryIntegrationTest {
 
     @AfterEach
     void deleteCreatedIdea() {
-        if (id != null) {
-            springDataJpaIdeaRepository.deleteById(id);
-        }
+        ids.forEach(springDataJpaIdeaRepository::deleteById);
     }
 
     @Test
-    void shouldSaveIdeaWithAllInformation() {
-        Idea idea = factory.create("Idea", "Have to be great");
+    void shouldSaveIdeas() {
+        UUID titleAndDescriptionId = createIdea("Idea", "Have to be great");
+        UUID noTitleId = createIdea(null, "Without a lot of information I will lost an idea");
+        UUID noDescriptionId = createIdea("Create a project", null);
 
-        id = jpaIdeaRepository.save(idea);
-
-        assertThat(findBy(id))
+        assertThat(findBy(titleAndDescriptionId))
                 .hasTitle("Idea")
                 .hasDescription("Have to be great");
-    }
-
-    @Test
-    void shouldSaveIdeaWithTitleOnly() {
-        Idea idea = factory.create("Create a project", null);
-
-        id = jpaIdeaRepository.save(idea);
-
-        assertThat(findBy(id))
+        assertThat(findBy(noTitleId))
+                .hasNoTitle()
+                .hasDescription("Without a lot of information I will lost an idea");
+        assertThat(findBy(noDescriptionId))
                 .hasTitle("Create a project")
                 .hasNoDescription();
     }
 
-    @Test
-    void shouldSaveIdeaWithDescriptionOnly() {
-        Idea idea = factory.create(null, "Without a lot of information I will lost an idea");
-
-        id = jpaIdeaRepository.save(idea);
-
-        assertThat(findBy(id))
-                .hasNoTitle()
-                .hasDescription("Without a lot of information I will lost an idea");
+    private UUID createIdea(String title, String description) {
+        UUID id = jpaIdeaRepository.save(factory.create(title, description));
+        ids.add(id);
+        return id;
     }
 
     private Idea findBy(UUID id) {
