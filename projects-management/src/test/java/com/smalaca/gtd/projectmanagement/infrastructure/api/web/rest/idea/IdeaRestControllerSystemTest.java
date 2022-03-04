@@ -1,8 +1,9 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 
-import com.smalaca.gtd.client.rest.idea.IdeaTestDto;
 import com.smalaca.gtd.client.rest.ProjectsManagementClient;
+import com.smalaca.gtd.client.rest.idea.IdeaTestDto;
 import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
+import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import com.smalaca.gtd.tests.annotation.SystemTest;
 import org.assertj.core.api.Assertions;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.smalaca.gtd.client.rest.RestClientResponseAssertions.assertThat;
+import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaIdTestFactory.ideaIdFrom;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -34,7 +36,7 @@ class IdeaRestControllerSystemTest {
 
     @Autowired
     private ProjectsManagementClient client;
-    private final List<UUID> ids = new ArrayList<>();
+    private final List<IdeaId> ids = new ArrayList<>();
 
     @BeforeEach
     void givenIdeas() {
@@ -70,7 +72,7 @@ class IdeaRestControllerSystemTest {
 
     private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
         UUID id = client.idea(CREATED).create(idea).asUuid();
-        ids.add(id);
+        ids.add(ideaIdFrom(id));
         return id;
     }
 

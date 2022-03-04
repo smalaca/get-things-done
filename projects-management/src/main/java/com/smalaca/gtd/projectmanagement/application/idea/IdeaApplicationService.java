@@ -21,6 +21,6 @@ public class IdeaApplicationService {
     public UUID create(CreateIdeaCommand command) {
         Idea idea = factory.create(command);
 
-        return repository.save(idea);
+        return repository.save(idea).value();
     }
 }
