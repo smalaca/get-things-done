@@ -1,11 +1,16 @@
 package com.smalaca.gtd.projectmanagement.query.idea;
 
+import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import com.smalaca.gtd.tests.annotation.IntegrationTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +22,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @IntegrationTest
+@Import(IdeaTestRepository.class)
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
 class IdeaQueryServiceIntegrationTest {
-    @Autowired private IdeaQueryRepository repository;
+    @Autowired private IdeaTestRepository ideaTestRepository;
+    @Autowired private IdeaQueryRepository queryRepository;
+
+    private final IdeaTestFactory factory = new IdeaTestFactory();
+
     private IdeaQueryService service;
 
     private final List<UUID> ids = new ArrayList<>();
 
     @BeforeEach
     void initService() {
-        service = new IdeaQueryService(repository);
+        service = new IdeaQueryService(queryRepository);
     }
 
     @AfterEach
     void removeIdeas() {
-        ids.forEach(repository::deleteById);
+        ids.forEach(ideaTestRepository::deleteById);
     }
 
     @Test
@@ -91,7 +102,7 @@ class IdeaQueryServiceIntegrationTest {
     }
 
     private UUID givenIdea(String title, String description) {
-        UUID id = repository.save(new IdeaReadModel(title, description)).getId();
+        UUID id = ideaTestRepository.save(factory.create(title, description));
         ids.add(id);
         return id;
     }
