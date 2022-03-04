@@ -1,5 +1,6 @@
 package com.smalaca.gtd.projectmanagement.query.idea;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
 
+@SuppressFBWarnings("UWF_UNWRITTEN_FIELD")
 @Entity
 @Getter
 @NoArgsConstructor(access = PRIVATE)
@@ -23,9 +25,4 @@ public class IdeaReadModel {
     private String title;
     @Lob
     private String description;
-
-    IdeaReadModel(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
 }

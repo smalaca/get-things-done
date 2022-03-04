@@ -54,6 +54,7 @@ class PackageStructureTest {
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
                         JAVA, JPA, GOGGLE_COMMON, SPRING_DATA, SPRING_STEREOTYPES,
+                        FINDBUGS_SUPPRESSION,
                         QUERY)
                 .check(projectClasses());
     }
