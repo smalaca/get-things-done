@@ -1,8 +1,7 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea;
 
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
-
-import java.util.UUID;
+import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 
 public class IdeaTestRepository {
     private final SpringDataJpaIdeaRepository repository;
@@ -11,11 +10,15 @@ public class IdeaTestRepository {
         this.repository = repository;
     }
 
-    public void deleteById(UUID id) {
-        repository.deleteById(id);
+    public void deleteById(IdeaId id) {
+        repository.deleteById(id.value());
     }
 
-    public UUID save(Idea idea) {
+    Idea findById(IdeaId id) {
+        return repository.findById(id.value()).get();
+    }
+
+    public IdeaId save(Idea idea) {
         return repository.save(idea).id();
     }
 }

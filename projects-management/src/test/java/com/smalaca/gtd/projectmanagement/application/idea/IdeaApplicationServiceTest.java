@@ -10,6 +10,7 @@ import org.mockito.ArgumentCaptor;
 import java.util.UUID;
 
 import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaAssertion.assertThat;
+import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaIdTestFactory.ideaIdFrom;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -28,7 +29,7 @@ class IdeaApplicationServiceTest {
 
     @BeforeEach
     void givenIdOnIdeaSave() {
-        given(repository.save(any())).willReturn(ID);
+        given(repository.save(any())).willReturn(ideaIdFrom(ID));
     }
 
     @Test

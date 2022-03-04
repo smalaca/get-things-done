@@ -17,6 +17,7 @@ public class Idea {
     @Id
     @GeneratedValue
     private UUID id;
+
     private String title;
     @Lob
     private String description;
@@ -28,7 +29,7 @@ public class Idea {
         this.description = description;
     }
 
-    public UUID id() {
-        return id;
+    public IdeaId id() {
+        return IdeaId.from(id);
     }
 }

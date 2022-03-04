@@ -1,5 +1,6 @@
 package com.smalaca.gtd.projectmanagement.query.idea;
 
+import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import com.smalaca.gtd.tests.annotation.IntegrationTest;
@@ -32,7 +33,7 @@ class IdeaQueryServiceIntegrationTest {
 
     private IdeaQueryService service;
 
-    private final List<UUID> ids = new ArrayList<>();
+    private final List<IdeaId> ids = new ArrayList<>();
 
     @BeforeEach
     void initService() {
@@ -102,8 +103,8 @@ class IdeaQueryServiceIntegrationTest {
     }
 
     private UUID givenIdea(String title, String description) {
-        UUID id = ideaTestRepository.save(factory.create(title, description));
+        IdeaId id = ideaTestRepository.save(factory.create(title, description));
         ids.add(id);
-        return id;
+        return id.value();
     }
 }
