@@ -3,6 +3,7 @@ package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
+import com.smalaca.gtd.projectmanagement.domain.owner.OwnerId;
 import com.smalaca.gtd.tests.annotation.IntegrationTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Import;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaAssertion.assertThat;
 
@@ -39,23 +41,29 @@ class JpaIdeaRepositoryIntegrationTest {
 
     @Test
     void shouldSaveIdeas() {
-        IdeaId titleAndDescriptionId = createIdea("Idea", "Have to be great");
-        IdeaId noTitleId = createIdea(null, "Without a lot of information I will lost an idea");
-        IdeaId noDescriptionId = createIdea("Create a project", null);
+        UUID ownerId1 = UUID.randomUUID();
+        UUID ownerId2 = UUID.randomUUID();
+        UUID ownerId3 = UUID.randomUUID();
+        IdeaId titleAndDescriptionId = createIdea(ownerId1, "Idea", "Have to be great");
+        IdeaId noTitleId = createIdea(ownerId2, null, "Without a lot of information I will lost an idea");
+        IdeaId noDescriptionId = createIdea(ownerId3, "Create a project", null);
 
         assertThat(findBy(titleAndDescriptionId))
+                .hasOwnerId(OwnerId.from(ownerId1))
                 .hasTitle("Idea")
                 .hasDescription("Have to be great");
         assertThat(findBy(noTitleId))
+                .hasOwnerId(OwnerId.from(ownerId2))
                 .hasNoTitle()
                 .hasDescription("Without a lot of information I will lost an idea");
         assertThat(findBy(noDescriptionId))
+                .hasOwnerId(OwnerId.from(ownerId3))
                 .hasTitle("Create a project")
                 .hasNoDescription();
     }
 
-    private IdeaId createIdea(String title, String description) {
-        IdeaId id = jpaIdeaRepository.save(factory.create(title, description));
+    private IdeaId createIdea(UUID ownerId, String title, String description) {
+        IdeaId id = jpaIdeaRepository.save(factory.create(ownerId, title, description));
         ids.add(id);
         return id;
     }

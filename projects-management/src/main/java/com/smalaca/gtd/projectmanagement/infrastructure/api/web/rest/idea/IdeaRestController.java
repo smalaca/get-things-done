@@ -1,9 +1,12 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 
 import com.smalaca.gtd.projectmanagement.application.idea.IdeaApplicationService;
+import com.smalaca.gtd.projectmanagement.domain.idea.CreateIdeaCommand;
 import com.smalaca.gtd.projectmanagement.query.idea.IdeaQueryService;
 import com.smalaca.gtd.projectmanagement.query.idea.IdeaReadModel;
+import com.smalaca.gtd.projectmanagement.query.user.UserQueryService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,30 +26,39 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping("idea")
 public class IdeaRestController {
-    private final IdeaApplicationService commandService;
-    private final IdeaQueryService queryService;
+    private final IdeaApplicationService ideaApplicationService;
+    private final IdeaQueryService ideaQueryService;
+    private final UserQueryService userQueryService;
 
-    IdeaRestController(IdeaApplicationService commandService, IdeaQueryService queryService) {
-        this.commandService = commandService;
-        this.queryService = queryService;
+    IdeaRestController(
+            IdeaApplicationService ideaApplicationService, IdeaQueryService ideaQueryService, UserQueryService userQueryService) {
+        this.ideaApplicationService = ideaApplicationService;
+        this.ideaQueryService = ideaQueryService;
+        this.userQueryService = userQueryService;
     }
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public String create(@Valid @RequestBody IdeaDto dto) {
-        return commandService.create(dto.asCreateIdeaCommand()).toString();
+    public String create(@Valid @RequestBody IdeaDto dto, Authentication authentication) {
+        CreateIdeaCommand command = dto.asCreateIdeaCommand(ownerIdFrom(authentication));
+
+        return ideaApplicationService.create(command).toString();
+    }
+
+    private UUID ownerIdFrom(Authentication authentication) {
+        return userQueryService.findByUserName(authentication.getName()).getId();
     }
 
     @GetMapping
     public List<IdeaDto> findAll() {
-        return queryService.findAll().stream()
+        return ideaQueryService.findAll().stream()
                 .map(this::asDto)
                 .collect(toList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<IdeaDto> findBy(@PathVariable UUID id) {
-        Optional<IdeaReadModel> found = queryService.findById(id);
+        Optional<IdeaReadModel> found = ideaQueryService.findById(id);
 
         if (found.isPresent()) {
             return ResponseEntity.ok(asDto(found.get()));

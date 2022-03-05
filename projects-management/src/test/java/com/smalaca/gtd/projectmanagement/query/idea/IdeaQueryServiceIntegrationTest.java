@@ -103,7 +103,7 @@ class IdeaQueryServiceIntegrationTest {
     }
 
     private UUID givenIdea(String title, String description) {
-        IdeaId id = ideaTestRepository.save(factory.create(title, description));
+        IdeaId id = ideaTestRepository.save(factory.create(UUID.randomUUID(), title, description));
         ids.add(id);
         return id.value();
     }

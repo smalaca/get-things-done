@@ -3,6 +3,7 @@ package com.smalaca.gtd.projectmanagement.application.idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.CreateIdeaCommand;
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
+import com.smalaca.gtd.projectmanagement.domain.owner.OwnerId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -23,6 +24,8 @@ class IdeaApplicationServiceTest {
     private static final UUID ID = UUID.randomUUID();
     private static final String TITLE = "Got it";
     private static final String DESCRIPTION = "But explanation require even more place";
+    private static final UUID OWNER_UUID = UUID.randomUUID();
+    private static final OwnerId OWNER_ID = OwnerId.from(OWNER_UUID);
 
     private final IdeaRepository repository = mock(IdeaRepository.class);
     private final IdeaApplicationService service = new IdeaApplicationServiceFactory().ideaApplicationService(repository);
@@ -34,7 +37,7 @@ class IdeaApplicationServiceTest {
 
     @Test
     void shouldReturnIdeaId() {
-        CreateIdeaCommand command = new CreateIdeaCommand(TITLE, DESCRIPTION);
+        CreateIdeaCommand command = command(TITLE, DESCRIPTION);
 
         UUID actual = service.create(command);
 
@@ -43,11 +46,12 @@ class IdeaApplicationServiceTest {
 
     @Test
     void shouldCreateIdea() {
-        CreateIdeaCommand command = new CreateIdeaCommand(TITLE, DESCRIPTION);
+        CreateIdeaCommand command = command(TITLE, DESCRIPTION);
 
         service.create(command);
 
         assertThat(savedIdea())
+                .hasOwnerId(OWNER_ID)
                 .hasTitle(TITLE)
                 .hasDescription(DESCRIPTION);
     }
@@ -61,10 +65,14 @@ class IdeaApplicationServiceTest {
 
     @Test
     void shouldNotSaveIdeaInCaseOfInvalidData() {
-        CreateIdeaCommand command = new CreateIdeaCommand(null, null);
+        CreateIdeaCommand command = command(null, null);
 
         assertThrows(RuntimeException.class, () -> service.create(command));
 
         then(repository).should(never()).save(any());
+    }
+
+    private CreateIdeaCommand command(String title, String description) {
+        return CreateIdeaCommand.create(OWNER_UUID, title, description);
     }
 }

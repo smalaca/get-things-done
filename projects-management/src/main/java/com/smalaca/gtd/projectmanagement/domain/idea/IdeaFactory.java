@@ -6,7 +6,7 @@ public class IdeaFactory {
             throw new IdeaException("Cannot create idea without title and description");
         }
 
-        return new Idea(command.getTitle(), command.getDescription());
+        return new Idea(command.getOwnerId(), command.getTitle(), command.getDescription());
     }
 
     private boolean isInvalid(CreateIdeaCommand command) {
