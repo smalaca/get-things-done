@@ -18,7 +18,7 @@
         <guava.version>31.0.1-jre</guava.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
 
-        <mockito-junit-jupiter.version>4.2.0</mockito-junit-jupiter.version>
+        <mockito-junit-jupiter.version>4.3.1</mockito-junit-jupiter.version>
         <assertj-core.version>3.22.0</assertj-core.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -31,6 +31,7 @@
         <spotbugs-annotations.version>4.5.3</spotbugs-annotations.version>
         <h2.version>1.4.200</h2.version>
         <archunit-junit5.version>0.22.0</archunit-junit5.version>
+        <equalsverifier.version>3.9</equalsverifier.version>
     </properties>
 
     <parent>
@@ -142,6 +143,13 @@
             <groupId>com.tngtech.archunit</groupId>
             <artifactId>archunit-junit5</artifactId>
             <version>${archunit-junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+            <version>${equalsverifier.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

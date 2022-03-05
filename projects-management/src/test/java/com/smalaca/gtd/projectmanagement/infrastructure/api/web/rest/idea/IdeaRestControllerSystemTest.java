@@ -6,6 +6,8 @@ import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import com.smalaca.gtd.tests.annotation.SystemTest;
+import com.smalaca.gtd.usermanagement.domain.user.UserTestFactory;
+import com.smalaca.gtd.usermanagement.domain.user.UserTestRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,20 +28,20 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @SpringBootTest
-@Import({IdeaTestRepository.class, ProjectsManagementClient.class})
+@Import({IdeaTestRepository.class, UserTestRepository.class, ProjectsManagementClient.class})
 @AutoConfigureMockMvc
 @WithMockUser("USER")
 @SystemTest
 class IdeaRestControllerSystemTest {
-    @Autowired
-    private IdeaTestRepository repository;
-
-    @Autowired
-    private ProjectsManagementClient client;
+    @Autowired private IdeaTestRepository ideaTestRepository;
+    @Autowired private UserTestRepository userTestRepository;
+    @Autowired private ProjectsManagementClient client;
     private final List<IdeaId> ids = new ArrayList<>();
+    private UUID userId;
 
     @BeforeEach
     void givenIdeas() {
+        userId = userTestRepository.save(UserTestFactory.user("USER", UUID.randomUUID().toString()));
         createIdea(IdeaTestDto.builder().title("IdeaOne").description("With description"));
         createIdea(IdeaTestDto.builder().title("IdeaTwo"));
         createIdea(IdeaTestDto.builder().description("Description is everything"));
@@ -48,7 +50,8 @@ class IdeaRestControllerSystemTest {
 
     @AfterEach
     void deleteCreatedIdea() {
-        ids.forEach(repository::deleteById);
+        ids.forEach(ideaTestRepository::deleteById);
+        userTestRepository.deleteBy(userId);
     }
 
     @Test
