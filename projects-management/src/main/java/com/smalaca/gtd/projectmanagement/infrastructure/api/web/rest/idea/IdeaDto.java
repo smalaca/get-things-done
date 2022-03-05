@@ -19,6 +19,6 @@ class IdeaDto {
     private final String description;
 
     CreateIdeaCommand asCreateIdeaCommand() {
-        return new CreateIdeaCommand(title, description);
+        return CreateIdeaCommand.create(UUID.randomUUID(), title, description);
     }
 }
