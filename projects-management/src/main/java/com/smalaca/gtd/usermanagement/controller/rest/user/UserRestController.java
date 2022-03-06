@@ -1,8 +1,6 @@
 package com.smalaca.gtd.usermanagement.controller.rest.user;
 
-import com.smalaca.gtd.usermanagement.domain.user.User;
-import com.smalaca.gtd.usermanagement.domain.user.UserFactory;
-import com.smalaca.gtd.usermanagement.domain.user.UserRepository;
+import com.smalaca.gtd.usermanagement.domain.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,18 +13,15 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
-    private final UserFactory factory;
-    private final UserRepository repository;
+    private final UserService userService;
 
-    UserRestController(UserRepository repository, UserFactory factory) {
-        this.repository = repository;
-        this.factory = factory;
+    UserRestController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String register(@Valid @RequestBody UserDto dto) {
-        User user = factory.create(dto.getUserName(), dto.getPassword());
-        return repository.save(user);
+        return userService.register(dto.getUserName(), dto.getPassword());
     }
 }
