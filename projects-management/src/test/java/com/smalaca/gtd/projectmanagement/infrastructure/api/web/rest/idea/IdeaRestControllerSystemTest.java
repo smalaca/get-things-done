@@ -7,7 +7,7 @@ import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import com.smalaca.gtd.tests.annotation.SystemTest;
 import com.smalaca.gtd.usermanagement.domain.user.UserTestFactory;
-import com.smalaca.gtd.usermanagement.domain.user.UserTestRepository;
+import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

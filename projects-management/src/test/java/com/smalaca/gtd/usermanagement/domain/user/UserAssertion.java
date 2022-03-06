@@ -32,7 +32,7 @@ public class UserAssertion {
         return this;
     }
 
-    UserAssertion hasPassword(String expected) {
+    public UserAssertion hasPassword(String expected) {
         password().isEqualTo(expected);
         return this;
     }
