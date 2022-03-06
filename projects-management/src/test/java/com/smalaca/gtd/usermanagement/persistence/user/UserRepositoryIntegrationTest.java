@@ -1,6 +1,9 @@
-package com.smalaca.gtd.usermanagement.domain.user;
+package com.smalaca.gtd.usermanagement.persistence.user;
 
 import com.smalaca.gtd.tests.annotation.IntegrationTest;
+import com.smalaca.gtd.usermanagement.domain.user.User;
+import com.smalaca.gtd.usermanagement.domain.user.UserAssertion;
+import com.smalaca.gtd.usermanagement.domain.user.UserTestFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +35,7 @@ class UserRepositoryIntegrationTest {
 
     @Test
     void shouldSaveUser() {
-        id = repository.save(User.user("captain-america", "5H13LD"));
+        id = repository.save(UserTestFactory.user("captain-america", "5H13LD"));
 
         UserAssertion.assertThat(findBy(id))
                 .hasUserName("captain-america")
@@ -47,7 +50,7 @@ class UserRepositoryIntegrationTest {
 
     @Test
     void shouldRecognizeUserWithGivenUserNameDoNotExist() {
-        repository.save(User.user("captain-america", "5H13LD"));
+        repository.save(UserTestFactory.user("captain-america", "5H13LD"));
 
         boolean actual = repository.exists("charles xavier");
 
@@ -56,7 +59,7 @@ class UserRepositoryIntegrationTest {
 
     @Test
     void shouldRecognizeUserWithGivenUserNameExists() {
-        repository.save(User.user("captain-america", "5H13LD"));
+        repository.save(UserTestFactory.user("captain-america", "5H13LD"));
 
         boolean actual = repository.exists("captain-america");
 

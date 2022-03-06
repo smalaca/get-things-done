@@ -1,5 +1,7 @@
 package com.smalaca.gtd.usermanagement.domain.user;
 
+import com.smalaca.gtd.usermanagement.persistence.user.UserRepository;
+
 public class UserService {
     private final UserFactory factory;
     private final UserRepository repository;

@@ -4,7 +4,7 @@ import com.smalaca.gtd.client.rest.ProjectsManagementClient;
 import com.smalaca.gtd.client.rest.user.UserTestDto;
 import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
 import com.smalaca.gtd.tests.annotation.SystemTest;
-import com.smalaca.gtd.usermanagement.domain.user.UserTestRepository;
+import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

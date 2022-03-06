@@ -1,5 +1,6 @@
 package com.smalaca.gtd.usermanagement.domain.user;
 
+import com.smalaca.gtd.usermanagement.persistence.user.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 class UserFactory {

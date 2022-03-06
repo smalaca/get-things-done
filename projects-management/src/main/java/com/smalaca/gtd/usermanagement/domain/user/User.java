@@ -34,7 +34,7 @@ public class User {
         return user;
     }
 
-    String id() {
+    public String id() {
         return id.toString();
     }
 }

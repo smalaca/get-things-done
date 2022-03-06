@@ -1,5 +1,6 @@
-package com.smalaca.gtd.usermanagement.domain.user;
+package com.smalaca.gtd.usermanagement.persistence.user;
 
+import com.smalaca.gtd.usermanagement.domain.user.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,7 +15,7 @@ public class UserRepository {
         return repository.save(user).id();
     }
 
-    boolean exists(String userName) {
+    public boolean exists(String userName) {
         return repository.existsByUserName(userName);
     }
 }
