@@ -1,7 +1,7 @@
 package com.smalaca.gtd.usermanagement.controller.rest.user;
 
-import com.smalaca.gtd.shared.validation.controller.ValidationErrorsDto;
-import com.smalaca.gtd.shared.validation.controller.ValidationFieldErrorDto;
+import com.smalaca.gtd.shared.configuration.api.web.rest.validationerror.ValidationErrorsDto;
+import com.smalaca.gtd.shared.configuration.api.web.rest.validationerror.ValidationFieldErrorDto;
 import com.smalaca.gtd.usermanagement.domain.user.UserAlreadyExistsException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
