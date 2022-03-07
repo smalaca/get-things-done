@@ -1,4 +1,4 @@
-package com.smalaca.gtd.shared.validation.controller;
+package com.smalaca.gtd.shared.configuration.api.web.rest.validationerror;
 
 import org.springframework.validation.ObjectError;
 

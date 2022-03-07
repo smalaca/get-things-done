@@ -1,4 +1,4 @@
-package com.smalaca.gtd.shared.validation.constrains;
+package com.smalaca.gtd.shared.libraries.validation.constrains;
 
 import lombok.Builder;
 import lombok.Getter;
