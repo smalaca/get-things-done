@@ -1,6 +1,6 @@
 package com.smalaca.gtd.usermanagement.controller.rest.user;
 
-import com.smalaca.gtd.shared.validation.constrains.SameValues;
+import com.smalaca.gtd.shared.libraries.validation.constrains.SameValues;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Length;
