@@ -4,6 +4,7 @@ import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.sharedConfigurationClasses;
+import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedConfigurationPackages;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
@@ -14,17 +15,16 @@ class SharedConfigurationPackagesStructureTest {
     private static final String SPRING_HTTP = "org.springframework.http..";
     private static final String SPRING_VALIDATION = "org.springframework.validation..";
 
-    private static final String SHARED_CONFIGURATION = "com.smalaca.gtd.shared.configuration..";
-
     @Test
     void shouldBeIndependent() {
         classes().that()
-                .resideInAPackage(SHARED_CONFIGURATION)
+                .resideInAPackage(sharedConfigurationPackages())
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
                         JAVA, APACHE_COMMONS,
                         SPRING_WEB, SPRING_VALIDATION, SPRING_HTTP,
-                        SHARED_CONFIGURATION)
+                        sharedConfigurationPackages())
+
                 .check(sharedConfigurationClasses());
     }
 }

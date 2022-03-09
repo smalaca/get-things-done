@@ -4,6 +4,9 @@ import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.userManagementClasses;
+import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedConfigurationPackages;
+import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
+import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagement;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
@@ -23,12 +26,9 @@ class UserManagementPackagesStructureTest {
 
     private static final String FINDBUGS_SUPPRESSION = "edu.umd.cs.findbugs.annotations..";
 
-    private static final String SHARED_CONFIGURATION = "com.smalaca.gtd.shared.configuration..";
-    private static final String SHARED_LIBRARIES_VALIDATION = "com.smalaca.gtd.shared.libraries.validation..";
-
-    private static final String CONTROLLER = "com.smalaca.gtd.usermanagement.controller..";
-    private static final String DOMAIN = "com.smalaca.gtd.usermanagement.domain..";
-    private static final String PERSISTENCE = "com.smalaca.gtd.usermanagement.persistence..";
+    private static final String CONTROLLER = userManagement() + ".controller..";
+    private static final String DOMAIN = userManagement() + ".domain..";
+    private static final String PERSISTENCE = userManagement() + ".persistence..";
 
     @Test
     void controllersShouldDependOnDomain() {
@@ -38,8 +38,9 @@ class UserManagementPackagesStructureTest {
                 .resideInAnyPackage(
                         JAVA, VALIDATION,
                         SPRING_WEB, SPRING_HTTP, HIBERNATE_CONSTRAINS,
-                        SHARED_CONFIGURATION, SHARED_LIBRARIES_VALIDATION,
+                        sharedConfigurationPackages(), sharedLibrariesValidationPackages(),
                         CONTROLLER, DOMAIN)
+
                 .check(userManagementClasses());
     }
 
@@ -52,6 +53,7 @@ class UserManagementPackagesStructureTest {
                         JAVA,
                         SPRING_CONTEXT, SPRING_BEANS, SPRING_SECURITY,
                         DOMAIN, PERSISTENCE)
+
                 .check(userManagementClasses());
     }
 
@@ -65,6 +67,7 @@ class UserManagementPackagesStructureTest {
                         SPRING_STEREOTYPES, SPRING_DATA,
                         FINDBUGS_SUPPRESSION,
                         PERSISTENCE)
+
                 .check(userManagementClasses());
     }
 }

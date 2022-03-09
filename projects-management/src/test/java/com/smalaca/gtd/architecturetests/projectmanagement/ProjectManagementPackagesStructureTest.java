@@ -4,6 +4,7 @@ import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.projectManagementClasses;
+import static com.smalaca.gtd.architecturetests.packages.Gtd.projectManagement;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
@@ -21,9 +22,9 @@ class ProjectManagementPackagesStructureTest {
 
     private static final String FINDBUGS_SUPPRESSION = "edu.umd.cs.findbugs.annotations..";
 
-    private static final String DOMAIN = "..domain..";
-    private static final String APPLICATION = "..application..";
-    private static final String QUERY = "..query..";
+    private static final String DOMAIN = projectManagement() + ".domain..";
+    private static final String APPLICATION = projectManagement() + ".application..";
+    private static final String QUERY = projectManagement() + ".query..";
 
     @Test
     void domainShouldBeIndependent() {
@@ -34,6 +35,7 @@ class ProjectManagementPackagesStructureTest {
                         JAVA, JPA, APACHE_COMMONS,
                         FINDBUGS_SUPPRESSION,
                         DOMAIN)
+
                 .check(projectManagementClasses());
     }
     @Test
@@ -44,6 +46,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAnyPackage(
                         JAVA, SPRING_CONTEXT, TRANSACTIONS, SPRING_BEANS,
                         APPLICATION, DOMAIN)
+
                 .check(projectManagementClasses());
     }
 
@@ -56,6 +59,7 @@ class ProjectManagementPackagesStructureTest {
                         JAVA, JPA, GOGGLE_COMMON, SPRING_DATA, SPRING_STEREOTYPES,
                         FINDBUGS_SUPPRESSION,
                         QUERY)
+
                 .check(projectManagementClasses());
     }
 }
