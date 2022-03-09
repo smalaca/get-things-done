@@ -7,7 +7,7 @@ import static com.smalaca.gtd.architecturetests.GtdClasses.projectManagementClas
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
-class PackageStructureTest {
+class ProjectManagementPackagesStructureTest {
     private static final String JAVA = "java..";
     private static final String JPA = "javax.persistence..";
     private static final String TRANSACTIONS = "javax.transaction..";

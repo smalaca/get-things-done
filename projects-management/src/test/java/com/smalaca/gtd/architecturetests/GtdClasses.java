@@ -15,6 +15,10 @@ public class GtdClasses {
         return classesFrom("com.smalaca.gtd.projectmanagement");
     }
 
+    public static JavaClasses sharedConfigurationClasses() {
+        return classesFrom("com.smalaca.gtd.shared.configuration");
+    }
+
     private static JavaClasses classesFrom(String packageName) {
         return new ClassFileImporter()
                 .withImportOption(DO_NOT_INCLUDE_JARS)
