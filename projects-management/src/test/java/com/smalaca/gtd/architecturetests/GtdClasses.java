@@ -15,6 +15,10 @@ public class GtdClasses {
         return classesFrom("com.smalaca.gtd.projectmanagement");
     }
 
+    public static JavaClasses userManagementClasses() {
+        return classesFrom("com.smalaca.gtd.usermanagement");
+    }
+
     public static JavaClasses sharedConfigurationClasses() {
         return classesFrom("com.smalaca.gtd.shared.configuration");
     }
