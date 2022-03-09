@@ -1,13 +1,13 @@
-package com.smalaca.gtd.projectmanagement.architecturetests;
+package com.smalaca.gtd.architecturetests.projectmanagement;
 
 import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
-import static com.smalaca.gtd.projectmanagement.architecturetests.ProjectManagementClasses.projectClasses;
+import static com.smalaca.gtd.architecturetests.GtdClasses.projectManagementClasses;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
-class PackageStructureTest {
+class ProjectManagementPackagesStructureTest {
     private static final String JAVA = "java..";
     private static final String JPA = "javax.persistence..";
     private static final String TRANSACTIONS = "javax.transaction..";
@@ -34,7 +34,7 @@ class PackageStructureTest {
                         JAVA, JPA, APACHE_COMMONS,
                         FINDBUGS_SUPPRESSION,
                         DOMAIN)
-                .check(projectClasses());
+                .check(projectManagementClasses());
     }
     @Test
     void applicationShouldDependOnlyOnCommand() {
@@ -44,7 +44,7 @@ class PackageStructureTest {
                 .resideInAnyPackage(
                         JAVA, SPRING_CONTEXT, TRANSACTIONS, SPRING_BEANS,
                         APPLICATION, DOMAIN)
-                .check(projectClasses());
+                .check(projectManagementClasses());
     }
 
     @Test
@@ -56,6 +56,6 @@ class PackageStructureTest {
                         JAVA, JPA, GOGGLE_COMMON, SPRING_DATA, SPRING_STEREOTYPES,
                         FINDBUGS_SUPPRESSION,
                         QUERY)
-                .check(projectClasses());
+                .check(projectManagementClasses());
     }
 }

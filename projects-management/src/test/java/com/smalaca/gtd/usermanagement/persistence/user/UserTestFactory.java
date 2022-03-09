@@ -1,4 +1,4 @@
-package com.smalaca.gtd.usermanagement.domain.user;
+package com.smalaca.gtd.usermanagement.persistence.user;
 
 public class UserTestFactory {
     public static User user(String userName, String password) {

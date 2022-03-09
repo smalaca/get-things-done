@@ -1,9 +1,9 @@
-package com.smalaca.gtd.projectmanagement.architecturetests;
+package com.smalaca.gtd.architecturetests.all;
 
 import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
-import static com.smalaca.gtd.projectmanagement.architecturetests.ProjectManagementClasses.projectClasses;
+import static com.smalaca.gtd.architecturetests.GtdClasses.allClasses;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
@@ -16,6 +16,6 @@ class ImmutableObjectsTest {
                 .or().haveSimpleNameEndingWith("Event")
                 .should()
                 .haveOnlyFinalFields()
-                .check(projectClasses());
+                .check(allClasses());
     }
 }

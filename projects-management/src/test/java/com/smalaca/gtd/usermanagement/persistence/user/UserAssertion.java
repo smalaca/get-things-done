@@ -1,10 +1,10 @@
-package com.smalaca.gtd.usermanagement.domain.user;
+package com.smalaca.gtd.usermanagement.persistence.user;
 
 import org.assertj.core.api.AbstractObjectAssert;
 import org.assertj.core.api.Assertions;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static com.smalaca.gtd.usermanagement.domain.user.Role.USER;
+import static com.smalaca.gtd.usermanagement.persistence.user.Role.USER;
 
 public class UserAssertion {
     private static final BCryptPasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();

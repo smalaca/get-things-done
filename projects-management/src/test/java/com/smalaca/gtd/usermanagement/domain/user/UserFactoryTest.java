@@ -1,5 +1,7 @@
 package com.smalaca.gtd.usermanagement.domain.user;
 
+import com.smalaca.gtd.usermanagement.persistence.user.User;
+import com.smalaca.gtd.usermanagement.persistence.user.UserAssertion;
 import com.smalaca.gtd.usermanagement.persistence.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;

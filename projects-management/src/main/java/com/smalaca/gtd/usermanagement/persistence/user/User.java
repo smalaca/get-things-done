@@ -1,4 +1,4 @@
-package com.smalaca.gtd.usermanagement.domain.user;
+package com.smalaca.gtd.usermanagement.persistence.user;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AccessLevel;
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
-import static com.smalaca.gtd.usermanagement.domain.user.Role.USER;
+import static com.smalaca.gtd.usermanagement.persistence.user.Role.USER;
 
 @SuppressFBWarnings("URF_UNREAD_FIELD")
 @Entity
@@ -25,7 +25,7 @@ public class User {
     private boolean active;
     private Role role;
 
-    static User user(String userName, String password) {
+    public static User user(String userName, String password) {
         User user = new User();
         user.userName = userName;
         user.password = password;
@@ -34,7 +34,7 @@ public class User {
         return user;
     }
 
-    public String id() {
+    String id() {
         return id.toString();
     }
 }

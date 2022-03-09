@@ -1,9 +1,6 @@
 package com.smalaca.gtd.usermanagement.persistence.user;
 
 import com.smalaca.gtd.tests.annotation.IntegrationTest;
-import com.smalaca.gtd.usermanagement.domain.user.User;
-import com.smalaca.gtd.usermanagement.domain.user.UserAssertion;
-import com.smalaca.gtd.usermanagement.domain.user.UserTestFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
