@@ -1,6 +1,5 @@
 package com.smalaca.gtd.usermanagement.persistence.user;
 
-import com.smalaca.gtd.usermanagement.domain.user.User;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 import java.util.UUID;
 
 import static com.smalaca.gtd.client.rest.RestClientResponseAssertions.assertThat;
-import static com.smalaca.gtd.usermanagement.domain.user.UserAssertion.assertThat;
+import static com.smalaca.gtd.usermanagement.persistence.user.UserAssertion.assertThat;
 import static org.springframework.http.HttpStatus.OK;
 
 @SystemTest

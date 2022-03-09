@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.smalaca.gtd.usermanagement.domain.user.UserTestFactory.user;
+import static com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest

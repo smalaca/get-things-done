@@ -1,5 +1,6 @@
 package com.smalaca.gtd.usermanagement.domain.user;
 
+import com.smalaca.gtd.usermanagement.persistence.user.User;
 import com.smalaca.gtd.usermanagement.persistence.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
 
-import static com.smalaca.gtd.usermanagement.domain.user.UserAssertion.assertThat;
+import static com.smalaca.gtd.usermanagement.persistence.user.UserAssertion.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
