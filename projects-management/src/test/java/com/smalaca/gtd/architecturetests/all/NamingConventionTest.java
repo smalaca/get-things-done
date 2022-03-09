@@ -1,9 +1,9 @@
-package com.smalaca.gtd.projectmanagement.architecturetests;
+package com.smalaca.gtd.architecturetests.all;
 
 import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
-import static com.smalaca.gtd.projectmanagement.architecturetests.ProjectManagementClasses.projectClasses;
+import static com.smalaca.gtd.architecturetests.all.GtdClasses.gtdClasses;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
@@ -13,7 +13,7 @@ class NamingConventionTest {
         classes().that().areInterfaces()
                 .should().haveSimpleNameNotContaining("Interface")
                 .because("it is a smell the abstraction is unnecessary")
-                .check(projectClasses());
+                .check(gtdClasses());
     }
 
     @Test
@@ -23,6 +23,6 @@ class NamingConventionTest {
                 .andShould().haveSimpleNameNotContaining("Base")
                 .andShould().haveSimpleNameNotContaining("Abstract")
                 .because("it is a smell the abstraction is unnecessary")
-                .check(projectClasses());
+                .check(gtdClasses());
     }
 }
