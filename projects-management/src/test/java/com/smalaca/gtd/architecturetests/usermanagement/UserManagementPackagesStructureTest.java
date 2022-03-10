@@ -6,14 +6,13 @@ import org.junit.jupiter.api.Test;
 import static com.smalaca.gtd.architecturetests.GtdClasses.userManagementClasses;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagement;
+import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
+import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
+import static com.smalaca.gtd.architecturetests.packages.Java.validationPackages;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
 class UserManagementPackagesStructureTest {
-    private static final String JAVA = "java..";
-    private static final String JPA = "javax.persistence..";
-    private static final String VALIDATION = "javax.validation..";
-
     private static final String HIBERNATE_CONSTRAINS = "org.hibernate.validator.constraints..";
     private static final String SPRING_STEREOTYPES = "org.springframework.stereotype..";
     private static final String SPRING_DATA = "org.springframework.data.repository..";
@@ -35,7 +34,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAPackage(CONTROLLER)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        JAVA, VALIDATION,
+                        javaPackages(), validationPackages(),
                         SPRING_WEB, SPRING_HTTP, HIBERNATE_CONSTRAINS,
                         sharedLibrariesValidationPackages(),
                         CONTROLLER, DOMAIN)
@@ -49,7 +48,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAPackage(DOMAIN)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        JAVA,
+                        javaPackages(),
                         SPRING_CONTEXT, SPRING_BEANS, SPRING_SECURITY,
                         DOMAIN, PERSISTENCE)
 
@@ -62,7 +61,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAPackage(PERSISTENCE)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        JAVA, JPA,
+                        javaPackages(), jpaPackages(),
                         SPRING_STEREOTYPES, SPRING_DATA,
                         FINDBUGS_SUPPRESSION,
                         PERSISTENCE)
