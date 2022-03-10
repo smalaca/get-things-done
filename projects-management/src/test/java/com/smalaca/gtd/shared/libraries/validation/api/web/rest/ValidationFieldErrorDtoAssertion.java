@@ -1,4 +1,4 @@
-package com.smalaca.gtd.shared.configuration.api.web.rest.validationerror;
+package com.smalaca.gtd.shared.libraries.validation.api.web.rest;
 
 import org.assertj.core.api.Assertions;
 
@@ -17,7 +17,7 @@ public class ValidationFieldErrorDtoAssertion {
         return forFields(expected);
     }
 
-    ValidationFieldErrorDtoAssertion forFields(String... expected) {
+    public ValidationFieldErrorDtoAssertion forFields(String... expected) {
         Assertions.assertThat(actual.getFields()).containsExactlyInAnyOrder(expected);
         return this;
     }

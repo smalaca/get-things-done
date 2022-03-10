@@ -1,5 +1,6 @@
 package com.smalaca.gtd.shared.configuration.api.web.rest.validationerror;
 
+import com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationErrorsDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.stream.Stream;
 
-import static com.smalaca.gtd.shared.configuration.api.web.rest.validationerror.ValidationFieldErrorDtoAssertion.assertThat;
+import static com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationFieldErrorDtoAssertion.assertThat;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;

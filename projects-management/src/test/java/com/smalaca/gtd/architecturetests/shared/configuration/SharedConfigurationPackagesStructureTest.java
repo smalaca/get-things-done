@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.sharedConfigurationClasses;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedConfigurationPackages;
+import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
@@ -23,6 +24,8 @@ class SharedConfigurationPackagesStructureTest {
                 .resideInAnyPackage(
                         JAVA, APACHE_COMMONS,
                         SPRING_WEB, SPRING_VALIDATION, SPRING_HTTP,
+                        sharedLibrariesValidationPackages(),
+
                         sharedConfigurationPackages())
 
                 .check(sharedConfigurationClasses());

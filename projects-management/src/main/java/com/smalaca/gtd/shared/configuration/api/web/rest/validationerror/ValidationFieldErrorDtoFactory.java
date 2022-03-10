@@ -1,5 +1,6 @@
 package com.smalaca.gtd.shared.configuration.api.web.rest.validationerror;
 
+import com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationFieldErrorDto;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 

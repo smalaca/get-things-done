@@ -1,4 +1,4 @@
-package com.smalaca.gtd.shared.configuration.api.web.rest.validationerror;
+package com.smalaca.gtd.shared.libraries.validation.api.web.rest;
 
 import lombok.Getter;
 
