@@ -4,7 +4,6 @@ import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.userManagementClasses;
-import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedConfigurationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagement;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
@@ -38,7 +37,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAnyPackage(
                         JAVA, VALIDATION,
                         SPRING_WEB, SPRING_HTTP, HIBERNATE_CONSTRAINS,
-                        sharedConfigurationPackages(), sharedLibrariesValidationPackages(),
+                        sharedLibrariesValidationPackages(),
                         CONTROLLER, DOMAIN)
 
                 .check(userManagementClasses());

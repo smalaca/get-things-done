@@ -1,12 +1,12 @@
 package com.smalaca.gtd.usermanagement.controller.rest.user;
 
-import com.smalaca.gtd.shared.configuration.api.web.rest.validationerror.ValidationErrorsDto;
+import com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationErrorsDto;
 import com.smalaca.gtd.usermanagement.domain.user.UserAlreadyExistsException;
 import com.smalaca.gtd.usermanagement.domain.user.UserAlreadyExistsExceptionTestFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
-import static com.smalaca.gtd.shared.configuration.api.web.rest.validationerror.ValidationFieldErrorDtoAssertion.assertThat;
+import static com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationFieldErrorDtoAssertion.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.OK;
 
