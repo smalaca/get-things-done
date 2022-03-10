@@ -1,28 +1,21 @@
 package com.smalaca.gtd.shared.configuration.api.web.rest.validationerror;
 
 import com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationErrorsDto;
-import com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationFieldErrorDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
-
 @ControllerAdvice
 public class ValidationExceptionControllerAdvice {
-    private final ValidationFieldErrorDtoFactory factory = new ValidationFieldErrorDtoFactory();
-
     @ExceptionHandler
     public ResponseEntity<ValidationErrorsDto> handle(MethodArgumentNotValidException exception) {
-        List<ValidationFieldErrorDto> fieldErrors = exception.getBindingResult()
-                .getAllErrors()
-                .stream()
-                .map(factory::create)
-                .collect(toList());
+        ValidationErrorsDtoBuilder builder = new ValidationErrorsDtoBuilder();
 
-        return ResponseEntity.ok(new ValidationErrorsDto(fieldErrors));
+        exception.getBindingResult()
+                .getAllErrors()
+                .forEach(builder::add);
+
+        return ResponseEntity.ok(builder.build());
     }
 }

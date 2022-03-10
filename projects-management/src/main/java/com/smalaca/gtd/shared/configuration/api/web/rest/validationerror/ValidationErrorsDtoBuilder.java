@@ -1,6 +1,6 @@
 package com.smalaca.gtd.shared.configuration.api.web.rest.validationerror;
 
-import com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationFieldErrorDto;
+import com.smalaca.gtd.shared.libraries.validation.api.web.rest.ValidationErrorsDto;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
@@ -10,12 +10,18 @@ import java.util.Optional;
 import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.ArrayUtils.isArrayIndexValid;
 
-class ValidationFieldErrorDtoFactory {
-    ValidationFieldErrorDto create(ObjectError error) {
+class ValidationErrorsDtoBuilder {
+    private final ValidationErrorsDto.Builder builder = ValidationErrorsDto.validationErrorsDto();
+
+    ValidationErrorsDto build() {
+        return builder.build();
+    }
+
+    void add(ObjectError error) {
         Optional<List<String>> fields = fieldsFrom(error);
 
         if (fields.isPresent()) {
-            return new ValidationFieldErrorDto(fields.get(), error.getDefaultMessage());
+            builder.withFieldError(fields.get(), error.getDefaultMessage());
         } else {
             throw new MissingValidationArgumentException(error);
         }

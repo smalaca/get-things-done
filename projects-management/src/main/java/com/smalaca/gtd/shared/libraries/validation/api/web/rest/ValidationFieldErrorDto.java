@@ -5,8 +5,10 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import static lombok.AccessLevel.PACKAGE;
+
 @Getter
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = PACKAGE)
 public final class ValidationFieldErrorDto {
     private final List<String> fields;
     private final String message;
