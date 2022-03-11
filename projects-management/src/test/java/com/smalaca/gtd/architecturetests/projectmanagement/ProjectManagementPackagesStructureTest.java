@@ -4,6 +4,8 @@ import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.projectManagementClasses;
+import static com.smalaca.gtd.architecturetests.packages.Dependency.apacheCommons;
+import static com.smalaca.gtd.architecturetests.packages.Dependency.googleCommon;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.projectManagement;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
@@ -12,9 +14,6 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
 class ProjectManagementPackagesStructureTest {
-    private static final String APACHE_COMMONS = "org.apache.commons.lang3..";
-    private static final String GOGGLE_COMMON = "com.google.common..";
-
     private static final String SPRING_CONTEXT = "org.springframework.context.annotation..";
     private static final String SPRING_BEANS = "org.springframework.beans.factory.annotation..";
     private static final String SPRING_STEREOTYPES = "org.springframework.stereotype..";
@@ -32,7 +31,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(DOMAIN)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), jpaPackages(), APACHE_COMMONS,
+                        javaPackages(), jpaPackages(), apacheCommons(),
                         FINDBUGS_SUPPRESSION,
                         DOMAIN)
 
@@ -56,7 +55,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(QUERY)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), jpaPackages(), GOGGLE_COMMON, SPRING_DATA, SPRING_STEREOTYPES,
+                        javaPackages(), jpaPackages(), googleCommon(), SPRING_DATA, SPRING_STEREOTYPES,
                         FINDBUGS_SUPPRESSION,
                         QUERY)
 

@@ -4,6 +4,7 @@ import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.userManagementClasses;
+import static com.smalaca.gtd.architecturetests.packages.Dependency.hibernateConstrains;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagement;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
@@ -13,7 +14,6 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
 class UserManagementPackagesStructureTest {
-    private static final String HIBERNATE_CONSTRAINS = "org.hibernate.validator.constraints..";
     private static final String SPRING_STEREOTYPES = "org.springframework.stereotype..";
     private static final String SPRING_DATA = "org.springframework.data.repository..";
     private static final String SPRING_CONTEXT = "org.springframework.context.annotation..";
@@ -35,7 +35,7 @@ class UserManagementPackagesStructureTest {
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
                         javaPackages(), validationPackages(),
-                        SPRING_WEB, SPRING_HTTP, HIBERNATE_CONSTRAINS,
+                        SPRING_WEB, SPRING_HTTP, hibernateConstrains(),
                         sharedLibrariesValidationPackages(),
                         CONTROLLER, DOMAIN)
 
