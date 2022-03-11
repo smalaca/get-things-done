@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.projectManagementClasses;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.projectManagement;
+import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
+import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
+import static com.smalaca.gtd.architecturetests.packages.Java.transactionPackages;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
 class ProjectManagementPackagesStructureTest {
-    private static final String JAVA = "java..";
-    private static final String JPA = "javax.persistence..";
-    private static final String TRANSACTIONS = "javax.transaction..";
     private static final String APACHE_COMMONS = "org.apache.commons.lang3..";
     private static final String GOGGLE_COMMON = "com.google.common..";
 
@@ -32,7 +32,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(DOMAIN)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        JAVA, JPA, APACHE_COMMONS,
+                        javaPackages(), jpaPackages(), APACHE_COMMONS,
                         FINDBUGS_SUPPRESSION,
                         DOMAIN)
 
@@ -44,7 +44,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(APPLICATION)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        JAVA, SPRING_CONTEXT, TRANSACTIONS, SPRING_BEANS,
+                        javaPackages(), transactionPackages(), SPRING_CONTEXT, SPRING_BEANS,
                         APPLICATION, DOMAIN)
 
                 .check(projectManagementClasses());
@@ -56,7 +56,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(QUERY)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        JAVA, JPA, GOGGLE_COMMON, SPRING_DATA, SPRING_STEREOTYPES,
+                        javaPackages(), jpaPackages(), GOGGLE_COMMON, SPRING_DATA, SPRING_STEREOTYPES,
                         FINDBUGS_SUPPRESSION,
                         QUERY)
 
