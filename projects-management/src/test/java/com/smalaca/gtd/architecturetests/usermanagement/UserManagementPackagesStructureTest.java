@@ -10,6 +10,7 @@ import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagement;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.validationPackages;
+import static com.smalaca.gtd.architecturetests.packages.StaticAnalysis.findbugsSuppression;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
@@ -21,8 +22,6 @@ class UserManagementPackagesStructureTest {
     private static final String SPRING_SECURITY = "org.springframework.security..";
     private static final String SPRING_WEB = "org.springframework.web..";
     private static final String SPRING_HTTP = "org.springframework.http..";
-
-    private static final String FINDBUGS_SUPPRESSION = "edu.umd.cs.findbugs.annotations..";
 
     private static final String CONTROLLER = userManagement() + ".controller..";
     private static final String DOMAIN = userManagement() + ".domain..";
@@ -63,7 +62,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAnyPackage(
                         javaPackages(), jpaPackages(),
                         SPRING_STEREOTYPES, SPRING_DATA,
-                        FINDBUGS_SUPPRESSION,
+                        findbugsSuppression(),
                         PERSISTENCE)
 
                 .check(userManagementClasses());
