@@ -1,6 +1,6 @@
 package com.smalaca.gtd.architecturetests.packages;
 
-public class SpringFramework {
+public final class SpringFramework {
     private SpringFramework() {}
 
     public static String springWebPackages() {

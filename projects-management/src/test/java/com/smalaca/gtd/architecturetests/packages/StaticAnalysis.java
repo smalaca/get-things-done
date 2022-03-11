@@ -1,6 +1,6 @@
 package com.smalaca.gtd.architecturetests.packages;
 
-public class StaticAnalysis {
+public final class StaticAnalysis {
     private StaticAnalysis() {}
 
     public static String findbugsPackages() {
