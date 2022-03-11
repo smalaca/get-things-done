@@ -3,7 +3,7 @@ package com.smalaca.gtd.architecturetests.packages;
 public class StaticAnalysis {
     private StaticAnalysis() {}
 
-    public static String findbugsSuppression() {
+    public static String findbugsPackages() {
         return allPackagesIn("edu.umd.cs.findbugs.annotations");
     }
 

@@ -4,7 +4,7 @@ import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.userManagementClasses;
-import static com.smalaca.gtd.architecturetests.packages.Dependency.hibernateConstrains;
+import static com.smalaca.gtd.architecturetests.packages.Dependency.hibernateConstrainsPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagement;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
@@ -17,7 +17,7 @@ import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springH
 import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springSecurityPackages;
 import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springStereotypesPackages;
 import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springWebPackages;
-import static com.smalaca.gtd.architecturetests.packages.StaticAnalysis.findbugsSuppression;
+import static com.smalaca.gtd.architecturetests.packages.StaticAnalysis.findbugsPackages;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
@@ -32,7 +32,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAPackage(CONTROLLER)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), validationPackages(), springWebPackages(), springHttpPackages(), hibernateConstrains(),
+                        javaPackages(), validationPackages(), springWebPackages(), springHttpPackages(), hibernateConstrainsPackages(),
                         sharedLibrariesValidationPackages(),
                         CONTROLLER, DOMAIN)
 
@@ -57,7 +57,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAPackage(PERSISTENCE)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), jpaPackages(), springStereotypesPackages(), springDataPackages(), findbugsSuppression(),
+                        javaPackages(), jpaPackages(), springStereotypesPackages(), springDataPackages(), findbugsPackages(),
                         PERSISTENCE)
 
                 .check(userManagementClasses());

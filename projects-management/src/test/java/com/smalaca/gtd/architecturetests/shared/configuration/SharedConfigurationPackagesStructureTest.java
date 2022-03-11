@@ -4,7 +4,7 @@ import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
 import static com.smalaca.gtd.architecturetests.GtdClasses.sharedConfigurationClasses;
-import static com.smalaca.gtd.architecturetests.packages.Dependency.apacheCommons;
+import static com.smalaca.gtd.architecturetests.packages.Dependency.apacheCommonsPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedConfigurationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
@@ -21,7 +21,7 @@ class SharedConfigurationPackagesStructureTest {
                 .resideInAPackage(sharedConfigurationPackages())
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), apacheCommons(),
+                        javaPackages(), apacheCommonsPackages(),
                         springWebPackages(), springValidationPackages(), springHttpPackages(),
                         sharedLibrariesValidationPackages(),
 

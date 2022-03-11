@@ -3,15 +3,15 @@ package com.smalaca.gtd.architecturetests.packages;
 public final class Dependency {
     private Dependency() {}
 
-    public static String hibernateConstrains() {
+    public static String hibernateConstrainsPackages() {
         return allPackagesIn("org.hibernate.validator.constraints");
     }
 
-    public static String apacheCommons() {
+    public static String apacheCommonsPackages() {
         return allPackagesIn("org.apache.commons.lang3");
     }
 
-    public static String googleCommon() {
+    public static String googleCommonPackages() {
         return allPackagesIn("com.google.common");
     }
 
