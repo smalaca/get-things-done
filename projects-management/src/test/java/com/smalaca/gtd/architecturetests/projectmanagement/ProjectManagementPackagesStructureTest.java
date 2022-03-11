@@ -10,16 +10,15 @@ import static com.smalaca.gtd.architecturetests.packages.Gtd.projectManagement;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.transactionPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springBeansPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springContextPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springDataPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springStereotypesPackages;
 import static com.smalaca.gtd.architecturetests.packages.StaticAnalysis.findbugsSuppression;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
 class ProjectManagementPackagesStructureTest {
-    private static final String SPRING_CONTEXT = "org.springframework.context.annotation..";
-    private static final String SPRING_BEANS = "org.springframework.beans.factory.annotation..";
-    private static final String SPRING_STEREOTYPES = "org.springframework.stereotype..";
-    private static final String SPRING_DATA = "org.springframework.data.repository..";
-
     private static final String DOMAIN = projectManagement() + ".domain..";
     private static final String APPLICATION = projectManagement() + ".application..";
     private static final String QUERY = projectManagement() + ".query..";
@@ -30,8 +29,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(DOMAIN)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), jpaPackages(), apacheCommons(),
-                        findbugsSuppression(),
+                        javaPackages(), jpaPackages(), apacheCommons(), findbugsSuppression(),
                         DOMAIN)
 
                 .check(projectManagementClasses());
@@ -42,7 +40,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(APPLICATION)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), transactionPackages(), SPRING_CONTEXT, SPRING_BEANS,
+                        javaPackages(), transactionPackages(), springContextPackages(), springBeansPackages(),
                         APPLICATION, DOMAIN)
 
                 .check(projectManagementClasses());
@@ -54,7 +52,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(QUERY)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), jpaPackages(), googleCommon(), SPRING_DATA, SPRING_STEREOTYPES,
+                        javaPackages(), jpaPackages(), googleCommon(), springDataPackages(), springStereotypesPackages(),
                         findbugsSuppression(),
                         QUERY)
 

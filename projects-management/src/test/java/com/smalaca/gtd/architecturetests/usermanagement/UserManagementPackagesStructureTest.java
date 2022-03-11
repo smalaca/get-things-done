@@ -10,19 +10,18 @@ import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagement;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.validationPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springBeansPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springContextPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springDataPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springHttpPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springSecurityPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springStereotypesPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springWebPackages;
 import static com.smalaca.gtd.architecturetests.packages.StaticAnalysis.findbugsSuppression;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
 class UserManagementPackagesStructureTest {
-    private static final String SPRING_STEREOTYPES = "org.springframework.stereotype..";
-    private static final String SPRING_DATA = "org.springframework.data.repository..";
-    private static final String SPRING_CONTEXT = "org.springframework.context.annotation..";
-    private static final String SPRING_BEANS = "org.springframework.beans.factory.annotation..";
-    private static final String SPRING_SECURITY = "org.springframework.security..";
-    private static final String SPRING_WEB = "org.springframework.web..";
-    private static final String SPRING_HTTP = "org.springframework.http..";
-
     private static final String CONTROLLER = userManagement() + ".controller..";
     private static final String DOMAIN = userManagement() + ".domain..";
     private static final String PERSISTENCE = userManagement() + ".persistence..";
@@ -33,8 +32,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAPackage(CONTROLLER)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), validationPackages(),
-                        SPRING_WEB, SPRING_HTTP, hibernateConstrains(),
+                        javaPackages(), validationPackages(), springWebPackages(), springHttpPackages(), hibernateConstrains(),
                         sharedLibrariesValidationPackages(),
                         CONTROLLER, DOMAIN)
 
@@ -47,8 +45,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAPackage(DOMAIN)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(),
-                        SPRING_CONTEXT, SPRING_BEANS, SPRING_SECURITY,
+                        javaPackages(), springContextPackages(), springBeansPackages(), springSecurityPackages(),
                         DOMAIN, PERSISTENCE)
 
                 .check(userManagementClasses());
@@ -60,9 +57,7 @@ class UserManagementPackagesStructureTest {
                 .resideInAPackage(PERSISTENCE)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), jpaPackages(),
-                        SPRING_STEREOTYPES, SPRING_DATA,
-                        findbugsSuppression(),
+                        javaPackages(), jpaPackages(), springStereotypesPackages(), springDataPackages(), findbugsSuppression(),
                         PERSISTENCE)
 
                 .check(userManagementClasses());

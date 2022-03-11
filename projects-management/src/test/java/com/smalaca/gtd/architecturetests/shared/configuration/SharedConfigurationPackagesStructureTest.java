@@ -8,14 +8,13 @@ import static com.smalaca.gtd.architecturetests.packages.Dependency.apacheCommon
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedConfigurationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springHttpPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springValidationPackages;
+import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springWebPackages;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 @ArchitectureTest
 class SharedConfigurationPackagesStructureTest {
-    private static final String SPRING_WEB = "org.springframework.web..";
-    private static final String SPRING_HTTP = "org.springframework.http..";
-    private static final String SPRING_VALIDATION = "org.springframework.validation..";
-
     @Test
     void shouldBeIndependent() {
         classes().that()
@@ -23,7 +22,7 @@ class SharedConfigurationPackagesStructureTest {
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
                         javaPackages(), apacheCommons(),
-                        SPRING_WEB, SPRING_VALIDATION, SPRING_HTTP,
+                        springWebPackages(), springValidationPackages(), springHttpPackages(),
                         sharedLibrariesValidationPackages(),
 
                         sharedConfigurationPackages())
