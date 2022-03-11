@@ -1,6 +1,6 @@
 package com.smalaca.gtd.architecturetests.packages;
 
-public class Java {
+public final class Java {
     private Java() {}
 
     public static String javaPackages() {

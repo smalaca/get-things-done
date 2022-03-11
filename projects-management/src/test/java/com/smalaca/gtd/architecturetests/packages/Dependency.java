@@ -1,6 +1,7 @@
 package com.smalaca.gtd.architecturetests.packages;
 
-public class Dependency {
+public final class Dependency {
+    private Dependency() {}
 
     public static String hibernateConstrains() {
         return allPackagesIn("org.hibernate.validator.constraints");
