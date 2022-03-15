@@ -3,10 +3,12 @@ package com.smalaca.gtd.architecturetests.usermanagement;
 import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
+import static com.smalaca.gtd.architecturetests.GtdClasses.allClasses;
 import static com.smalaca.gtd.architecturetests.GtdClasses.userManagementClasses;
 import static com.smalaca.gtd.architecturetests.packages.Dependency.hibernateConstrainsPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.sharedLibrariesValidationPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagement;
+import static com.smalaca.gtd.architecturetests.packages.Gtd.userManagementPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.validationPackages;
@@ -19,6 +21,7 @@ import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springS
 import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springWebPackages;
 import static com.smalaca.gtd.architecturetests.packages.StaticAnalysis.findbugsPackages;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 @ArchitectureTest
 class UserManagementPackagesStructureTest {
@@ -61,5 +64,15 @@ class UserManagementPackagesStructureTest {
                         PERSISTENCE)
 
                 .check(userManagementClasses());
+    }
+
+    @Test
+    void otherContextsShouldNotDependOnClassesFromUserManagementContext() {
+        noClasses().that()
+                .resideOutsideOfPackage(userManagementPackages())
+                .should().dependOnClassesThat()
+                .resideInAPackage(userManagementPackages())
+
+                .check(allClasses());
     }
 }
