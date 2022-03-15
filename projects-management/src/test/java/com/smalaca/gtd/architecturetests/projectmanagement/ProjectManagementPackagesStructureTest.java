@@ -3,10 +3,12 @@ package com.smalaca.gtd.architecturetests.projectmanagement;
 import com.smalaca.gtd.tests.annotation.ArchitectureTest;
 import org.junit.jupiter.api.Test;
 
+import static com.smalaca.gtd.architecturetests.GtdClasses.allClasses;
 import static com.smalaca.gtd.architecturetests.GtdClasses.projectManagementClasses;
 import static com.smalaca.gtd.architecturetests.packages.Dependency.apacheCommonsPackages;
 import static com.smalaca.gtd.architecturetests.packages.Dependency.googleCommonPackages;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.projectManagement;
+import static com.smalaca.gtd.architecturetests.packages.Gtd.projectManagementPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.transactionPackages;
@@ -16,6 +18,7 @@ import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springD
 import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springStereotypesPackages;
 import static com.smalaca.gtd.architecturetests.packages.StaticAnalysis.findbugsPackages;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 @ArchitectureTest
 class ProjectManagementPackagesStructureTest {
@@ -57,5 +60,15 @@ class ProjectManagementPackagesStructureTest {
                         QUERY)
 
                 .check(projectManagementClasses());
+    }
+
+    @Test
+    void otherContextsShouldNotDependOnClassesFromProjectManagementContext() {
+        noClasses().that()
+                .resideOutsideOfPackage(projectManagementPackages())
+                .should().dependOnClassesThat()
+                .resideInAPackage(projectManagementPackages())
+
+                .check(allClasses());
     }
 }

@@ -7,8 +7,16 @@ public final class Gtd {
         return "com.smalaca.gtd";
     }
 
+    public static String projectManagementPackages() {
+        return allPackagesIn(projectManagement());
+    }
+
     public static String projectManagement() {
         return gtd() + ".projectmanagement";
+    }
+
+    public static String userManagementPackages() {
+        return allPackagesIn(userManagement());
     }
 
     public static String userManagement() {
