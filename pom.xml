@@ -11,7 +11,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>design</module>
         <module>projects-management</module>
     </modules>
 
