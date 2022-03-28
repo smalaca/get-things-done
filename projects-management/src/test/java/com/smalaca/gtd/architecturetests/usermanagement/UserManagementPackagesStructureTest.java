@@ -39,6 +39,7 @@ class UserManagementPackagesStructureTest {
                         sharedLibrariesValidationPackages(),
                         CONTROLLER, DOMAIN)
 
+                .because("0004-user-management-layered-architecture.md")
                 .check(userManagementClasses());
     }
 
@@ -51,6 +52,7 @@ class UserManagementPackagesStructureTest {
                         javaPackages(), springContextPackages(), springBeansPackages(), springSecurityPackages(),
                         DOMAIN, PERSISTENCE)
 
+                .because("0004-user-management-layered-architecture.md")
                 .check(userManagementClasses());
     }
 
@@ -63,6 +65,7 @@ class UserManagementPackagesStructureTest {
                         javaPackages(), jpaPackages(), springStereotypesPackages(), springDataPackages(), findbugsPackages(),
                         PERSISTENCE)
 
+                .because("0004-user-management-layered-architecture.md")
                 .check(userManagementClasses());
     }
 
