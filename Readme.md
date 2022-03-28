@@ -8,3 +8,6 @@ Documents that captures an important architectural decision made along with its 
 
 ### projects-management
 Get Things Done application's code base.
+
+#### architecture tests
+Architecture tests can be found [here](./projects-management/src/test/java/com/smalaca/gtd/architecturetests). 

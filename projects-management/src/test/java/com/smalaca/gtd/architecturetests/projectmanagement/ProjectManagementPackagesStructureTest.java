@@ -35,6 +35,7 @@ class ProjectManagementPackagesStructureTest {
                         javaPackages(), jpaPackages(), apacheCommonsPackages(), findbugsPackages(),
                         DOMAIN)
 
+                .because("0003-project-management-hexagonal-architecture.md")
                 .check(projectManagementClasses());
     }
     @Test
@@ -46,6 +47,7 @@ class ProjectManagementPackagesStructureTest {
                         javaPackages(), transactionPackages(), springContextPackages(), springBeansPackages(),
                         APPLICATION, DOMAIN)
 
+                .because("0003-project-management-hexagonal-architecture.md")
                 .check(projectManagementClasses());
     }
 
@@ -59,6 +61,7 @@ class ProjectManagementPackagesStructureTest {
                         findbugsPackages(),
                         QUERY)
 
+                .because("0002-project-management-cqrs.md")
                 .check(projectManagementClasses());
     }
 
@@ -69,6 +72,7 @@ class ProjectManagementPackagesStructureTest {
                 .should().dependOnClassesThat()
                 .resideInAPackage(projectManagementPackages())
 
+                .because("0001-component-based-architecture.md")
                 .check(allClasses());
     }
 }
