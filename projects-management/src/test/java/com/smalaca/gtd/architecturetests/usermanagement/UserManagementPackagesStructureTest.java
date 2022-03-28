@@ -73,6 +73,7 @@ class UserManagementPackagesStructureTest {
                 .should().dependOnClassesThat()
                 .resideInAPackage(userManagementPackages())
 
+                .because("0001-component-based-architecture.md")
                 .check(allClasses());
     }
 }

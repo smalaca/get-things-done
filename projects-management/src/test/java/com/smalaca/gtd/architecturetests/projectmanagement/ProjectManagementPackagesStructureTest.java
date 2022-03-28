@@ -69,6 +69,7 @@ class ProjectManagementPackagesStructureTest {
                 .should().dependOnClassesThat()
                 .resideInAPackage(projectManagementPackages())
 
+                .because("0001-component-based-architecture.md")
                 .check(allClasses());
     }
 }

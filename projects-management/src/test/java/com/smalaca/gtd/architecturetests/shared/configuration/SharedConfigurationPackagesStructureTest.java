@@ -29,6 +29,7 @@ class SharedConfigurationPackagesStructureTest {
 
                         sharedConfigurationPackages())
 
+                .because("0001-component-based-architecture.md")
                 .check(sharedConfigurationClasses());
     }
 
@@ -39,6 +40,7 @@ class SharedConfigurationPackagesStructureTest {
                 .should().dependOnClassesThat()
                 .resideInAPackage(sharedConfigurationPackages())
 
+                .because("0001-component-based-architecture.md")
                 .check(allClasses());
     }
 }
