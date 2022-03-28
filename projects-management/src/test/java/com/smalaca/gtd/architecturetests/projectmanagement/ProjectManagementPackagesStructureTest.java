@@ -59,6 +59,7 @@ class ProjectManagementPackagesStructureTest {
                         findbugsPackages(),
                         QUERY)
 
+                .because("0002-project-management-cqrs.md")
                 .check(projectManagementClasses());
     }
 
