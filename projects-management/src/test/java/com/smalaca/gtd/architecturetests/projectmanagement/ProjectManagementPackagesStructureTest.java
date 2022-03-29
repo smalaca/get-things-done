@@ -11,7 +11,6 @@ import static com.smalaca.gtd.architecturetests.packages.Gtd.projectManagement;
 import static com.smalaca.gtd.architecturetests.packages.Gtd.projectManagementPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.javaPackages;
 import static com.smalaca.gtd.architecturetests.packages.Java.jpaPackages;
-import static com.smalaca.gtd.architecturetests.packages.Java.transactionPackages;
 import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springBeansPackages;
 import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springContextPackages;
 import static com.smalaca.gtd.architecturetests.packages.SpringFramework.springDataPackages;
@@ -38,13 +37,14 @@ class ProjectManagementPackagesStructureTest {
                 .because("0003-project-management-hexagonal-architecture.md")
                 .check(projectManagementClasses());
     }
+
     @Test
     void applicationShouldDependOnlyOnCommand() {
         classes().that()
                 .resideInAPackage(APPLICATION)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), transactionPackages(), springContextPackages(), springBeansPackages(),
+                        javaPackages(), springContextPackages(), springBeansPackages(),
                         APPLICATION, DOMAIN)
 
                 .because("0003-project-management-hexagonal-architecture.md")

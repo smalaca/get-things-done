@@ -15,10 +15,6 @@ public final class Java {
         return allPackagesIn("javax.validation");
     }
 
-    public static String transactionPackages() {
-        return allPackagesIn("javax.transaction");
-    }
-
     private static String allPackagesIn(String packageName) {
         return packageName + "..";
     }
