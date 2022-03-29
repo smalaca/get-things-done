@@ -40,12 +40,12 @@ public class IdeaRestController {
     @PostMapping
     @ResponseStatus(CREATED)
     public String create(@Valid @RequestBody IdeaDto dto, Authentication authentication) {
-        CreateIdeaCommand command = dto.asCreateIdeaCommand(ownerIdFrom(authentication));
+        CreateIdeaCommand command = dto.asCreateIdeaCommand(authorIdFrom(authentication));
 
         return ideaApplicationService.create(command).toString();
     }
 
-    private UUID ownerIdFrom(Authentication authentication) {
+    private UUID authorIdFrom(Authentication authentication) {
         return userQueryService.findByUserName(authentication.getName()).getId();
     }
 

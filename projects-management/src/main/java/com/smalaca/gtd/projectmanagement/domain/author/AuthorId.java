@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement.domain.owner;
+package com.smalaca.gtd.projectmanagement.domain.author;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -11,13 +11,13 @@ import java.util.UUID;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
-public final class OwnerId {
-    @Column(name = "owner_id")
+public final class AuthorId {
+    @Column(name = "author_id")
     private UUID id;
 
-    public static OwnerId from(UUID id) {
-        OwnerId ownerId = new OwnerId();
-        ownerId.id = id;
-        return ownerId;
+    public static AuthorId from(UUID id) {
+        AuthorId authorId = new AuthorId();
+        authorId.id = id;
+        return authorId;
     }
 }

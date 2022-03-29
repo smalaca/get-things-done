@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
-import com.smalaca.gtd.projectmanagement.domain.owner.OwnerId;
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import javax.persistence.Column;
@@ -27,12 +27,12 @@ public class Idea {
     private String description;
 
     @Embedded
-    private OwnerId ownerId;
+    private AuthorId authorId;
 
     private Idea() {}
 
-    Idea(OwnerId ownerId, String title, String description) {
-        this.ownerId = ownerId;
+    Idea(AuthorId authorId, String title, String description) {
+        this.authorId = authorId;
         this.title = title;
         this.description = description;
     }
