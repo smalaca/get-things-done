@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
-import com.smalaca.gtd.projectmanagement.domain.owner.OwnerId;
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import org.assertj.core.api.AbstractObjectAssert;
 import org.assertj.core.api.Assertions;
 
@@ -42,8 +42,8 @@ public class IdeaAssertion {
         return Assertions.assertThat(actual).extracting("description");
     }
 
-    public IdeaAssertion hasOwnerId(OwnerId expected) {
-        Assertions.assertThat(actual).extracting("ownerId").isEqualTo(expected);
+    public IdeaAssertion hasAuthorId(AuthorId expected) {
+        Assertions.assertThat(actual).extracting("authorId").isEqualTo(expected);
         return this;
     }
 }

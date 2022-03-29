@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
-import com.smalaca.gtd.projectmanagement.domain.owner.OwnerId;
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -13,12 +13,12 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @RequiredArgsConstructor(access = PRIVATE)
 @Getter(PACKAGE)
 public class CreateIdeaCommand {
-    private final OwnerId ownerId;
+    private final AuthorId authorId;
     private final String title;
     private final String description;
 
-    public static CreateIdeaCommand create(UUID ownerId, String title, String description) {
-        return new CreateIdeaCommand(OwnerId.from(ownerId), title, description);
+    public static CreateIdeaCommand create(UUID authorId, String title, String description) {
+        return new CreateIdeaCommand(AuthorId.from(authorId), title, description);
     }
 
     boolean hasNoTitle() {

@@ -3,7 +3,7 @@ package com.smalaca.gtd.projectmanagement.application.idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.CreateIdeaCommand;
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
-import com.smalaca.gtd.projectmanagement.domain.owner.OwnerId;
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -25,7 +25,7 @@ class IdeaApplicationServiceTest {
     private static final String TITLE = "Got it";
     private static final String DESCRIPTION = "But explanation require even more place";
     private static final UUID OWNER_UUID = UUID.randomUUID();
-    private static final OwnerId OWNER_ID = OwnerId.from(OWNER_UUID);
+    private static final AuthorId OWNER_ID = AuthorId.from(OWNER_UUID);
 
     private final IdeaRepository repository = mock(IdeaRepository.class);
     private final IdeaApplicationService service = new IdeaApplicationServiceFactory().ideaApplicationService(repository);
@@ -51,7 +51,7 @@ class IdeaApplicationServiceTest {
         service.create(command);
 
         assertThat(savedIdea())
-                .hasOwnerId(OWNER_ID)
+                .hasAuthorId(OWNER_ID)
                 .hasTitle(TITLE)
                 .hasDescription(DESCRIPTION);
     }

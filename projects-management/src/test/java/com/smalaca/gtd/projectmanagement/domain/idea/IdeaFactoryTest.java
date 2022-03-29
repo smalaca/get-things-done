@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
-import com.smalaca.gtd.projectmanagement.domain.owner.OwnerId;
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThrows;
 
 class IdeaFactoryTest {
     private static final UUID OWNER_UUID = UUID.randomUUID();
-    private static final OwnerId OWNER_ID = OwnerId.from(OWNER_UUID);
+    private static final AuthorId OWNER_ID = AuthorId.from(OWNER_UUID);
     private final IdeaFactory factory = new IdeaFactory();
 
     @Test
@@ -25,7 +25,7 @@ class IdeaFactoryTest {
         Idea actual = factory.create(command);
 
         assertThat(actual)
-                .hasOwnerId(OWNER_ID)
+                .hasAuthorId(OWNER_ID)
                 .hasTitle("Great idea!!!")
                 .hasNoDescription();
     }
@@ -37,7 +37,7 @@ class IdeaFactoryTest {
         Idea actual = factory.create(command);
 
         assertThat(actual)
-                .hasOwnerId(OWNER_ID)
+                .hasAuthorId(OWNER_ID)
                 .hasNoTitle()
                 .hasDescription("Sometimes you need more space to describe your idea");
     }
@@ -49,7 +49,7 @@ class IdeaFactoryTest {
         Idea actual = factory.create(command);
 
         assertThat(actual)
-                .hasOwnerId(OWNER_ID)
+                .hasAuthorId(OWNER_ID)
                 .hasTitle("Got it")
                 .hasDescription("But explanation require even more place");
     }

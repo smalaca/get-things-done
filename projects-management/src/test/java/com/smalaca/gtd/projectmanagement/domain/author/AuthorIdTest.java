@@ -1,11 +1,11 @@
-package com.smalaca.gtd.projectmanagement.domain.owner;
+package com.smalaca.gtd.projectmanagement.domain.author;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
-class OwnerIdTest {
+class AuthorIdTest {
     @Test
     void shouldFulfillEqualsContract() {
-        EqualsVerifier.forClass(OwnerId.class).verify();
+        EqualsVerifier.forClass(AuthorId.class).verify();
     }
 }
