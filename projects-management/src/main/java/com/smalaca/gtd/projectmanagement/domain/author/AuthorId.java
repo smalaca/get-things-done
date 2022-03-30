@@ -20,4 +20,8 @@ public final class AuthorId {
         authorId.id = id;
         return authorId;
     }
+
+    public UUID value() {
+        return id;
+    }
 }
