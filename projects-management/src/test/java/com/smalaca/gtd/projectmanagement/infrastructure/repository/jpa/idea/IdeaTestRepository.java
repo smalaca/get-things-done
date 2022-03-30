@@ -14,10 +14,6 @@ public class IdeaTestRepository {
         repository.deleteById(id.value());
     }
 
-    Idea findById(IdeaId id) {
-        return repository.findById(id.value()).get();
-    }
-
     public IdeaId save(Idea idea) {
         return repository.save(idea).id();
     }
