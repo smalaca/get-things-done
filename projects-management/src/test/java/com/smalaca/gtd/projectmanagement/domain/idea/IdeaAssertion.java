@@ -6,10 +6,11 @@ import org.assertj.core.api.AbstractObjectAssert;
 import org.assertj.core.api.Assertions;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
+import static org.hibernate.validator.internal.util.CollectionHelper.asSet;
 
 public class IdeaAssertion {
     private final Idea actual;
@@ -55,17 +56,17 @@ public class IdeaAssertion {
     }
 
     public IdeaAssertion hasCollaborators(UUID... collaboratorIds) {
-        List<CollaboratorId> collaborators = Arrays.stream(collaboratorIds)
+        Set<CollaboratorId> collaborators = Arrays.stream(collaboratorIds)
                 .map(CollaboratorId::from)
-                .collect(toList());
+                .collect(toSet());
         return hasCollaborators(collaborators);
     }
 
     IdeaAssertion hasCollaborators(CollaboratorId... collaboratorIds) {
-        return hasCollaborators(Arrays.asList(collaboratorIds));
+        return hasCollaborators(asSet(collaboratorIds));
     }
 
-    private IdeaAssertion hasCollaborators(List<CollaboratorId> collaborators) {
+    private IdeaAssertion hasCollaborators(Set<CollaboratorId> collaborators) {
         Assertions.assertThat(actual).extracting("collaborators").isEqualTo(collaborators);
         return this;
     }

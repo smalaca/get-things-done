@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @SuppressWarnings("PMD.UnusedPrivateField")
@@ -36,7 +36,7 @@ public class Idea {
     private AuthorId authorId;
 
     @Transient
-    private List<CollaboratorId> collaborators = new ArrayList<>();
+    private Set<CollaboratorId> collaborators = new HashSet<>();
 
     private Idea() {}
 
@@ -52,19 +52,9 @@ public class Idea {
 
     public void share(CollaboratorRepository collaboratorRepository, CollaboratorId collaboratorId) {
         if (collaboratorRepository.existsBy(collaboratorId)) {
-            share(collaboratorId);
+            collaborators.add(collaboratorId);
         } else {
             throw new CollaboratorException(collaboratorId);
         }
-    }
-
-    private void share(CollaboratorId collaboratorId) {
-        if (notSharedWith(collaboratorId)) {
-            collaborators.add(collaboratorId);
-        }
-    }
-
-    private boolean notSharedWith(CollaboratorId collaboratorId) {
-        return !collaborators.contains(collaboratorId);
     }
 }
