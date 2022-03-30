@@ -1,7 +1,10 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
+import lombok.EqualsAndHashCode;
+
 import java.util.UUID;
 
+@EqualsAndHashCode
 public final class IdeaId {
     private final UUID id;
 
@@ -9,7 +12,7 @@ public final class IdeaId {
         this.id = id;
     }
 
-    static IdeaId from(UUID id) {
+    public static IdeaId from(UUID id) {
         return new IdeaId(id);
     }
 

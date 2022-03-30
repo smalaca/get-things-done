@@ -8,5 +8,4 @@ class CollaboratorIdTest {
     void shouldFulfillEqualsContract() {
         EqualsVerifier.forClass(CollaboratorId.class).verify();
     }
-
 }

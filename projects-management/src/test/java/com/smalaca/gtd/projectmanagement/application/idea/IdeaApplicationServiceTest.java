@@ -1,12 +1,16 @@
 package com.smalaca.gtd.projectmanagement.application.idea;
 
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
 import com.smalaca.gtd.projectmanagement.domain.idea.CreateIdeaCommand;
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
-import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
+import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import java.util.UUID;
 
@@ -27,12 +31,15 @@ class IdeaApplicationServiceTest {
     private static final UUID OWNER_UUID = UUID.randomUUID();
     private static final AuthorId OWNER_ID = AuthorId.from(OWNER_UUID);
 
-    private final IdeaRepository repository = mock(IdeaRepository.class);
-    private final IdeaApplicationService service = new IdeaApplicationServiceFactory().ideaApplicationService(repository);
+    private final IdeaTestFactory factory = new IdeaTestFactory();
+
+    private final IdeaRepository ideaRepository = mock(IdeaRepository.class);
+    private final CollaboratorRepository collaboratorRepository = mock(CollaboratorRepository.class);
+    private final IdeaApplicationService service = new IdeaApplicationServiceFactory().ideaApplicationService(ideaRepository, collaboratorRepository);
 
     @BeforeEach
     void givenIdOnIdeaSave() {
-        given(repository.save(any())).willReturn(ideaIdFrom(ID));
+        given(ideaRepository.save(any())).willReturn(ideaIdFrom(ID));
     }
 
     @Test
@@ -56,23 +63,99 @@ class IdeaApplicationServiceTest {
                 .hasDescription(DESCRIPTION);
     }
 
-    private Idea savedIdea() {
-        ArgumentCaptor<Idea> captor = ArgumentCaptor.forClass(Idea.class);
-        then(repository).should().save(captor.capture());
-
-        return captor.getValue();
-    }
-
     @Test
     void shouldNotSaveIdeaInCaseOfInvalidData() {
         CreateIdeaCommand command = command(null, null);
 
         assertThrows(RuntimeException.class, () -> service.create(command));
 
-        then(repository).should(never()).save(any());
+        thenIdeaWasNotSaved();
     }
 
     private CreateIdeaCommand command(String title, String description) {
         return CreateIdeaCommand.create(OWNER_UUID, title, description);
+    }
+
+    @Test
+    void shouldRecognizeCollaboratorDoesNotExist() {
+        UUID ideaId = givenExistingIdea();
+        UUID collaboratorId = givenNotExistingCollaborator();
+
+        assertThrows(RuntimeException.class, () -> service.share(shareIdeaCommand(ideaId, collaboratorId)));
+
+        thenIdeaWasNotSaved();
+    }
+
+    private UUID givenNotExistingCollaborator() {
+        UUID id = UUID.randomUUID();
+        given(collaboratorRepository.existsBy(CollaboratorId.from(id))).willReturn(false);
+        return id;
+    }
+
+    @Test
+    void shouldShareIdea() {
+        UUID ideaId = givenExistingIdea();
+        UUID collaboratorId = givenExistingCollaborator();
+
+        service.share(shareIdeaCommand(ideaId, collaboratorId));
+
+        assertThat(savedIdea()).hasCollaborators(collaboratorId);
+    }
+
+    @Test
+    void shouldShareIdeaWithManyCollaborators() {
+        UUID ideaId = givenExistingIdea();
+        UUID collaboratorIdOne = givenExistingCollaborator();
+        UUID collaboratorIdTwo = givenExistingCollaborator();
+        UUID collaboratorIdThree = givenExistingCollaborator();
+
+        service.share(shareIdeaCommand(ideaId, collaboratorIdOne));
+        service.share(shareIdeaCommand(ideaId, collaboratorIdTwo));
+        service.share(shareIdeaCommand(ideaId, collaboratorIdThree));
+
+        assertThat(savedIdea(3)).hasCollaborators(collaboratorIdOne, collaboratorIdTwo, collaboratorIdThree);
+    }
+
+    @Test
+    void shouldIgnoreSharingIdeaWithTheSameCollaboratorMoreThanOnce() {
+        UUID ideaId = givenExistingIdea();
+        UUID collaboratorId = givenExistingCollaborator();
+
+        service.share(shareIdeaCommand(ideaId, collaboratorId));
+        service.share(shareIdeaCommand(ideaId, collaboratorId));
+        service.share(shareIdeaCommand(ideaId, collaboratorId));
+
+        assertThat(savedIdea(3)).hasCollaborators(collaboratorId);
+    }
+
+    private ShareIdeaCommand shareIdeaCommand(UUID ideaId, UUID collaboratorId) {
+        return new ShareIdeaCommand(OWNER_UUID, ideaId, collaboratorId);
+    }
+
+    private UUID givenExistingIdea() {
+        UUID id = UUID.randomUUID();
+        given(ideaRepository.findBy(OWNER_ID, ideaIdFrom(id))).willReturn(factory.create(OWNER_UUID, TITLE, DESCRIPTION));
+        return id;
+    }
+
+    private UUID givenExistingCollaborator() {
+        UUID id = UUID.randomUUID();
+        given(collaboratorRepository.existsBy(CollaboratorId.from(id))).willReturn(true);
+        return id;
+    }
+
+    private void thenIdeaWasNotSaved() {
+        then(ideaRepository).should(never()).save(any());
+    }
+
+    private Idea savedIdea() {
+        return savedIdea(1);
+    }
+
+    private Idea savedIdea(int times) {
+        ArgumentCaptor<Idea> captor = ArgumentCaptor.forClass(Idea.class);
+        then(ideaRepository).should(Mockito.times(times)).save(captor.capture());
+
+        return captor.getValue();
     }
 }

@@ -1,6 +1,9 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorException;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import javax.persistence.Column;
@@ -10,6 +13,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @SuppressWarnings("PMD.UnusedPrivateField")
@@ -29,6 +35,9 @@ public class Idea {
     @Embedded
     private AuthorId authorId;
 
+    @Transient
+    private Set<CollaboratorId> collaborators = new HashSet<>();
+
     private Idea() {}
 
     Idea(AuthorId authorId, String title, String description) {
@@ -39,5 +48,13 @@ public class Idea {
 
     public IdeaId id() {
         return IdeaId.from(id);
+    }
+
+    public void share(CollaboratorRepository collaboratorRepository, CollaboratorId collaboratorId) {
+        if (collaboratorRepository.existsBy(collaboratorId)) {
+            collaborators.add(collaboratorId);
+        } else {
+            throw new CollaboratorException(collaboratorId);
+        }
     }
 }
