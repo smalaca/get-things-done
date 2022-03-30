@@ -14,8 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 
 class IdeaFactoryTest {
-    private static final UUID OWNER_UUID = UUID.randomUUID();
-    private static final AuthorId OWNER_ID = AuthorId.from(OWNER_UUID);
+    private static final UUID AUTHOR_UUID = UUID.randomUUID();
+    private static final AuthorId AUTHOR_ID = AuthorId.from(AUTHOR_UUID);
     private final IdeaFactory factory = new IdeaFactory();
 
     @Test
@@ -25,7 +25,7 @@ class IdeaFactoryTest {
         Idea actual = factory.create(command);
 
         assertThat(actual)
-                .hasAuthorId(OWNER_ID)
+                .hasAuthorId(AUTHOR_ID)
                 .hasTitle("Great idea!!!")
                 .hasNoDescription();
     }
@@ -37,7 +37,7 @@ class IdeaFactoryTest {
         Idea actual = factory.create(command);
 
         assertThat(actual)
-                .hasAuthorId(OWNER_ID)
+                .hasAuthorId(AUTHOR_ID)
                 .hasNoTitle()
                 .hasDescription("Sometimes you need more space to describe your idea");
     }
@@ -49,7 +49,7 @@ class IdeaFactoryTest {
         Idea actual = factory.create(command);
 
         assertThat(actual)
-                .hasAuthorId(OWNER_ID)
+                .hasAuthorId(AUTHOR_ID)
                 .hasTitle("Got it")
                 .hasDescription("But explanation require even more place");
     }
@@ -79,6 +79,6 @@ class IdeaFactoryTest {
     }
 
     private CreateIdeaCommand command(String title, String description) {
-        return CreateIdeaCommand.create(OWNER_UUID, title, description);
+        return CreateIdeaCommand.create(AUTHOR_UUID, title, description);
     }
 }

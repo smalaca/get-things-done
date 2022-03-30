@@ -28,8 +28,8 @@ class IdeaApplicationServiceTest {
     private static final UUID ID = UUID.randomUUID();
     private static final String TITLE = "Got it";
     private static final String DESCRIPTION = "But explanation require even more place";
-    private static final UUID OWNER_UUID = UUID.randomUUID();
-    private static final AuthorId OWNER_ID = AuthorId.from(OWNER_UUID);
+    private static final UUID AUTHOR_UUID = UUID.randomUUID();
+    private static final AuthorId AUTHOR_ID = AuthorId.from(AUTHOR_UUID);
 
     private final IdeaTestFactory factory = new IdeaTestFactory();
 
@@ -58,7 +58,7 @@ class IdeaApplicationServiceTest {
         service.create(command);
 
         assertThat(savedIdea())
-                .hasAuthorId(OWNER_ID)
+                .hasAuthorId(AUTHOR_ID)
                 .hasTitle(TITLE)
                 .hasDescription(DESCRIPTION);
     }
@@ -73,7 +73,7 @@ class IdeaApplicationServiceTest {
     }
 
     private CreateIdeaCommand command(String title, String description) {
-        return CreateIdeaCommand.create(OWNER_UUID, title, description);
+        return CreateIdeaCommand.create(AUTHOR_UUID, title, description);
     }
 
     @Test
@@ -129,12 +129,12 @@ class IdeaApplicationServiceTest {
     }
 
     private ShareIdeaCommand shareIdeaCommand(UUID ideaId, UUID collaboratorId) {
-        return new ShareIdeaCommand(OWNER_UUID, ideaId, collaboratorId);
+        return new ShareIdeaCommand(AUTHOR_UUID, ideaId, collaboratorId);
     }
 
     private UUID givenExistingIdea() {
         UUID id = UUID.randomUUID();
-        given(ideaRepository.findBy(OWNER_ID, ideaIdFrom(id))).willReturn(factory.create(OWNER_UUID, TITLE, DESCRIPTION));
+        given(ideaRepository.findBy(AUTHOR_ID, ideaIdFrom(id))).willReturn(factory.create(AUTHOR_UUID, TITLE, DESCRIPTION));
         return id;
     }
 
