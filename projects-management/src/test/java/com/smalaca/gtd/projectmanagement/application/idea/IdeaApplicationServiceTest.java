@@ -5,6 +5,7 @@ import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
 import com.smalaca.gtd.projectmanagement.domain.idea.CreateIdeaCommand;
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
+import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,6 @@ import org.mockito.Mockito;
 import java.util.UUID;
 
 import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaAssertion.assertThat;
-import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaIdTestFactory.ideaIdFrom;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -39,7 +39,7 @@ class IdeaApplicationServiceTest {
 
     @BeforeEach
     void givenIdOnIdeaSave() {
-        given(ideaRepository.save(any())).willReturn(ideaIdFrom(ID));
+        given(ideaRepository.save(any())).willReturn(IdeaId.from(ID));
     }
 
     @Test
@@ -134,7 +134,7 @@ class IdeaApplicationServiceTest {
 
     private UUID givenExistingIdea() {
         UUID id = UUID.randomUUID();
-        given(ideaRepository.findBy(AUTHOR_ID, ideaIdFrom(id))).willReturn(factory.create(AUTHOR_UUID, TITLE, DESCRIPTION));
+        given(ideaRepository.findBy(AUTHOR_ID, IdeaId.from(id))).willReturn(factory.create(AUTHOR_UUID, TITLE, DESCRIPTION));
         return id;
     }
 

@@ -3,7 +3,6 @@ package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea;
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
-import com.smalaca.gtd.projectmanagement.domain.idea.IdeaIdTestFactory;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import com.smalaca.gtd.tests.annotation.IntegrationTest;
 import org.junit.jupiter.api.AfterEach;
@@ -49,7 +48,7 @@ class JpaIdeaRepositoryIntegrationTest {
         AuthorId authorWithIdeaId = randomId();
         IdeaId ideaId1 = createIdea(authorWithIdeaId, "Idea", "Have to be great");
         IdeaId ideaId2 = createIdea(randomId(), "Idea Two", "Have to be even greater");
-        IdeaId notExistingIdeaId = IdeaIdTestFactory.ideaIdFrom(UUID.randomUUID());
+        IdeaId notExistingIdeaId = IdeaId.from(UUID.randomUUID());
 
         assertThatIdeaDoesNotExist(authorWithoutIdeaId, ideaId1);
         assertThatIdeaDoesNotExist(authorWithIdeaId, notExistingIdeaId);

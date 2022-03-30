@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.smalaca.gtd.client.rest.RestClientResponseAssertions.assertThat;
-import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaIdTestFactory.ideaIdFrom;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -75,7 +74,7 @@ class IdeaRestControllerSystemTest {
 
     private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
         UUID id = client.idea(CREATED).create(idea).asUuid();
-        ids.add(ideaIdFrom(id));
+        ids.add(IdeaId.from(id));
         return id;
     }
 
