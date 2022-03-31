@@ -2,14 +2,13 @@ package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collabor
 
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
-import com.smalaca.gtd.tests.annotation.IntegrationTest;
+import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.ArrayList;
@@ -18,8 +17,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-@IntegrationTest
+@RepositoryTest
 @Import({UserTestRepository.class})
 class JpaCollaboratorRepositoryIntegrationTest {
     private final List<UUID> ids = new ArrayList<>();

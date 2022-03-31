@@ -1,15 +1,12 @@
 package com.smalaca.gtd.projectmanagement.query.user;
 
-import com.smalaca.gtd.tests.annotation.IntegrationTest;
+import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +15,8 @@ import java.util.UUID;
 import static com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-@IntegrationTest
+@RepositoryTest
 @Import(UserTestRepository.class)
-@Transactional(propagation = Propagation.NOT_SUPPORTED)
 class UserQueryServiceIntegrationTest {
     @Autowired private UserTestRepository userTestRepository;
     @Autowired private UserQueryRepository userQueryRepository;

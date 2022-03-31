@@ -1,18 +1,16 @@
 package com.smalaca.gtd.usermanagement.persistence.user;
 
-import com.smalaca.gtd.tests.annotation.IntegrationTest;
+import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-@IntegrationTest
+@RepositoryTest
 class UserRepositoryIntegrationTest {
     @Autowired private CrudUserRepository crudUserRepository;
     private UserRepository repository;
