@@ -8,8 +8,8 @@ import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collaborator.JpaCollaboratorRepository;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenCollaborators;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,25 +33,26 @@ class JpaIdeaRepositoryIntegrationTest {
     private static final String NO_DESCRIPTION = null;
     private static final String NO_TITLE = null;
 
-    @Autowired private IdeaTestRepository ideaTestRepository;
-    @Autowired private SpringDataJpaIdeaRepository springDataJpaIdeaRepository;
-    private final List<IdeaId> ideaIds = new ArrayList<>();
-    private final List<UUID> collaboratorIds = new ArrayList<>();
-    @Autowired private CollaboratorRepository collaboratorRepository;
-
+    private final List<IdeaId> ids = new ArrayList<>();
     private final IdeaTestFactory factory = new IdeaTestFactory();
+    @Autowired private IdeaTestRepository ideaTestRepository;
     @Autowired private UserTestRepository userTestRepository;
+    @Autowired private CollaboratorRepository collaboratorRepository;
+    private GivenCollaborators givenCollaborators;
+
+    @Autowired private SpringDataJpaIdeaRepository springDataJpaIdeaRepository;
     private IdeaRepository ideaRepository;
 
     @BeforeEach
     void initRepository() {
         ideaRepository = new JpaIdeaRepository(springDataJpaIdeaRepository);
+        givenCollaborators = new GivenCollaborators(userTestRepository);
     }
 
     @AfterEach
     void deleteIdeasAndCollaborators() {
-        ideaIds.forEach(ideaTestRepository::deleteById);
-        collaboratorIds.forEach(userTestRepository::deleteBy);
+        ids.forEach(ideaTestRepository::deleteById);
+        givenCollaborators.deleteAll();
     }
 
     @Test
@@ -101,10 +102,10 @@ class JpaIdeaRepositoryIntegrationTest {
     @Test
     void shouldUpdateIdeasCollaborators() {
         AuthorId authorId = randomAuthorId();
-        CollaboratorId collaboratorId1 = givenExistingCollaborator();
-        CollaboratorId collaboratorId2 = givenExistingCollaborator();
-        CollaboratorId collaboratorId3 = givenExistingCollaborator();
-        CollaboratorId collaboratorId4 = givenExistingCollaborator();
+        CollaboratorId collaboratorId1 = givenCollaborators.existing();
+        CollaboratorId collaboratorId2 = givenCollaborators.existing();
+        CollaboratorId collaboratorId3 = givenCollaborators.existing();
+        CollaboratorId collaboratorId4 = givenCollaborators.existing();
         IdeaId ideaId1 = createIdea(authorId, "Idea One");
         IdeaId ideaId2 = createIdea(authorId, "Idea Two");
         IdeaId ideaId3 = createIdea(authorId, "Idea Three");
@@ -127,19 +128,6 @@ class JpaIdeaRepositoryIntegrationTest {
         ideaRepository.save(actual);
     }
 
-    private CollaboratorId givenExistingCollaborator() {
-        String name = randomString();
-        String password = randomString();
-        UUID id = userTestRepository.save(UserTestFactory.user(name, password));
-        collaboratorIds.add(id);
-
-        return CollaboratorId.from(id);
-    }
-
-    private String randomString() {
-        return UUID.randomUUID().toString();
-    }
-
     private AuthorId randomAuthorId() {
         return AuthorId.from(UUID.randomUUID());
     }
@@ -151,7 +139,7 @@ class JpaIdeaRepositoryIntegrationTest {
     private IdeaId createIdea(AuthorId authorId, String title, String description) {
         Idea idea = factory.create(authorId.value(), title, description);
         IdeaId id = ideaRepository.save(idea);
-        ideaIds.add(id);
+        ids.add(id);
 
         return id;
     }
