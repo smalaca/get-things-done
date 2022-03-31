@@ -40,8 +40,8 @@ class JpaCollaboratorRepositoryIntegrationTest {
     }
 
     @AfterEach
-    void deleteCreatedIdea() {
-        ids.forEach(springDataJpaUserRepository::deleteById);
+    void deleteCreatedCollaborators() {
+        ids.forEach(userTestRepository::deleteBy);
     }
 
     @Test
@@ -66,6 +66,7 @@ class JpaCollaboratorRepositoryIntegrationTest {
         String name = randomString();
         String password = randomString();
         UUID id = userTestRepository.save(UserTestFactory.user(name, password));
+        ids.add(id);
 
         return CollaboratorId.from(id);
     }
