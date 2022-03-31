@@ -8,7 +8,7 @@ import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collaborator.JpaCollaboratorRepository;
-import com.smalaca.gtd.tests.annotation.IntegrationTest;
+import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -16,10 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +27,7 @@ import static java.util.Arrays.stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@DataJpaTest
-@IntegrationTest
-@Transactional(propagation = Propagation.NOT_SUPPORTED)
+@RepositoryTest
 @Import({IdeaTestRepository.class, JpaCollaboratorRepository.class, UserTestRepository.class})
 class JpaIdeaRepositoryIntegrationTest {
     private static final String NO_DESCRIPTION = null;
@@ -54,8 +49,9 @@ class JpaIdeaRepositoryIntegrationTest {
     }
 
     @AfterEach
-    void deleteCreatedIdea() {
+    void deleteIdeasAndCollaborators() {
         ideaIds.forEach(ideaTestRepository::deleteById);
+        collaboratorIds.forEach(userTestRepository::deleteBy);
     }
 
     @Test
