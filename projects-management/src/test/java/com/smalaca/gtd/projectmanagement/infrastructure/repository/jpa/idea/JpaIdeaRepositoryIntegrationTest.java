@@ -49,8 +49,9 @@ class JpaIdeaRepositoryIntegrationTest {
     }
 
     @AfterEach
-    void deleteCreatedIdea() {
+    void deleteIdeasAndCollaborators() {
         ideaIds.forEach(ideaTestRepository::deleteById);
+        collaboratorIds.forEach(userTestRepository::deleteBy);
     }
 
     @Test
