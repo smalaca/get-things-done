@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.UUID;
 
+import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 import static org.hibernate.validator.internal.util.CollectionHelper.asSet;
 
@@ -62,8 +63,12 @@ public class IdeaAssertion {
         return hasCollaborators(collaborators);
     }
 
-    IdeaAssertion hasCollaborators(CollaboratorId... collaboratorIds) {
+    public IdeaAssertion hasCollaborators(CollaboratorId... collaboratorIds) {
         return hasCollaborators(asSet(collaboratorIds));
+    }
+
+    public IdeaAssertion hasNoCollaborators() {
+        return hasCollaborators(emptySet());
     }
 
     private IdeaAssertion hasCollaborators(Set<CollaboratorId> collaborators) {

@@ -6,17 +6,21 @@ import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
+import static javax.persistence.FetchType.EAGER;
 
 @SuppressWarnings("PMD.UnusedPrivateField")
 @SuppressFBWarnings("URF_UNREAD_FIELD")
@@ -35,7 +39,8 @@ public class Idea {
     @Embedded
     private AuthorId authorId;
 
-    @Transient
+    @ElementCollection(fetch = EAGER)
+    @CollectionTable(joinColumns = @JoinColumn(name = "idea_id"))
     private Set<CollaboratorId> collaborators = new HashSet<>();
 
     private Idea() {}
