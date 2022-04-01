@@ -3,13 +3,11 @@ package com.smalaca.gtd.usermanagement.controller.rest.user;
 import com.smalaca.gtd.client.rest.ProjectsManagementClient;
 import com.smalaca.gtd.client.rest.user.UserTestDto;
 import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
-import com.smalaca.gtd.tests.annotation.SystemTest;
+import com.smalaca.gtd.tests.annotation.RestControllerTest;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 import java.util.UUID;
@@ -18,10 +16,8 @@ import static com.smalaca.gtd.client.rest.RestClientResponseAssertions.assertTha
 import static com.smalaca.gtd.usermanagement.persistence.user.UserAssertion.assertThat;
 import static org.springframework.http.HttpStatus.OK;
 
-@SystemTest
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import({ProjectsManagementClient.class, UserTestRepository.class})
+@RestControllerTest
+@Import({UserTestRepository.class})
 class UserRestControllerSystemTest {
     @Autowired private ProjectsManagementClient client;
     @Autowired private UserTestRepository repository;
