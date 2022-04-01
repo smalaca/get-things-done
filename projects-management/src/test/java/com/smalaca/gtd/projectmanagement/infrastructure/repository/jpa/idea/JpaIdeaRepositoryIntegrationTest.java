@@ -8,11 +8,10 @@ import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collaborator.JpaCollaboratorRepository;
-import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenCollaborators;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RepositoryTest
-@Import({IdeaTestRepository.class, JpaCollaboratorRepository.class, GivenTestConfiguration.class})
+@Import({JpaIdeaRepository.class, IdeaTestRepository.class, JpaCollaboratorRepository.class, GivenTestConfiguration.class})
 class JpaIdeaRepositoryIntegrationTest {
     private static final String NO_DESCRIPTION = null;
     private static final String NO_TITLE = null;
@@ -36,16 +35,10 @@ class JpaIdeaRepositoryIntegrationTest {
     private final List<IdeaId> ids = new ArrayList<>();
     private final IdeaTestFactory factory = new IdeaTestFactory();
     @Autowired private IdeaTestRepository ideaTestRepository;
-    @Autowired private CollaboratorRepository collaboratorRepository;
     @Autowired private GivenCollaborators givenCollaborators;
 
-    @Autowired private SpringDataJpaIdeaRepository springDataJpaIdeaRepository;
-    private IdeaRepository ideaRepository;
-
-    @BeforeEach
-    void initRepository() {
-        ideaRepository = new JpaIdeaRepository(springDataJpaIdeaRepository);
-    }
+    @Autowired private CollaboratorRepository collaboratorRepository;
+    @Autowired private IdeaRepository ideaRepository;
 
     @AfterEach
     void deleteIdeasAndCollaborators() {

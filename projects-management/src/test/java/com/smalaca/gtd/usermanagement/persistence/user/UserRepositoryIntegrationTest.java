@@ -2,29 +2,26 @@ package com.smalaca.gtd.usermanagement.persistence.user;
 
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
+@Import({UserRepository.class, UserTestRepository.class})
 class UserRepositoryIntegrationTest {
-    @Autowired private CrudUserRepository crudUserRepository;
-    private UserRepository repository;
     private String id;
 
-    @BeforeEach
-    void initRepository() {
-        repository =  new UserRepository(crudUserRepository);
-    }
+    @Autowired private UserTestRepository userTestRepository;
+    @Autowired private UserRepository repository;
 
     @AfterEach
     void removeUser() {
         if (id != null) {
-            crudUserRepository.deleteById(UUID.fromString(id));
+            userTestRepository.deleteBy(UUID.fromString(id));
         }
     }
 
@@ -40,7 +37,7 @@ class UserRepositoryIntegrationTest {
     }
 
     private User findBy(String id) {
-        return crudUserRepository.findById(UUID.fromString(id)).get();
+        return userTestRepository.findBy(UUID.fromString(id));
     }
 
     @Test

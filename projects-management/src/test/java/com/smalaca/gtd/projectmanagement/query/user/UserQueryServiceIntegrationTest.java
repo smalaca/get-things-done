@@ -3,7 +3,6 @@ package com.smalaca.gtd.projectmanagement.query.user;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
@@ -16,18 +15,12 @@ import static com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory.us
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import(UserTestRepository.class)
+@Import({UserQueryService.class, UserTestRepository.class})
 class UserQueryServiceIntegrationTest {
-    @Autowired private UserTestRepository userTestRepository;
-    @Autowired private UserQueryRepository userQueryRepository;
     private final List<UUID> ids = new ArrayList<>();
 
-    private UserQueryService userQueryService;
-
-    @BeforeEach
-    void initUserQueryService() {
-        userQueryService = new UserQueryService(userQueryRepository);
-    }
+    @Autowired private UserTestRepository userTestRepository;
+    @Autowired private UserQueryService userQueryService;
 
     @AfterEach
     void deleteUsers() {
