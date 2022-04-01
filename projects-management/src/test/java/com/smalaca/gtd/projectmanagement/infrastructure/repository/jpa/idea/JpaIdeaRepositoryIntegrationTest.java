@@ -8,9 +8,9 @@ import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collaborator.JpaCollaboratorRepository;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenCollaborators;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RepositoryTest
-@Import({IdeaTestRepository.class, JpaCollaboratorRepository.class, UserTestRepository.class})
+@Import({IdeaTestRepository.class, JpaCollaboratorRepository.class, GivenTestConfiguration.class})
 class JpaIdeaRepositoryIntegrationTest {
     private static final String NO_DESCRIPTION = null;
     private static final String NO_TITLE = null;
@@ -36,9 +36,8 @@ class JpaIdeaRepositoryIntegrationTest {
     private final List<IdeaId> ids = new ArrayList<>();
     private final IdeaTestFactory factory = new IdeaTestFactory();
     @Autowired private IdeaTestRepository ideaTestRepository;
-    @Autowired private UserTestRepository userTestRepository;
     @Autowired private CollaboratorRepository collaboratorRepository;
-    private GivenCollaborators givenCollaborators;
+    @Autowired private GivenCollaborators givenCollaborators;
 
     @Autowired private SpringDataJpaIdeaRepository springDataJpaIdeaRepository;
     private IdeaRepository ideaRepository;
@@ -46,7 +45,6 @@ class JpaIdeaRepositoryIntegrationTest {
     @BeforeEach
     void initRepository() {
         ideaRepository = new JpaIdeaRepository(springDataJpaIdeaRepository);
-        givenCollaborators = new GivenCollaborators(userTestRepository);
     }
 
     @AfterEach

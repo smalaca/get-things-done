@@ -12,7 +12,7 @@ public class GivenCollaborators {
     private final UserTestRepository userTestRepository;
     private final List<UUID> ids = new ArrayList<>();
 
-    public GivenCollaborators(UserTestRepository userTestRepository) {
+    GivenCollaborators(UserTestRepository userTestRepository) {
         this.userTestRepository = userTestRepository;
     }
 

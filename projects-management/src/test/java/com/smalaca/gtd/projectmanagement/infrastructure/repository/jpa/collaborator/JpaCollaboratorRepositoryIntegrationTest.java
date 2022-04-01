@@ -2,9 +2,9 @@ package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collabor
 
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenCollaborators;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,10 +16,9 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import({UserTestRepository.class})
+@Import(GivenTestConfiguration.class)
 class JpaCollaboratorRepositoryIntegrationTest {
-    @Autowired private UserTestRepository userTestRepository;
-    private GivenCollaborators givenCollaborators;
+    @Autowired private GivenCollaborators givenCollaborators;
 
     @Autowired private SpringDataJpaUserRepository springDataJpaUserRepository;
     private CollaboratorRepository collaboratorRepository;
@@ -27,7 +26,6 @@ class JpaCollaboratorRepositoryIntegrationTest {
 
     @BeforeEach
     void initRepository() {
-        givenCollaborators = new GivenCollaborators(userTestRepository);
         collaboratorRepository = new JpaCollaboratorRepository(springDataJpaUserRepository);
         initCollaborators();
     }
