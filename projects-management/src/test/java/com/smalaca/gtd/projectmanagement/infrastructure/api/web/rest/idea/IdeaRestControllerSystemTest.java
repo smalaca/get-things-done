@@ -3,11 +3,12 @@ package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 import com.smalaca.gtd.client.rest.ProjectsManagementClient;
 import com.smalaca.gtd.client.rest.idea.IdeaTestDto;
 import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
-import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenIdeas;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenUsers;
 import com.smalaca.gtd.tests.annotation.RestControllerTest;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,27 +26,26 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerTest
 @WithMockUser("USER")
-@Import({IdeaTestRepository.class, UserTestRepository.class})
+@Import(GivenTestConfiguration.class)
 class IdeaRestControllerSystemTest {
-    @Autowired private IdeaTestRepository ideaTestRepository;
-    @Autowired private UserTestRepository userTestRepository;
+    @Autowired private GivenIdeas givenIdeas;
+    @Autowired private GivenUsers givenUsers;
     @Autowired private ProjectsManagementClient client;
-    private final List<IdeaId> ids = new ArrayList<>();
-    private UUID userId;
 
     @BeforeEach
     void givenIdeas() {
-        userId = userTestRepository.save(UserTestFactory.user("USER", UUID.randomUUID().toString()));
-        createIdea(IdeaTestDto.builder().title("IdeaOne").description("With description"));
-        createIdea(IdeaTestDto.builder().title("IdeaTwo"));
-        createIdea(IdeaTestDto.builder().description("Description is everything"));
-        createIdea(IdeaTestDto.builder().title("Idea Four").description("The greatest ideas makes us better!"));
+        UUID userId = givenUsers.existing("USER", UUID.randomUUID().toString());
+        AuthorId authorId = AuthorId.from(userId);
+        givenIdeas.existing(authorId, "IdeaOne", "With description");
+        givenIdeas.existing(authorId, "IdeaTwo");
+        givenIdeas.existing(authorId, null, "Description is everything");
+        givenIdeas.existing(authorId, "Idea Four", "The greatest ideas makes us better!");
     }
 
     @AfterEach
     void deleteCreatedIdea() {
-        ids.forEach(ideaTestRepository::deleteById);
-        userTestRepository.deleteBy(userId);
+        givenUsers.deleteAll();
+        givenIdeas.deleteAll();
     }
 
     @Test
@@ -70,7 +69,8 @@ class IdeaRestControllerSystemTest {
 
     private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
         UUID id = client.idea(CREATED).create(idea).asUuid();
-        ids.add(IdeaId.from(id));
+        givenIdeas.existing(IdeaId.from(id));
+
         return id;
     }
 

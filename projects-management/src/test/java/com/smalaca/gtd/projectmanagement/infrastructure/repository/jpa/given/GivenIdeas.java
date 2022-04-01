@@ -35,8 +35,12 @@ public class GivenIdeas {
     public IdeaId existing(AuthorId authorId, String title, String description) {
         Idea idea = ideaTestFactory.create(authorId.value(), title, description);
         IdeaId id = ideaRepository.save(idea);
-        ids.add(id);
+        existing(id);
 
         return id;
+    }
+
+    public void existing(IdeaId id) {
+        ids.add(id);
     }
 }
