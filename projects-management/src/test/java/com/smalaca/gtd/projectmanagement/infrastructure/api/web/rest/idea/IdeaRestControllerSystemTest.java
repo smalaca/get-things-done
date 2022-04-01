@@ -5,7 +5,7 @@ import com.smalaca.gtd.client.rest.idea.IdeaTestDto;
 import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
-import com.smalaca.gtd.tests.annotation.SystemTest;
+import com.smalaca.gtd.tests.annotation.RestControllerTest;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.assertj.core.api.Assertions;
@@ -13,8 +13,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -26,11 +24,9 @@ import static com.smalaca.gtd.client.rest.RestClientResponseAssertions.assertTha
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-@SpringBootTest
-@Import({IdeaTestRepository.class, UserTestRepository.class, ProjectsManagementClient.class})
-@AutoConfigureMockMvc
+@RestControllerTest
 @WithMockUser("USER")
-@SystemTest
+@Import({IdeaTestRepository.class, UserTestRepository.class})
 class IdeaRestControllerSystemTest {
     @Autowired private IdeaTestRepository ideaTestRepository;
     @Autowired private UserTestRepository userTestRepository;
