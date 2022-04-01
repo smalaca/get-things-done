@@ -1,7 +1,7 @@
 package com.smalaca.gtd.projectmanagement.query.user;
 
-import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
-import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenUsers;
+import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenTestConfiguration;
+import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenUsers;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

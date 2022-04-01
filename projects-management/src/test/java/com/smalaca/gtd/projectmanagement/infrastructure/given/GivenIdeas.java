@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given;
+package com.smalaca.gtd.projectmanagement.infrastructure.given;
 
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
@@ -35,8 +35,12 @@ public class GivenIdeas {
     public IdeaId existing(AuthorId authorId, String title, String description) {
         Idea idea = ideaTestFactory.create(authorId.value(), title, description);
         IdeaId id = ideaRepository.save(idea);
-        ids.add(id);
+        existing(id);
 
         return id;
+    }
+
+    public void existing(IdeaId id) {
+        ids.add(id);
     }
 }

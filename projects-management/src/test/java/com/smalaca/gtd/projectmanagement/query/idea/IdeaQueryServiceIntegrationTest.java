@@ -1,8 +1,8 @@
 package com.smalaca.gtd.projectmanagement.query.idea;
 
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
-import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenIdeas;
-import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
+import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenIdeas;
+import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenTestConfiguration;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
