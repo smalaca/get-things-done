@@ -16,21 +16,13 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import(GivenTestConfiguration.class)
+@Import({JpaCollaboratorRepository.class, GivenTestConfiguration.class})
 class JpaCollaboratorRepositoryIntegrationTest {
     @Autowired private GivenCollaborators givenCollaborators;
-
-    @Autowired private SpringDataJpaUserRepository springDataJpaUserRepository;
-    private CollaboratorRepository collaboratorRepository;
-
+    @Autowired private CollaboratorRepository collaboratorRepository;
 
     @BeforeEach
-    void initRepository() {
-        collaboratorRepository = new JpaCollaboratorRepository(springDataJpaUserRepository);
-        initCollaborators();
-    }
-
-    private void initCollaborators() {
+    void initCollaborators() {
         givenCollaborators.existing();
         givenCollaborators.existing();
         givenCollaborators.existing();

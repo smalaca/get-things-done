@@ -5,7 +5,6 @@ import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
@@ -19,21 +18,13 @@ import static com.smalaca.gtd.projectmanagement.query.idea.IdeaReadModelAssertio
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import(IdeaTestRepository.class)
+@Import({IdeaQueryService.class, IdeaTestRepository.class})
 class IdeaQueryServiceIntegrationTest {
-    @Autowired private IdeaTestRepository ideaTestRepository;
-    @Autowired private IdeaQueryRepository queryRepository;
-
     private final IdeaTestFactory factory = new IdeaTestFactory();
-
-    private IdeaQueryService service;
-
     private final List<IdeaId> ids = new ArrayList<>();
 
-    @BeforeEach
-    void initService() {
-        service = new IdeaQueryService(queryRepository);
-    }
+    @Autowired private IdeaTestRepository ideaTestRepository;
+    @Autowired private IdeaQueryService service;
 
     @AfterEach
     void removeIdeas() {
