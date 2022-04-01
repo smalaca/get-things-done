@@ -1,15 +1,14 @@
 package com.smalaca.gtd.projectmanagement.query.idea;
 
-import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
-import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
-import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaTestRepository;
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenIdeas;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,17 +17,16 @@ import static com.smalaca.gtd.projectmanagement.query.idea.IdeaReadModelAssertio
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import({IdeaQueryService.class, IdeaTestRepository.class})
+@Import({IdeaQueryService.class, GivenTestConfiguration.class})
 class IdeaQueryServiceIntegrationTest {
-    private final IdeaTestFactory factory = new IdeaTestFactory();
-    private final List<IdeaId> ids = new ArrayList<>();
+    private static final AuthorId AUTHOR_ID = AuthorId.from(UUID.randomUUID());
 
-    @Autowired private IdeaTestRepository ideaTestRepository;
+    @Autowired private GivenIdeas givenIdeas;
     @Autowired private IdeaQueryService service;
 
     @AfterEach
     void removeIdeas() {
-        ids.forEach(ideaTestRepository::deleteById);
+        givenIdeas.deleteAll();
     }
 
     @Test
@@ -72,7 +70,7 @@ class IdeaQueryServiceIntegrationTest {
     @Test
     void shouldFindSpecificIdea() {
         givenIdeas();
-        UUID id = givenIdea("Idea Five", "It would be good to do something good");
+        UUID id = givenIdeas.existing(AUTHOR_ID, "Idea Five", "It would be good to do something good").value();
 
         IdeaReadModel actual = service.findById(id).get();
 
@@ -82,15 +80,9 @@ class IdeaQueryServiceIntegrationTest {
     }
 
     private void givenIdeas() {
-        givenIdea("IdeaOne", "With description");
-        givenIdea("IdeaTwo", null);
-        givenIdea(null, "Description is everything");
-        givenIdea("Idea Four", "The greatest ideas makes us better!");
-    }
-
-    private UUID givenIdea(String title, String description) {
-        IdeaId id = ideaTestRepository.save(factory.create(UUID.randomUUID(), title, description));
-        ids.add(id);
-        return id.value();
+        givenIdeas.existing(AUTHOR_ID, "IdeaOne", "With description");
+        givenIdeas.existing(AUTHOR_ID, "IdeaTwo");
+        givenIdeas.existing(AUTHOR_ID, null, "Description is everything");
+        givenIdeas.existing(AUTHOR_ID, "Idea Four", "The greatest ideas makes us better!");
     }
 }
