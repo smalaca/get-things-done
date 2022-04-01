@@ -25,6 +25,12 @@ public class GivenTestConfiguration {
 
     @Bean
     @Scope(value = SCOPE_PROTOTYPE)
+    public GivenUsers givenUsers(UserTestRepository userTestRepository) {
+        return new GivenUsers(userTestRepository);
+    }
+
+    @Bean
+    @Scope(value = SCOPE_PROTOTYPE)
     public GivenIdeas givenIdeas(IdeaRepository ideaRepository, IdeaTestRepository ideaTestRepository) {
         return new GivenIdeas(ideaRepository, ideaTestRepository, new IdeaTestFactory());
     }

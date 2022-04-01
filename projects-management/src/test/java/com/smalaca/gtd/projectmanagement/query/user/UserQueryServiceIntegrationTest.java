@@ -1,36 +1,32 @@
 package com.smalaca.gtd.projectmanagement.query.user;
 
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenTestConfiguration;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given.GivenUsers;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import static com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import({UserQueryService.class, UserTestRepository.class})
+@Import({UserQueryService.class, GivenTestConfiguration.class})
 class UserQueryServiceIntegrationTest {
-    private final List<UUID> ids = new ArrayList<>();
-
-    @Autowired private UserTestRepository userTestRepository;
+    @Autowired private GivenUsers givenUsers;
     @Autowired private UserQueryService userQueryService;
 
     @AfterEach
     void deleteUsers() {
-        ids.forEach(userTestRepository::deleteBy);
+        givenUsers.deleteAll();
     }
 
     @Test
     void shouldFindSpecificUser() {
         givenUsers();
-        UUID id = givenUser("mary jane watson", "M4RRy");
+        UUID id = givenUsers.existing("mary jane watson", "M4RRy");
 
         UserReadModel actual = userQueryService.findByUserName("mary jane watson");
 
@@ -39,14 +35,8 @@ class UserQueryServiceIntegrationTest {
     }
 
     private void givenUsers() {
-        givenUser("captain-america", "5H13LD");
-        givenUser("peter parker", "web");
-        givenUser("gwen stacy", "ghost");
-    }
-
-    private UUID givenUser(String userName, String password) {
-        UUID id = userTestRepository.save(user(userName, password));
-        ids.add(id);
-        return id;
+        givenUsers.existing("captain-america", "5H13LD");
+        givenUsers.existing("peter parker", "web");
+        givenUsers.existing("gwen stacy", "ghost");
     }
 }
