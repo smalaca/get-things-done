@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given;
+package com.smalaca.gtd.projectmanagement.infrastructure.given;
 
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;

@@ -1,4 +1,4 @@
-package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.given;
+package com.smalaca.gtd.projectmanagement.infrastructure.given;
 
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
