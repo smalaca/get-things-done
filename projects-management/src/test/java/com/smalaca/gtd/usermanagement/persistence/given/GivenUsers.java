@@ -11,11 +11,13 @@ import java.util.UUID;
 public class GivenUsers {
     private final UserRepository userRepository;
     private final UserTestRepository userTestRepository;
+    private final UserTestFactory factory;
     private final List<UUID> ids = new ArrayList<>();
 
-    GivenUsers(UserRepository userRepository, UserTestRepository userTestRepository) {
+    GivenUsers(UserRepository userRepository, UserTestRepository userTestRepository, UserTestFactory factory) {
         this.userRepository = userRepository;
         this.userTestRepository = userTestRepository;
+        this.factory = factory;
     }
 
     public void deleteAll() {
@@ -33,7 +35,7 @@ public class GivenUsers {
     }
 
     private UUID create(String userName, String password) {
-        String id = userRepository.save(UserTestFactory.user(userName, password));
+        String id = userRepository.save(factory.user(userName, password));
         return UUID.fromString(id);
     }
 }

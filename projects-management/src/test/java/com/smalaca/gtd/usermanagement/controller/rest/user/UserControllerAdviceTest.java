@@ -15,7 +15,7 @@ class UserControllerAdviceTest {
 
     @Test
     void shouldHandleException() {
-        UserAlreadyExistsException exception = UserAlreadyExistsExceptionTestFactory.create("1R0N M4N");
+        UserAlreadyExistsException exception = givenExceptionFor("1R0N M4N");
 
         ResponseEntity<ValidationErrorsDto> actual = advice.handle(exception);
 
@@ -25,5 +25,9 @@ class UserControllerAdviceTest {
                 .allSatisfy(error -> assertThat(error)
                         .forField("userName")
                         .hasMessage("User \"1R0N M4N\" already exists."));
+    }
+
+    private UserAlreadyExistsException givenExceptionFor(String userName) {
+        return new UserAlreadyExistsExceptionTestFactory().create(userName);
     }
 }
