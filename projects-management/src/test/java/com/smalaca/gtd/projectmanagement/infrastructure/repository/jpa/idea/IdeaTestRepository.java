@@ -1,6 +1,5 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea;
 
-import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 
 public class IdeaTestRepository {
@@ -12,9 +11,5 @@ public class IdeaTestRepository {
 
     public void deleteById(IdeaId id) {
         repository.deleteById(id.value());
-    }
-
-    public IdeaId save(Idea idea) {
-        return repository.save(idea).id();
     }
 }
