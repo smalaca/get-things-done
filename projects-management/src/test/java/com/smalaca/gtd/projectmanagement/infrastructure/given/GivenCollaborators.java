@@ -1,30 +1,25 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.given;
 
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
+import com.smalaca.gtd.usermanagement.persistence.given.GivenUsers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class GivenCollaborators {
-    private final UserTestRepository userTestRepository;
-    private final List<UUID> ids = new ArrayList<>();
+    private final GivenUsers givenUsers;
 
-    GivenCollaborators(UserTestRepository userTestRepository) {
-        this.userTestRepository = userTestRepository;
+    GivenCollaborators(GivenUsers givenUsers) {
+        this.givenUsers = givenUsers;
     }
 
     public void deleteAll() {
-        ids.forEach(userTestRepository::deleteBy);
+        givenUsers.deleteAll();
     }
 
     public CollaboratorId existing() {
         String name = randomString();
         String password = randomString();
-        UUID id = userTestRepository.save(UserTestFactory.user(name, password));
-        ids.add(id);
+        UUID id = givenUsers.existing(name, password);
 
         return CollaboratorId.from(id);
     }

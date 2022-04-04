@@ -8,7 +8,6 @@ import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenIdeas;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenProjectManagementTestConfiguration;
 import com.smalaca.gtd.tests.annotation.RestControllerTest;
-import com.smalaca.gtd.usermanagement.persistence.given.GivenUserManagementTestConfiguration;
 import com.smalaca.gtd.usermanagement.persistence.given.GivenUsers;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -27,7 +26,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerTest
 @WithMockUser("USER")
-@Import({GivenProjectManagementTestConfiguration.class, GivenUserManagementTestConfiguration.class})
+@Import(GivenProjectManagementTestConfiguration.class)
 class IdeaRestControllerSystemTest {
     @Autowired private GivenIdeas givenIdeas;
     @Autowired private GivenUsers givenUsers;
