@@ -1,6 +1,8 @@
 package com.smalaca.gtd.usermanagement.persistence.user;
 
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
+import com.smalaca.gtd.usermanagement.persistence.given.GivenUserManagementTestConfiguration;
+import com.smalaca.gtd.usermanagement.persistence.given.GivenUsers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,23 +13,20 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import({UserRepository.class, UserTestRepository.class})
+@Import({UserRepository.class, GivenUserManagementTestConfiguration.class})
 class UserRepositoryIntegrationTest {
-    private String id;
-
+    @Autowired private GivenUsers givenUsers;
     @Autowired private UserTestRepository userTestRepository;
     @Autowired private UserRepository repository;
 
     @AfterEach
     void removeUser() {
-        if (id != null) {
-            userTestRepository.deleteBy(UUID.fromString(id));
-        }
+        givenUsers.deleteAll();
     }
 
     @Test
     void shouldSaveUser() {
-        id = repository.save(UserTestFactory.user("captain-america", "5H13LD"));
+        UUID id = givenUsers.existing("captain-america", "5H13LD");
 
         UserAssertion.assertThat(findBy(id))
                 .hasUserName("captain-america")
@@ -36,13 +35,13 @@ class UserRepositoryIntegrationTest {
                 .hasUserRole();
     }
 
-    private User findBy(String id) {
-        return userTestRepository.findBy(UUID.fromString(id));
+    private User findBy(UUID id) {
+        return userTestRepository.findBy(id);
     }
 
     @Test
     void shouldRecognizeUserWithGivenUserNameDoNotExist() {
-        repository.save(UserTestFactory.user("captain-america", "5H13LD"));
+        givenUsers.existing("captain-america", "5H13LD");
 
         boolean actual = repository.exists("charles xavier");
 
@@ -51,7 +50,7 @@ class UserRepositoryIntegrationTest {
 
     @Test
     void shouldRecognizeUserWithGivenUserNameExists() {
-        repository.save(UserTestFactory.user("captain-america", "5H13LD"));
+        givenUsers.existing("captain-america", "5H13LD");
 
         boolean actual = repository.exists("captain-america");
 
