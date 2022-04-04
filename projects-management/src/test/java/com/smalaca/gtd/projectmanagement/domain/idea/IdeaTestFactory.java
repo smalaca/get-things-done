@@ -2,14 +2,18 @@ package com.smalaca.gtd.projectmanagement.domain.idea;
 
 import java.util.UUID;
 
-public class IdeaTestFactory {
-    private final IdeaFactory factory = new IdeaFactory();
+import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestBuilder.idea;
 
+public class IdeaTestFactory {
     Idea random() {
-        return create(UUID.randomUUID(), UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        return IdeaTestBuilder.randomIdea().build();
     }
 
     public Idea create(UUID authorId, String title, String description) {
-        return factory.create(CreateIdeaCommand.create(authorId, title, description));
+        return idea()
+                .authorId(authorId)
+                .title(title)
+                .description(description)
+                .build();
     }
 }
