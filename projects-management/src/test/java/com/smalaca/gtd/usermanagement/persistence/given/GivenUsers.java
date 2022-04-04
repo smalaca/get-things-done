@@ -24,8 +24,12 @@ public class GivenUsers {
 
     public UUID existing(String userName, String password) {
         UUID id = create(userName, password);
-        ids.add(id);
+        existing(id);
         return id;
+    }
+
+    public void existing(UUID id) {
+        ids.add(id);
     }
 
     private UUID create(String userName, String password) {

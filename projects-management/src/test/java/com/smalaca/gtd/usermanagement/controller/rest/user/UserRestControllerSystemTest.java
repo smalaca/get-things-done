@@ -4,6 +4,8 @@ import com.smalaca.gtd.client.rest.ProjectsManagementClient;
 import com.smalaca.gtd.client.rest.user.UserTestDto;
 import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
 import com.smalaca.gtd.tests.annotation.RestControllerTest;
+import com.smalaca.gtd.usermanagement.persistence.given.GivenUserManagementTestConfiguration;
+import com.smalaca.gtd.usermanagement.persistence.given.GivenUsers;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -17,29 +19,30 @@ import static com.smalaca.gtd.usermanagement.persistence.user.UserAssertion.asse
 import static org.springframework.http.HttpStatus.OK;
 
 @RestControllerTest
-@Import({UserTestRepository.class})
+@Import(GivenUserManagementTestConfiguration.class)
 class UserRestControllerSystemTest {
+    private static final String USER_NAME = "peterparker";
+    private static final String PASSWORD = "1H4teSpiders!";
+
     @Autowired private ProjectsManagementClient client;
     @Autowired private UserTestRepository repository;
+    @Autowired private GivenUsers givenUsers;
 
     private UUID id;
 
     @AfterEach
     void tearDown() {
-        if (id != null) {
-            repository.deleteBy(id);
-        }
+        givenUsers.deleteAll();
     }
 
     @Test
     void shouldRegisterNewUser() {
-        UserTestDto.UserTestDtoBuilder user = userDto("peterparker", "1H4teSpiders!");
+        id = client.user().create(userDto()).asUuid();
 
-        id = client.user().create(user).asUuid();
-
+        givenUsers.existing(id);
         assertThat(repository.findBy(id))
-                .hasUserName("peterparker")
-                .hasEncodedPassword("1H4teSpiders!")
+                .hasUserName(USER_NAME)
+                .hasEncodedPassword(PASSWORD)
                 .isActive()
                 .hasUserRole();
     }
@@ -68,10 +71,9 @@ class UserRestControllerSystemTest {
 
     @Test
     void shouldNotAllowRegisterSameUserTwice() {
-        givenExistingUser("peterparker");
-        UserTestDto.UserTestDtoBuilder user = userDto("peterparker", "1H4teSpiders!");
+        givenUsers.existing(USER_NAME, PASSWORD);
 
-        ValidationErrorsTestDto actual = client.user(OK).create(user).asValidationErrors();
+        ValidationErrorsTestDto actual = client.user(OK).create(userDto()).asValidationErrors();
 
         assertThat(actual)
                 .hasErrors(1)
@@ -80,14 +82,10 @@ class UserRestControllerSystemTest {
                         .hasMessage("User \"peterparker\" already exists."));
     }
 
-    private void givenExistingUser(String userName) {
-        id = client.user().create(userDto(userName, "1H4teSpiders!")).asUuid();
-    }
-
-    private UserTestDto.UserTestDtoBuilder userDto(String userName, String password) {
+    private UserTestDto.UserTestDtoBuilder userDto() {
         return UserTestDto.builder()
-                .userName(userName)
-                .password(password)
-                .repeatedPassword(password);
+                .userName(USER_NAME)
+                .password(PASSWORD)
+                .repeatedPassword(PASSWORD);
     }
 }
