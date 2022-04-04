@@ -9,18 +9,18 @@ import org.junit.jupiter.api.Test;
 import java.util.UUID;
 
 import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaAssertion.assertThat;
+import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestBuilder.randomIdea;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 class IdeaTest {
-    private final IdeaTestFactory ideaFactory = new IdeaTestFactory();
     private final CollaboratorRepository collaboratorRepository = mock(CollaboratorRepository.class);
 
     @Test
     void shouldRecognizeCollaboratorDoesNotExist() {
-        Idea idea = ideaFactory.random();
+        Idea idea = randomIdea().build();
         CollaboratorId collaboratorId = givenNotExistingCollaborator();
 
         ThrowingRunnable executable = () -> idea.share(collaboratorRepository, collaboratorId);
@@ -37,7 +37,7 @@ class IdeaTest {
 
     @Test
     void shouldShareIdea() {
-        Idea idea = ideaFactory.random();
+        Idea idea = randomIdea().build();
         CollaboratorId collaboratorId = givenExistingCollaborator();
 
         idea.share(collaboratorRepository, collaboratorId);
@@ -47,7 +47,7 @@ class IdeaTest {
 
     @Test
     void shouldShareIdeaWithManyCollaborators() {
-        Idea idea = ideaFactory.random();
+        Idea idea = randomIdea().build();
         CollaboratorId collaboratorIdOne = givenExistingCollaborator();
         CollaboratorId collaboratorIdTwo = givenExistingCollaborator();
         CollaboratorId collaboratorIdThree = givenExistingCollaborator();
@@ -61,7 +61,7 @@ class IdeaTest {
 
     @Test
     void shouldIgnoreSharingIdeaWithTheSameCollaboratorMoreThanOnce() {
-        Idea idea = ideaFactory.random();
+        Idea idea = randomIdea().build();
         CollaboratorId collaboratorId = givenExistingCollaborator();
 
         idea.share(collaboratorRepository, collaboratorId);

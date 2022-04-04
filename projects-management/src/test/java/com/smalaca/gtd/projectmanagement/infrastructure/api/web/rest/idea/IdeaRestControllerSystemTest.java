@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.smalaca.gtd.client.rest.RestClientResponseAssertions.assertThat;
+import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestBuilder.idea;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -36,10 +37,10 @@ class IdeaRestControllerSystemTest {
     void givenIdeas() {
         UUID userId = givenUsers.existing("USER", UUID.randomUUID().toString());
         AuthorId authorId = AuthorId.from(userId);
-        givenIdeas.existing(authorId, "IdeaOne", "With description");
-        givenIdeas.existing(authorId, "IdeaTwo");
-        givenIdeas.existing(authorId, null, "Description is everything");
-        givenIdeas.existing(authorId, "Idea Four", "The greatest ideas makes us better!");
+        givenIdeas.existing(idea(authorId).title("IdeaOne").description("With description"));
+        givenIdeas.existing(idea(authorId).title("IdeaTwo"));
+        givenIdeas.existing(idea(authorId).description("Description is everything"));
+        givenIdeas.existing(idea(authorId).title("Idea Four").description("The greatest ideas makes us better!"));
     }
 
     @AfterEach

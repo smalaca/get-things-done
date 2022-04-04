@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestBuilder.idea;
 import static com.smalaca.gtd.projectmanagement.query.idea.IdeaReadModelAssertion.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -70,7 +71,7 @@ class IdeaQueryServiceIntegrationTest {
     @Test
     void shouldFindSpecificIdea() {
         givenIdeas();
-        UUID id = givenIdeas.existing(AUTHOR_ID, "Idea Five", "It would be good to do something good").value();
+        UUID id = givenIdeas.existing(idea(AUTHOR_ID).title("Idea Five").description("It would be good to do something good")).value();
 
         IdeaReadModel actual = service.findById(id).get();
 
@@ -80,9 +81,9 @@ class IdeaQueryServiceIntegrationTest {
     }
 
     private void givenIdeas() {
-        givenIdeas.existing(AUTHOR_ID, "IdeaOne", "With description");
-        givenIdeas.existing(AUTHOR_ID, "IdeaTwo");
-        givenIdeas.existing(AUTHOR_ID, null, "Description is everything");
-        givenIdeas.existing(AUTHOR_ID, "Idea Four", "The greatest ideas makes us better!");
+        givenIdeas.existing(idea(AUTHOR_ID).title("IdeaOne").description("With description"));
+        givenIdeas.existing(idea(AUTHOR_ID).title("IdeaTwo"));
+        givenIdeas.existing(idea(AUTHOR_ID).description("Description is everything"));
+        givenIdeas.existing(idea(AUTHOR_ID).title("Idea Four").description("The greatest ideas makes us better!"));
     }
 }

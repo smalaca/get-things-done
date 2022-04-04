@@ -7,7 +7,6 @@ import com.smalaca.gtd.projectmanagement.domain.idea.CreateIdeaCommand;
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
-import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -16,6 +15,7 @@ import org.mockito.Mockito;
 import java.util.UUID;
 
 import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaAssertion.assertThat;
+import static com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestBuilder.idea;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,8 +30,6 @@ class IdeaApplicationServiceTest {
     private static final String DESCRIPTION = "But explanation require even more place";
     private static final UUID AUTHOR_UUID = UUID.randomUUID();
     private static final AuthorId AUTHOR_ID = AuthorId.from(AUTHOR_UUID);
-
-    private final IdeaTestFactory factory = new IdeaTestFactory();
 
     private final IdeaRepository ideaRepository = mock(IdeaRepository.class);
     private final CollaboratorRepository collaboratorRepository = mock(CollaboratorRepository.class);
@@ -134,7 +132,11 @@ class IdeaApplicationServiceTest {
 
     private UUID givenExistingIdea() {
         UUID id = UUID.randomUUID();
-        given(ideaRepository.findBy(AUTHOR_ID, IdeaId.from(id))).willReturn(factory.create(AUTHOR_UUID, TITLE, DESCRIPTION));
+        Idea idea = idea(AUTHOR_ID)
+                .title(TITLE)
+                .description(DESCRIPTION)
+                .build();
+        given(ideaRepository.findBy(AUTHOR_ID, IdeaId.from(id))).willReturn(idea);
         return id;
     }
 
