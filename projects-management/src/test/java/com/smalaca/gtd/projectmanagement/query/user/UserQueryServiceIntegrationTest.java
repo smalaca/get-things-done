@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 
 import java.util.UUID;
 
+import static com.smalaca.gtd.usermanagement.persistence.user.UserTestBuilder.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
@@ -26,7 +27,7 @@ class UserQueryServiceIntegrationTest {
     @Test
     void shouldFindSpecificUser() {
         givenUsers();
-        UUID id = givenUsers.existing("mary jane watson", "M4RRy");
+        UUID id = givenUsers.existing(user("mary jane watson"));
 
         UserReadModel actual = userQueryService.findByUserName("mary jane watson");
 
@@ -35,8 +36,8 @@ class UserQueryServiceIntegrationTest {
     }
 
     private void givenUsers() {
-        givenUsers.existing("captain-america", "5H13LD");
-        givenUsers.existing("peter parker", "web");
-        givenUsers.existing("gwen stacy", "ghost");
+        givenUsers.existing(user("captain-america"));
+        givenUsers.existing(user("peter parker"));
+        givenUsers.existing(user("gwen stacy"));
     }
 }

@@ -1,6 +1,5 @@
 package com.smalaca.gtd.usermanagement.persistence.given;
 
-import com.smalaca.gtd.usermanagement.persistence.user.User;
 import com.smalaca.gtd.usermanagement.persistence.user.UserRepository;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestBuilder;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
@@ -23,19 +22,15 @@ public class GivenUsers {
         ids.forEach(userTestRepository::deleteBy);
     }
 
-    public UUID existing(String userName, String password) {
-        UUID id = create(userName, password);
-        existing(id);
-        return id;
+    public UUID existing(UserTestBuilder user) {
+        String id = userRepository.save(user.build());
+        UUID uuid = UUID.fromString(id);
+        existing(uuid);
+
+        return uuid;
     }
 
     public void existing(UUID id) {
         ids.add(id);
-    }
-
-    private UUID create(String userName, String password) {
-        User user = UserTestBuilder.user(userName).password(password).build();
-        String id = userRepository.save(user);
-        return UUID.fromString(id);
     }
 }

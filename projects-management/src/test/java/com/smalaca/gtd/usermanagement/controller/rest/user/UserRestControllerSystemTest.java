@@ -16,6 +16,7 @@ import java.util.UUID;
 
 import static com.smalaca.gtd.client.rest.RestClientResponseAssertions.assertThat;
 import static com.smalaca.gtd.usermanagement.persistence.user.UserAssertion.assertThat;
+import static com.smalaca.gtd.usermanagement.persistence.user.UserTestBuilder.user;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestControllerTest
@@ -71,7 +72,7 @@ class UserRestControllerSystemTest {
 
     @Test
     void shouldNotAllowRegisterSameUserTwice() {
-        givenUsers.existing(USER_NAME, PASSWORD);
+        givenUsers.existing(user(USER_NAME).password(PASSWORD));
 
         ValidationErrorsTestDto actual = client.user(OK).create(userDto()).asValidationErrors();
 
