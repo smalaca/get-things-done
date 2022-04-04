@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 
 import java.util.UUID;
 
+import static com.smalaca.gtd.usermanagement.persistence.user.UserTestBuilder.user;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
@@ -26,7 +27,7 @@ class UserRepositoryIntegrationTest {
 
     @Test
     void shouldSaveUser() {
-        UUID id = givenUsers.existing("captain-america", "5H13LD");
+        UUID id = givenUsers.existing(user("captain-america").password("5H13LD"));
 
         UserAssertion.assertThat(findBy(id))
                 .hasUserName("captain-america")
@@ -41,7 +42,7 @@ class UserRepositoryIntegrationTest {
 
     @Test
     void shouldRecognizeUserWithGivenUserNameDoNotExist() {
-        givenUsers.existing("captain-america", "5H13LD");
+        givenUsers.existing(user("captain-america").password("5H13LD"));
 
         boolean actual = repository.exists("charles xavier");
 
@@ -50,7 +51,7 @@ class UserRepositoryIntegrationTest {
 
     @Test
     void shouldRecognizeUserWithGivenUserNameExists() {
-        givenUsers.existing("captain-america", "5H13LD");
+        givenUsers.existing(user("captain-america").password("5H13LD"));
 
         boolean actual = repository.exists("captain-america");
 

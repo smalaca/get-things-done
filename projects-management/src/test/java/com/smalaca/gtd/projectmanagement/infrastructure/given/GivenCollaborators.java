@@ -5,6 +5,8 @@ import com.smalaca.gtd.usermanagement.persistence.given.GivenUsers;
 
 import java.util.UUID;
 
+import static com.smalaca.gtd.usermanagement.persistence.user.UserTestBuilder.randomUser;
+
 public class GivenCollaborators {
     private final GivenUsers givenUsers;
 
@@ -17,14 +19,7 @@ public class GivenCollaborators {
     }
 
     public CollaboratorId existing() {
-        String name = randomString();
-        String password = randomString();
-        UUID id = givenUsers.existing(name, password);
-
+        UUID id = givenUsers.existing(randomUser());
         return CollaboratorId.from(id);
-    }
-
-    private String randomString() {
-        return UUID.randomUUID().toString();
     }
 }

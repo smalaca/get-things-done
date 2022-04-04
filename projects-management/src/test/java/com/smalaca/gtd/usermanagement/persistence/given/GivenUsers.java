@@ -1,7 +1,7 @@
 package com.smalaca.gtd.usermanagement.persistence.given;
 
 import com.smalaca.gtd.usermanagement.persistence.user.UserRepository;
-import com.smalaca.gtd.usermanagement.persistence.user.UserTestFactory;
+import com.smalaca.gtd.usermanagement.persistence.user.UserTestBuilder;
 import com.smalaca.gtd.usermanagement.persistence.user.UserTestRepository;
 
 import java.util.ArrayList;
@@ -11,31 +11,26 @@ import java.util.UUID;
 public class GivenUsers {
     private final UserRepository userRepository;
     private final UserTestRepository userTestRepository;
-    private final UserTestFactory factory;
     private final List<UUID> ids = new ArrayList<>();
 
-    GivenUsers(UserRepository userRepository, UserTestRepository userTestRepository, UserTestFactory factory) {
+    GivenUsers(UserRepository userRepository, UserTestRepository userTestRepository) {
         this.userRepository = userRepository;
         this.userTestRepository = userTestRepository;
-        this.factory = factory;
     }
 
     public void deleteAll() {
         ids.forEach(userTestRepository::deleteBy);
     }
 
-    public UUID existing(String userName, String password) {
-        UUID id = create(userName, password);
-        existing(id);
-        return id;
+    public UUID existing(UserTestBuilder user) {
+        String id = userRepository.save(user.build());
+        UUID uuid = UUID.fromString(id);
+        existing(uuid);
+
+        return uuid;
     }
 
     public void existing(UUID id) {
         ids.add(id);
-    }
-
-    private UUID create(String userName, String password) {
-        String id = userRepository.save(factory.user(userName, password));
-        return UUID.fromString(id);
     }
 }
