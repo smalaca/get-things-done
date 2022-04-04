@@ -6,10 +6,10 @@ import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorReposit
 import com.smalaca.gtd.projectmanagement.domain.idea.Idea;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
-import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collaborator.JpaCollaboratorRepository;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenCollaborators;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenIdeas;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenProjectManagementTestConfiguration;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collaborator.JpaCollaboratorRepository;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
