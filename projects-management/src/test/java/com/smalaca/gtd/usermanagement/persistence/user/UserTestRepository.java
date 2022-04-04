@@ -16,9 +16,4 @@ public class UserTestRepository {
     public void deleteBy(UUID id) {
         repository.deleteById(id);
     }
-
-    public UUID save(User user) {
-        String saved = repository.save(user).id();
-        return UUID.fromString(saved);
-    }
 }
