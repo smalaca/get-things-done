@@ -1,46 +1,45 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
+import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
+
 import java.util.UUID;
 
 public class IdeaTestBuilder {
     private static final IdeaFactory FACTORY = new IdeaFactory();
 
-    private UUID authorId;
+    private final AuthorId authorId;
     private String title;
     private String description;
 
-    static IdeaTestBuilder idea() {
-        return new IdeaTestBuilder();
+    private IdeaTestBuilder(AuthorId authorId) {
+        this.authorId = authorId;
+    }
+
+    public static IdeaTestBuilder idea(AuthorId authorId) {
+        return new IdeaTestBuilder(authorId);
     }
 
     static IdeaTestBuilder randomIdea() {
-        IdeaTestBuilder builder = idea();
-        builder.authorId = UUID.randomUUID();
-        builder.title = UUID.randomUUID().toString();
-        builder.description = UUID.randomUUID().toString();
-        return builder;
+        return idea(AuthorId.from(UUID.randomUUID()))
+                .title(UUID.randomUUID().toString())
+                .description(UUID.randomUUID().toString());
     }
 
-    IdeaTestBuilder authorId(UUID authorId) {
-        this.authorId = authorId;
-        return this;
-    }
-
-    IdeaTestBuilder title(String title) {
+    public IdeaTestBuilder title(String title) {
         this.title = title;
         return this;
     }
 
-    IdeaTestBuilder description(String description) {
+    public IdeaTestBuilder description(String description) {
         this.description = description;
         return this;
     }
 
-    CreateIdeaCommand asCreateCommand() {
-        return CreateIdeaCommand.create(authorId, title, description);
+    public Idea build() {
+        return FACTORY.create(asCreateCommand());
     }
 
-    Idea build() {
-        return FACTORY.create(asCreateCommand());
+    private CreateIdeaCommand asCreateCommand() {
+        return CreateIdeaCommand.create(authorId.value(), title, description);
     }
 }
