@@ -2,7 +2,7 @@ package com.smalaca.gtd.projectmanagement.query.idea;
 
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenIdeas;
-import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenTestConfiguration;
+import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenProjectManagementTestConfiguration;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static com.smalaca.gtd.projectmanagement.query.idea.IdeaReadModelAssertio
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import({IdeaQueryService.class, GivenTestConfiguration.class})
+@Import({IdeaQueryService.class, GivenProjectManagementTestConfiguration.class})
 class IdeaQueryServiceIntegrationTest {
     private static final AuthorId AUTHOR_ID = AuthorId.from(UUID.randomUUID());
 

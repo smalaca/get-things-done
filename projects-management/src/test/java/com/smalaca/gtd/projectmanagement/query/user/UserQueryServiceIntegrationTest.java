@@ -1,8 +1,8 @@
 package com.smalaca.gtd.projectmanagement.query.user;
 
-import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenTestConfiguration;
-import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenUsers;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
+import com.smalaca.gtd.usermanagement.persistence.given.GivenUserManagementTestConfiguration;
+import com.smalaca.gtd.usermanagement.persistence.given.GivenUsers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RepositoryTest
-@Import({UserQueryService.class, GivenTestConfiguration.class})
+@Import({UserQueryService.class, GivenUserManagementTestConfiguration.class})
 class UserQueryServiceIntegrationTest {
     @Autowired private GivenUsers givenUsers;
     @Autowired private UserQueryService userQueryService;

@@ -9,7 +9,7 @@ import com.smalaca.gtd.projectmanagement.domain.idea.IdeaRepository;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.collaborator.JpaCollaboratorRepository;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenCollaborators;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenIdeas;
-import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenTestConfiguration;
+import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenProjectManagementTestConfiguration;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RepositoryTest
-@Import({JpaIdeaRepository.class, JpaCollaboratorRepository.class, GivenTestConfiguration.class})
+@Import({JpaIdeaRepository.class, JpaCollaboratorRepository.class, GivenProjectManagementTestConfiguration.class})
 class JpaIdeaRepositoryIntegrationTest {
     private static final String NO_DESCRIPTION = null;
     private static final String NO_TITLE = null;

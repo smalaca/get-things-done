@@ -16,17 +16,11 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 @Import({
         UserTestRepository.class,
         IdeaTestRepository.class, JpaIdeaRepository.class})
-public class GivenTestConfiguration {
+public class GivenProjectManagementTestConfiguration {
     @Bean
     @Scope(value = SCOPE_PROTOTYPE)
     public GivenCollaborators givenCollaborators(UserTestRepository userTestRepository) {
         return new GivenCollaborators(userTestRepository);
-    }
-
-    @Bean
-    @Scope(value = SCOPE_PROTOTYPE)
-    public GivenUsers givenUsers(UserTestRepository userTestRepository) {
-        return new GivenUsers(userTestRepository);
     }
 
     @Bean
