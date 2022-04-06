@@ -28,7 +28,7 @@ public final class SpringFramework {
     }
 
     public static String springDataPackages() {
-        return allPackagesIn(springFramework("data.repository"));
+        return allPackagesIn(springFramework("data"));
     }
 
     public static String springSecurityPackages() {

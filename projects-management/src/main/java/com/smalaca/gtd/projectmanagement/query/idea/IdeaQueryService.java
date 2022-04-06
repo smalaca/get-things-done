@@ -20,6 +20,6 @@ public class IdeaQueryService {
     }
 
     public Optional<IdeaReadModel> findById(UUID id) {
-        return repository.findById(id);
+        return repository.findOneById(id);
     }
 }

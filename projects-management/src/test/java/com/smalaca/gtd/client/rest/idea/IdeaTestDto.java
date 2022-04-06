@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
 import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -17,4 +18,5 @@ public class IdeaTestDto {
     private UUID id;
     private String title;
     private String description;
+    private Set<CollaboratorTestDto> collaborators;
 }

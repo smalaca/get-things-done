@@ -1,6 +1,9 @@
 package com.smalaca.gtd.projectmanagement.query.idea;
 
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
+import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
+import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenCollaborators;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenIdeas;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenProjectManagementTestConfiguration;
 import com.smalaca.gtd.tests.annotation.RepositoryTest;
@@ -23,6 +26,7 @@ class IdeaQueryServiceIntegrationTest {
     private static final AuthorId AUTHOR_ID = AuthorId.from(UUID.randomUUID());
 
     @Autowired private GivenIdeas givenIdeas;
+    @Autowired private GivenCollaborators givenCollaborators;
     @Autowired private IdeaQueryService service;
 
     @AfterEach
@@ -70,14 +74,24 @@ class IdeaQueryServiceIntegrationTest {
 
     @Test
     void shouldFindSpecificIdea() {
+        CollaboratorId peterParkerId = givenCollaborators.existing("peter parker");
+        givenCollaborators.existing("natasha romanoff");
+        givenCollaborators.existing("steve rogers");
+        CollaboratorId wandaMaximoffId = givenCollaborators.existing("wanda maximoff");
         givenIdeas();
-        UUID id = givenIdeas.existing(idea(AUTHOR_ID).title("Idea Five").description("It would be good to do something good")).value();
+        IdeaId id = givenIdeas.existing(idea(AUTHOR_ID)
+                .title("Idea Five")
+                .description("It would be good to do something good")
+                .collaborators(peterParkerId, wandaMaximoffId));
 
-        IdeaReadModel actual = service.findById(id).get();
+        IdeaReadModel actual = service.findById(id.value()).get();
 
         assertThat(actual)
                 .hasTitle("Idea Five")
-                .hasDescription("It would be good to do something good");
+                .hasDescription("It would be good to do something good")
+                .hasCollaborators(2)
+                .hasCollaborator(peterParkerId, "peter parker")
+                .hasCollaborator(wandaMaximoffId, "wanda maximoff");
     }
 
     private void givenIdeas() {

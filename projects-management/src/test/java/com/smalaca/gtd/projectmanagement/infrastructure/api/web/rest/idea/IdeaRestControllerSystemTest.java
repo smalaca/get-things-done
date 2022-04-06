@@ -45,7 +45,7 @@ class IdeaRestControllerSystemTest {
     }
 
     @AfterEach
-    void deleteCreatedIdea() {
+    void deleteCreatedEntities() {
         givenUsers.deleteAll();
         givenIdeas.deleteAll();
     }
@@ -66,7 +66,8 @@ class IdeaRestControllerSystemTest {
         IdeaTestDto created = client.idea().findBy(id).asIdea();
         assertThat(created)
                 .hasTitle("I have an idea")
-                .hasDescription("And the idea is really good");
+                .hasDescription("And the idea is really good")
+                .hasNoCollaborators();
     }
 
     private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {

@@ -28,4 +28,9 @@ public class IdeaTestDtoAssertion {
         Assertions.assertThat(actual.getDescription()).isNull();
         return this;
     }
+
+    public IdeaTestDtoAssertion hasNoCollaborators() {
+        Assertions.assertThat(actual.getCollaborators()).isNull();
+        return this;
+    }
 }
