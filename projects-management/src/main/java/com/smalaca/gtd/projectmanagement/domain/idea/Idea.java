@@ -40,7 +40,9 @@ public class Idea {
     private AuthorId authorId;
 
     @ElementCollection(fetch = EAGER)
-    @CollectionTable(joinColumns = @JoinColumn(name = "idea_id"))
+    @CollectionTable(
+            name = "idea_collaborators",
+            joinColumns = @JoinColumn(name = "idea_id"))
     private Set<CollaboratorId> collaborators = new HashSet<>();
 
     private Idea() {}
