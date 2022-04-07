@@ -28,19 +28,31 @@ public class RestEndpoint {
         return execute(postRequest(url, asJson(dto)));
     }
 
+    private MockHttpServletRequestBuilder postRequest(String url, String content) {
+        return requestWithCsrf(MockMvcRequestBuilders.post(url), content);
+    }
+
+    public void patch(String url, Object dto) {
+        execute(patchRequest(url, asJson(dto)));
+    }
+
+    private MockHttpServletRequestBuilder patchRequest(String url, String content) {
+        return requestWithCsrf(MockMvcRequestBuilders.patch(url), content);
+    }
+
+    private MockHttpServletRequestBuilder requestWithCsrf(MockHttpServletRequestBuilder request, String content) {
+        return request
+                .with(csrf())
+                .content(content)
+                .contentType(APPLICATION_JSON);
+    }
+
     private String asJson(Object dto) {
         try {
             return objectMapper.writeValueAsString(dto);
         } catch (JsonProcessingException exception) {
             throw new RuntimeException(exception);
         }
-    }
-
-    private MockHttpServletRequestBuilder postRequest(String url, String content) {
-        return MockMvcRequestBuilders.post(url)
-                .with(csrf())
-                .content(content)
-                .contentType(APPLICATION_JSON);
     }
 
     public WebResponse get(String urlTemplate) {

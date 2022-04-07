@@ -5,6 +5,8 @@ import com.smalaca.gtd.client.rest.idea.IdeaTestDto;
 import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import com.smalaca.gtd.projectmanagement.domain.idea.IdeaId;
+import com.smalaca.gtd.projectmanagement.domain.idea.IdeaTestBuilder;
+import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenCollaborators;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenIdeas;
 import com.smalaca.gtd.projectmanagement.infrastructure.given.GivenProjectManagementTestConfiguration;
 import com.smalaca.gtd.tests.annotation.RestControllerTest;
@@ -32,22 +34,24 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 class IdeaRestControllerSystemTest {
     @Autowired private GivenIdeas givenIdeas;
     @Autowired private GivenUsers givenUsers;
+    @Autowired private GivenCollaborators givenCollaborators;
     @Autowired private ProjectsManagementClient client;
+    private UUID userId;
 
     @BeforeEach
     void givenIdeas() {
-        UUID userId = givenUsers.existing(user("USER"));
-        AuthorId authorId = AuthorId.from(userId);
-        givenIdeas.existing(idea(authorId).title("IdeaOne").description("With description"));
-        givenIdeas.existing(idea(authorId).title("IdeaTwo"));
-        givenIdeas.existing(idea(authorId).description("Description is everything"));
-        givenIdeas.existing(idea(authorId).title("Idea Four").description("The greatest ideas makes us better!"));
+        userId = givenUsers.existing(user("USER"));
+        givenIdeas.existing(ideaForUser().title("IdeaOne").description("With description"));
+        givenIdeas.existing(ideaForUser().title("IdeaTwo"));
+        givenIdeas.existing(ideaForUser().description("Description is everything"));
+        givenIdeas.existing(ideaForUser().title("Idea Four").description("The greatest ideas makes us better!"));
     }
 
     @AfterEach
     void deleteCreatedEntities() {
         givenUsers.deleteAll();
         givenIdeas.deleteAll();
+        givenCollaborators.deleteAll();
     }
 
     @Test
@@ -63,8 +67,7 @@ class IdeaRestControllerSystemTest {
 
         UUID id = createIdea(idea);
 
-        IdeaTestDto created = client.idea().findBy(id).asIdea();
-        assertThat(created)
+        assertThat(findBy(id))
                 .hasTitle("I have an idea")
                 .hasDescription("And the idea is really good")
                 .hasNoCollaborators();
@@ -106,5 +109,32 @@ class IdeaRestControllerSystemTest {
                 .anySatisfy(idea -> assertThat(idea)
                         .hasTitle("Idea Four")
                         .hasDescription("The greatest ideas makes us better!"));
+    }
+
+    @Test
+    void shouldShareIdeaWithCollaborators() {
+        UUID peterParkerId = givenCollaborators.existing("peter parker").value();
+        givenCollaborators.existing("natasha romanoff");
+        givenCollaborators.existing("steve rogers");
+        UUID wandaMaximoffId = givenCollaborators.existing("wanda maximoff").value();
+        UUID ideaId = givenIdeas.existing(ideaForUser().title("Great idea").description("So Good")).value();
+
+        client.idea().share(ideaId, peterParkerId);
+        client.idea().share(ideaId, wandaMaximoffId);
+
+        assertThat(findBy(ideaId))
+                .hasTitle("Great idea")
+                .hasDescription("So Good")
+                .hasCollaborators(2)
+                .hasCollaborator(peterParkerId, "peter parker")
+                .hasCollaborator(wandaMaximoffId, "wanda maximoff");
+    }
+
+    private IdeaTestBuilder ideaForUser() {
+        return idea(AuthorId.from(userId));
+    }
+
+    private IdeaTestDto findBy(UUID id) {
+        return client.idea().findBy(id).asIdea();
     }
 }

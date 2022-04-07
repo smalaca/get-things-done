@@ -1,6 +1,7 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 
 import com.smalaca.gtd.projectmanagement.application.idea.IdeaApplicationService;
+import com.smalaca.gtd.projectmanagement.application.idea.ShareIdeaCommand;
 import com.smalaca.gtd.projectmanagement.domain.idea.CreateIdeaCommand;
 import com.smalaca.gtd.projectmanagement.query.idea.IdeaQueryService;
 import com.smalaca.gtd.projectmanagement.query.idea.IdeaReadModel;
@@ -8,6 +9,7 @@ import com.smalaca.gtd.projectmanagement.query.user.UserQueryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,12 +31,15 @@ public class IdeaRestController {
     private final IdeaApplicationService ideaApplicationService;
     private final IdeaQueryService ideaQueryService;
     private final UserQueryService userQueryService;
+    private final IdeaDtoFactory ideaDtoFactory;
 
     IdeaRestController(
-            IdeaApplicationService ideaApplicationService, IdeaQueryService ideaQueryService, UserQueryService userQueryService) {
+            IdeaApplicationService ideaApplicationService, IdeaQueryService ideaQueryService, UserQueryService userQueryService,
+            IdeaDtoFactory ideaDtoFactory) {
         this.ideaApplicationService = ideaApplicationService;
         this.ideaQueryService = ideaQueryService;
         this.userQueryService = userQueryService;
+        this.ideaDtoFactory = ideaDtoFactory;
     }
 
     @PostMapping
@@ -45,14 +50,10 @@ public class IdeaRestController {
         return ideaApplicationService.create(command).toString();
     }
 
-    private UUID authorIdFrom(Authentication authentication) {
-        return userQueryService.findByUserName(authentication.getName()).getId();
-    }
-
     @GetMapping
     public List<IdeaDto> findAll() {
         return ideaQueryService.findAll().stream()
-                .map(this::asDto)
+                .map(ideaDtoFactory::create)
                 .collect(toList());
     }
 
@@ -61,17 +62,19 @@ public class IdeaRestController {
         Optional<IdeaReadModel> found = ideaQueryService.findById(id);
 
         if (found.isPresent()) {
-            return ResponseEntity.ok(asDto(found.get()));
+            return ResponseEntity.ok(ideaDtoFactory.create(found.get()));
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    private IdeaDto asDto(IdeaReadModel readModel) {
-        return IdeaDto.builder()
-                .id(readModel.getId())
-                .title(readModel.getTitle())
-                .description(readModel.getDescription())
-                .build();
+    @PatchMapping("/{id}")
+    public void share(@PathVariable UUID id, @RequestBody IdeaShareDto dto, Authentication authentication) {
+        ShareIdeaCommand command = dto.asShareIdeaCommand(authorIdFrom(authentication), id);
+        ideaApplicationService.share(command);
+    }
+
+    private UUID authorIdFrom(Authentication authentication) {
+        return userQueryService.findByUserName(authentication.getName()).getId();
     }
 }

@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+import static lombok.AccessLevel.PACKAGE;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter
-@AllArgsConstructor(access = PRIVATE)
-@NoArgsConstructor
-public class CollaboratorTestDto {
-    private UUID id;
-    private String userName;
+@NoArgsConstructor(access = PRIVATE)
+@AllArgsConstructor(access = PACKAGE)
+public class IdeaShareTestDto {
+    private UUID collaboratorId;
 }

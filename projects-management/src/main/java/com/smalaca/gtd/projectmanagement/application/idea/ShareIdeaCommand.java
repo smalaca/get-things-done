@@ -7,10 +7,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
-import static lombok.AccessLevel.PACKAGE;
-
-@RequiredArgsConstructor(access = PACKAGE)
-class ShareIdeaCommand {
+@RequiredArgsConstructor
+public class ShareIdeaCommand {
     private final UUID authorId;
     private final UUID ideaId;
     private final UUID collaboratorId;

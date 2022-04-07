@@ -25,10 +25,18 @@ public class IdeaEndpoints {
     }
 
     public WebResponse findBy(UUID id) {
-        return endpoint.get(IDEA_URL + "/" + id);
+        return endpoint.get(ideaUrl(id));
     }
 
     public WebResponse findAll() {
         return endpoint.get(IDEA_URL);
+    }
+
+    public void share(UUID ideaId, UUID collaboratorId) {
+        endpoint.patch(ideaUrl(ideaId), new IdeaShareTestDto(collaboratorId));
+    }
+
+    private String ideaUrl(UUID ideaId) {
+        return IDEA_URL + "/" + ideaId;
     }
 }
