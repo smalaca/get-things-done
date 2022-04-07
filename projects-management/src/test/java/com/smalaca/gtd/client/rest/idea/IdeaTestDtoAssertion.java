@@ -2,6 +2,8 @@ package com.smalaca.gtd.client.rest.idea;
 
 import org.assertj.core.api.Assertions;
 
+import java.util.UUID;
+
 public class IdeaTestDtoAssertion {
     private final IdeaTestDto actual;
 
@@ -30,7 +32,22 @@ public class IdeaTestDtoAssertion {
     }
 
     public IdeaTestDtoAssertion hasNoCollaborators() {
-        Assertions.assertThat(actual.getCollaborators()).isNull();
+        Assertions.assertThat(actual.getCollaborators()).isEmpty();
+        return this;
+    }
+
+    public IdeaTestDtoAssertion hasCollaborators(int expected) {
+        Assertions.assertThat(actual.getCollaborators()).hasSize(expected);
+        return this;
+    }
+
+    public IdeaTestDtoAssertion hasCollaborator(UUID id, String userName) {
+        Assertions.assertThat(actual.getCollaborators())
+                .anySatisfy(collaborator -> {
+                    Assertions.assertThat(collaborator.getId()).isEqualTo(id);
+                    Assertions.assertThat(collaborator.getUserName()).isEqualTo(userName);
+                });
+
         return this;
     }
 }

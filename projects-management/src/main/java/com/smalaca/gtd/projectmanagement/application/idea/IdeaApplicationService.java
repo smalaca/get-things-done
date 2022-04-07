@@ -25,7 +25,7 @@ public class IdeaApplicationService {
         return ideaRepository.save(idea).value();
     }
 
-    void share(ShareIdeaCommand command) {
+    public void share(ShareIdeaCommand command) {
         Idea idea = ideaRepository.findBy(command.getAuthorId(), command.getIdeaId());
 
         idea.share(collaboratorRepository, command.getCollaboratorId());

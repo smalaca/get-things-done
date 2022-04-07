@@ -5,6 +5,7 @@ import com.smalaca.gtd.shared.libraries.validation.constrains.AtLeastOneNotEmpty
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -17,6 +18,7 @@ class IdeaDto {
     private final UUID id;
     private final String title;
     private final String description;
+    private final Set<CollaboratorDto> collaborators;
 
     CreateIdeaCommand asCreateIdeaCommand(UUID authorId) {
         return CreateIdeaCommand.create(authorId, title, description);
