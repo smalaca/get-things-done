@@ -16,6 +16,6 @@ class IdeaShareDto {
     }
 
     ShareIdeaCommand asShareIdeaCommand(UUID authorId, UUID ideaId) {
-        return new ShareIdeaCommand(authorId, ideaId, collaboratorId);
+        return new ShareIdeaCommand(authorId, ideaId, getCollaboratorId());
     }
 }
