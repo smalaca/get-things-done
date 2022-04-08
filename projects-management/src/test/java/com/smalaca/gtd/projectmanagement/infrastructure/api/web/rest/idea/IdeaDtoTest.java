@@ -1,5 +1,7 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -67,5 +69,10 @@ class IdeaDtoTest {
                 Arguments.of("I've got a dream", ""),
                 Arguments.of("I've got a dream", "  ")
         );
+    }
+
+    @Test
+    void shouldFulfillEqualsContract() {
+        EqualsVerifier.forClass(IdeaDto.class).verify();
     }
 }

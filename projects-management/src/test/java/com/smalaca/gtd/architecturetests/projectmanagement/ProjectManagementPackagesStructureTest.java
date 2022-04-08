@@ -44,7 +44,7 @@ class ProjectManagementPackagesStructureTest {
                 .resideInAPackage(APPLICATION)
                 .should().onlyDependOnClassesThat()
                 .resideInAnyPackage(
-                        javaPackages(), springContextPackages(), springBeansPackages(),
+                        javaPackages(), springContextPackages(), springBeansPackages(), apacheCommonsPackages(),
                         APPLICATION, DOMAIN)
 
                 .because("0003-project-management-hexagonal-architecture.md")
