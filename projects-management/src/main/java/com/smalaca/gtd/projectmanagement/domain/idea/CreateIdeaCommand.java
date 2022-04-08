@@ -1,6 +1,7 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,7 +13,8 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @RequiredArgsConstructor(access = PRIVATE)
 @Getter(PACKAGE)
-public class CreateIdeaCommand {
+@EqualsAndHashCode
+public final class CreateIdeaCommand {
     private final AuthorId authorId;
     private final String title;
     private final String description;
