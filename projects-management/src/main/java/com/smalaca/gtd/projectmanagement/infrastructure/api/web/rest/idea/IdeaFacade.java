@@ -33,8 +33,8 @@ class IdeaFacade {
         return ideaApplicationService.create(command).toString();
     }
 
-    void share(UUID id, IdeaShareDto dto, Authentication authentication) {
-        ShareIdeaCommand command = dto.asShareIdeaCommand(authorId(authentication), id);
+    void share(UUID ideaId, IdeaShareDto dto, Authentication authentication) {
+        ShareIdeaCommand command = dto.asShareIdeaCommand(authorId(authentication), ideaId);
         ideaApplicationService.share(command);
     }
 
