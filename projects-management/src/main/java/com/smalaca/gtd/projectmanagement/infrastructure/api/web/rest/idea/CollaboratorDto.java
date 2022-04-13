@@ -1,6 +1,7 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 
 import com.smalaca.gtd.projectmanagement.query.user.UserReadModel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +11,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
-public class CollaboratorDto {
+@EqualsAndHashCode
+public final class CollaboratorDto {
     private final UUID id;
     private final String userName;
 
