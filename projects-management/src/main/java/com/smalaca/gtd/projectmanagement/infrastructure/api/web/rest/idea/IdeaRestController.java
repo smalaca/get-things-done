@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 
-import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorException;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorDoesNotExistException;
 import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaDoesNotExistException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -58,7 +58,7 @@ public class IdeaRestController {
         try {
             ideaFacade.share(id, dto, authentication);
             return ok().build();
-        } catch (CollaboratorException | IdeaDoesNotExistException exception) {
+        } catch (CollaboratorDoesNotExistException | IdeaDoesNotExistException exception) {
             return notFound().build();
         }
     }

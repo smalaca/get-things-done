@@ -1,7 +1,7 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
-import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorException;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorDoesNotExistException;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -61,7 +61,7 @@ public class Idea {
         if (collaboratorRepository.existsBy(collaboratorId)) {
             collaborators.add(collaboratorId);
         } else {
-            throw new CollaboratorException(collaboratorId);
+            throw new CollaboratorDoesNotExistException(collaboratorId);
         }
     }
 }
