@@ -1,6 +1,7 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 
 import com.smalaca.gtd.client.rest.ProjectsManagementClient;
+import com.smalaca.gtd.client.rest.idea.CreateIdeaTestCommand;
 import com.smalaca.gtd.client.rest.idea.IdeaTestDto;
 import com.smalaca.gtd.client.rest.validation.ValidationErrorsTestDto;
 import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
@@ -61,7 +62,7 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldFindCreatedIdea() {
-        IdeaTestDto.IdeaTestDtoBuilder idea = IdeaTestDto.builder()
+        CreateIdeaTestCommand.CreateIdeaTestCommandBuilder idea = CreateIdeaTestCommand.builder()
                 .title("I have an idea")
                 .description("And the idea is really good");
 
@@ -73,7 +74,7 @@ class IdeaRestControllerSystemTest {
                 .hasNoCollaborators();
     }
 
-    private UUID createIdea(IdeaTestDto.IdeaTestDtoBuilder idea) {
+    private UUID createIdea(CreateIdeaTestCommand.CreateIdeaTestCommandBuilder idea) {
         UUID id = client.idea(CREATED).create(idea).asUuid();
         givenIdeas.existing(IdeaId.from(id));
 
@@ -82,7 +83,7 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldNotCreateIdea() {
-        ValidationErrorsTestDto actual = client.idea().create(IdeaTestDto.builder()).asValidationErrors();
+        ValidationErrorsTestDto actual = client.idea().create(CreateIdeaTestCommand.builder()).asValidationErrors();
 
         assertThat(actual)
                 .hasOneError()

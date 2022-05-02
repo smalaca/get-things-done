@@ -12,6 +12,6 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @NoArgsConstructor(access = PRIVATE)
 @AllArgsConstructor(access = PACKAGE)
-public class IdeaShareTestDto {
+public class ShareIdeaTestCommand {
     private UUID collaboratorId;
 }

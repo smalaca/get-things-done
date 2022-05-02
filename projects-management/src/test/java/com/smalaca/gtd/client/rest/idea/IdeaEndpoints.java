@@ -20,7 +20,7 @@ public class IdeaEndpoints {
         return new IdeaEndpoints(new RestEndpoint(mockMvc, objectMapper, expectedHttpStatus));
     }
 
-    public WebResponse create(IdeaTestDto.IdeaTestDtoBuilder idea) {
+    public WebResponse create(CreateIdeaTestCommand.CreateIdeaTestCommandBuilder idea) {
         return endpoint.post(IDEA_URL, idea.build());
     }
 
@@ -33,7 +33,7 @@ public class IdeaEndpoints {
     }
 
     public void share(UUID ideaId, UUID collaboratorId) {
-        endpoint.patch(ideaUrl(ideaId), new IdeaShareTestDto(collaboratorId));
+        endpoint.patch(ideaUrl(ideaId), new ShareIdeaTestCommand(collaboratorId));
     }
 
     private String ideaUrl(UUID ideaId) {
