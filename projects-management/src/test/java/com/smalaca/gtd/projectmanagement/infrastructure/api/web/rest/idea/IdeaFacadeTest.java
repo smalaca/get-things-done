@@ -48,10 +48,7 @@ class IdeaFacadeTest {
     void shouldCreateIdea() {
         CreateIdeaCommand command = CreateIdeaCommand.create(AUTHOR_ID, TITLE, DESCRIPTION);
         given(ideaApplicationService.create(command)).willReturn(IDEA_ID);
-        IdeaDto dto = IdeaDto.builder()
-                .title(TITLE)
-                .description(DESCRIPTION)
-                .build();
+        IdeaCreateDto dto = new IdeaCreateDto(TITLE, DESCRIPTION);
 
         String actual = facade.create(dto, givenExistingUser());
 
