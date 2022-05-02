@@ -33,7 +33,7 @@ public class IdeaEndpoints {
     }
 
     public void share(UUID ideaId, UUID collaboratorId) {
-        endpoint.patch(ideaUrl(ideaId), new IdeaShareTestDto(collaboratorId));
+        endpoint.patch(ideaUrl(ideaId), new ShareIdeaTestCommand(collaboratorId));
     }
 
     private String ideaUrl(UUID ideaId) {
