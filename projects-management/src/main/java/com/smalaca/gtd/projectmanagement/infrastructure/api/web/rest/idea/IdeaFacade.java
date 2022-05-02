@@ -28,8 +28,8 @@ class IdeaFacade {
         this.ideaDtoFactory = ideaDtoFactory;
     }
 
-    String create(IdeaDto dto, Authentication authentication) {
-        CreateIdeaCommand command = dto.asCreateIdeaCommand(authorId(authentication));
+    String create(IdeaCreateDto dto, Authentication authentication) {
+        CreateIdeaCommand command = dto.asCommand(authorId(authentication));
         return ideaApplicationService.create(command).toString();
     }
 

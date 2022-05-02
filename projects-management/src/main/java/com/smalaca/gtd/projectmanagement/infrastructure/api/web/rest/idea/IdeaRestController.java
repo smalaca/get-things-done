@@ -33,7 +33,7 @@ public class IdeaRestController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public String create(@Valid @RequestBody IdeaDto dto, Authentication authentication) {
+    public String create(@Valid @RequestBody IdeaCreateDto dto, Authentication authentication) {
         return ideaFacade.create(dto, authentication);
     }
 
