@@ -56,7 +56,7 @@ class IdeaRestControllerSystemTest {
 
     @Test
     void shouldFindNoIdeaForGivenId() {
-        client.idea(NOT_FOUND).findBy(UUID.randomUUID());
+        client.idea(NOT_FOUND).findBy(notExisting());
     }
 
     @Test
@@ -128,6 +128,28 @@ class IdeaRestControllerSystemTest {
                 .hasCollaborators(2)
                 .hasCollaborator(peterParkerId, "peter parker")
                 .hasCollaborator(wandaMaximoffId, "wanda maximoff");
+    }
+
+    @Test
+    void shouldShareNotExistingIdeaWithCollaborators() {
+        UUID peterParkerId = givenCollaborators.existing("peter parker").value();
+
+        client.idea(NOT_FOUND).share(notExisting(), peterParkerId);
+    }
+
+    @Test
+    void shouldShareIdeaWithNotExistingCollaborator() {
+        UUID ideaId = givenIdeas.existing(ideaForUser().title("Amazing idea")).value();
+
+        client.idea(NOT_FOUND).share(ideaId, notExisting());
+
+        assertThat(findBy(ideaId))
+                .hasTitle("Amazing idea")
+                .hasNoCollaborators();
+    }
+
+    private UUID notExisting() {
+        return UUID.randomUUID();
     }
 
     private IdeaTestBuilder ideaForUser() {

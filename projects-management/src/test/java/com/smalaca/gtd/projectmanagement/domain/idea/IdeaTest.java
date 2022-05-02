@@ -1,6 +1,6 @@
 package com.smalaca.gtd.projectmanagement.domain.idea;
 
-import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorException;
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorDoesNotExistException;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
 import org.junit.function.ThrowingRunnable;
@@ -25,7 +25,7 @@ class IdeaTest {
 
         ThrowingRunnable executable = () -> idea.share(collaboratorRepository, collaboratorId);
 
-        CollaboratorException actual = assertThrows(CollaboratorException.class, executable);
+        CollaboratorDoesNotExistException actual = assertThrows(CollaboratorDoesNotExistException.class, executable);
         assertThat(actual).hasMessage("Collaborator: " + collaboratorId + " does not exist.");
     }
 

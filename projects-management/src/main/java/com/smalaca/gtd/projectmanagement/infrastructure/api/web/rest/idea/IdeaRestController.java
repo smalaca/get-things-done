@@ -1,5 +1,7 @@
 package com.smalaca.gtd.projectmanagement.infrastructure.api.web.rest.idea;
 
+import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorDoesNotExistException;
+import com.smalaca.gtd.projectmanagement.infrastructure.repository.jpa.idea.IdeaDoesNotExistException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.notFound;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("idea")
@@ -43,14 +47,19 @@ public class IdeaRestController {
         Optional<IdeaDto> found = ideaFacade.findBy(id);
 
         if (found.isPresent()) {
-            return ResponseEntity.ok(found.get());
+            return ok(found.get());
         } else {
-            return ResponseEntity.notFound().build();
+            return notFound().build();
         }
     }
 
     @PatchMapping("/{id}")
-    public void share(@PathVariable UUID id, @RequestBody IdeaShareDto dto, Authentication authentication) {
-        ideaFacade.share(id, dto, authentication);
+    public ResponseEntity<Void> share(@PathVariable UUID id, @RequestBody IdeaShareDto dto, Authentication authentication) {
+        try {
+            ideaFacade.share(id, dto, authentication);
+            return ok().build();
+        } catch (CollaboratorDoesNotExistException | IdeaDoesNotExistException exception) {
+            return notFound().build();
+        }
     }
 }
