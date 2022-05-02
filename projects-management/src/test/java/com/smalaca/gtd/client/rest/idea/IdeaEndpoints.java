@@ -20,7 +20,7 @@ public class IdeaEndpoints {
         return new IdeaEndpoints(new RestEndpoint(mockMvc, objectMapper, expectedHttpStatus));
     }
 
-    public WebResponse create(IdeaTestDto.IdeaTestDtoBuilder idea) {
+    public WebResponse create(CreateIdeaTestCommand.CreateIdeaTestCommandBuilder idea) {
         return endpoint.post(IDEA_URL, idea.build());
     }
 
