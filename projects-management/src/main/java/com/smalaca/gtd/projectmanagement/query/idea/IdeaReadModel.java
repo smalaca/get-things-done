@@ -20,7 +20,6 @@ import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@SuppressFBWarnings("UWF_UNWRITTEN_FIELD")
 @Entity
 @Getter
 @NoArgsConstructor(access = PRIVATE)

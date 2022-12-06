@@ -16,7 +16,6 @@ import static lombok.AccessLevel.PRIVATE;
 @Table(name = "USERS")
 @NoArgsConstructor(access = PRIVATE)
 @Getter
-@SuppressFBWarnings("UWF_UNWRITTEN_FIELD")
 public class UserReadModel {
     @Id
     @GeneratedValue

@@ -4,7 +4,6 @@ import com.smalaca.gtd.projectmanagement.domain.author.AuthorId;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorDoesNotExistException;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorId;
 import com.smalaca.gtd.projectmanagement.domain.collaborator.CollaboratorRepository;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -22,11 +21,9 @@ import java.util.UUID;
 
 import static javax.persistence.FetchType.EAGER;
 
-@SuppressWarnings("PMD.UnusedPrivateField")
-@SuppressFBWarnings("URF_UNREAD_FIELD")
 @Entity
 @Table(name = "IDEAS")
-public class Idea {
+public class Idea{
     @Id
     @GeneratedValue
     @Column(name = "idea_id")

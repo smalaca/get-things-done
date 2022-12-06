@@ -47,7 +47,6 @@ public final class ShareIdeaCommand {
     }
 
     @Override
-    @SuppressWarnings("MagicNumber")
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(authorId)

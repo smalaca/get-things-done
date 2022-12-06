@@ -1,6 +1,5 @@
 package com.smalaca.gtd.usermanagement.persistence.user;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -12,16 +11,17 @@ import java.util.UUID;
 
 import static com.smalaca.gtd.usermanagement.persistence.user.Role.USER;
 
-@SuppressFBWarnings("URF_UNREAD_FIELD")
 @Entity
 @Table(name = "USERS")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
+    private static final String PASSWORD = "5t4t1c 4n4l15y5 15 gr34t!";
+
     @Id
     @GeneratedValue
     private UUID id;
     private String userName;
-    private String password;
+    private String password = PASSWORD;
     private boolean active;
     private Role role;
 
